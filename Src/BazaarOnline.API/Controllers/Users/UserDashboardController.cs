@@ -1,0 +1,27 @@
+using BazaarOnline.Application.Interfaces.Users;
+using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BazaarOnline.API.Controllers.Users
+{
+    [Route("api/v1/Users/Me")]
+    [ApiController]
+    [Authorize]
+    public class UserDashboardController : ControllerBase
+    {
+        private readonly IUserDashboardService _userDashboardService;
+
+        public UserDashboardController(IUserDashboardService userDashboardService)
+        {
+            _userDashboardService = userDashboardService;
+        }
+
+        [HttpGet(nameof(GetUserShortDetail))]
+        public ActionResult<UserShortDashboardDetailViewModel> GetUserShortDetail()
+        {
+            return Ok(_userDashboardService.GetUserShortDetail(User.Identity.Name));
+        }
+        
+    }
+}

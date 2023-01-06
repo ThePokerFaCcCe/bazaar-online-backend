@@ -1,0 +1,74 @@
+using BazaarOnline.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace BazaarOnline.Infra.Data.FluentConfigs
+{
+    public class UserFluentConfigs : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.HasKey(u => u.Id);
+
+
+            ConfigureProperties(builder);
+            ConfigureRelations(builder);
+            ConfigureIndexes(builder);
+            ConfigureQueryFilters(builder);
+        }
+
+
+        private void ConfigureProperties(EntityTypeBuilder<User> builder)
+        {
+            builder.Property(u => u.Id)
+                .IsRequired()
+                .HasMaxLength(36)
+                .HasDefaultValueSql("NEWID()");
+
+            builder.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(u => u.PhoneNumber)
+                .HasMaxLength(11);
+
+            builder.Property(u => u.DisplayName)
+                .IsRequired()
+                .HasMaxLength(60)
+                .HasDefaultValue("˜ÇÑÈÑ ÈÇÒÇÑ");
+
+            builder.Property(u => u.CreateDate)
+                .IsRequired()
+                .HasDefaultValueSql("getdate()");
+
+            builder.Property(u => u.IsActive)
+                .IsRequired()
+                .HasDefaultValue<bool>(false);
+
+            builder.Property(u => u.IsPhoneNumberActive)
+                .IsRequired()
+                .HasDefaultValue<bool>(false);
+
+            builder.Property(u => u.IsDeleted)
+                .IsRequired()
+                .HasDefaultValue<bool>(false);
+        }
+        private void ConfigureQueryFilters(EntityTypeBuilder<User> builder)
+        {
+            builder.HasQueryFilter(u => u.IsDeleted == false);
+        }
+
+        private void ConfigureRelations(EntityTypeBuilder<User> builder)
+        {
+            builder.HasMany(u => u.ValidationCodes)
+                .WithOne(a => a.User)
+                .HasForeignKey(a => a.UserId);
+        }
+
+        private void ConfigureIndexes(EntityTypeBuilder<User> builder)
+        {
+            builder.HasIndex(u => u.Email)
+                .IsUnique();
+        }
+    }
+}

@@ -1,0 +1,34 @@
+using BazaarOnline.Application.Interfaces.Users;
+using BazaarOnline.Application.Utils.Extentions;
+using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
+using BazaarOnline.Domain.Entities.Users;
+using BazaarOnline.Domain.Interfaces;
+using System.Security.Claims;
+
+namespace BazaarOnline.Application.Services.Users
+{
+    public class UserDashboardService : IUserDashboardService
+    {
+        private readonly IRepository _repository;
+
+        public UserDashboardService(IRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public User? GetAuthorizedUser(ClaimsPrincipal user)
+        {
+            return _repository.Get<User>(user.Identity.Name);
+
+        }
+
+        public UserShortDashboardDetailViewModel? GetUserShortDetail(string userId)
+        {
+            var user = _repository.Get<User>(userId);
+            if (user == null) return null;
+
+            var result = new UserShortDashboardDetailViewModel();
+            return result.FillFromObject(user);
+        }
+    }
+}
