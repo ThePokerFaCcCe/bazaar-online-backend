@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "fa7190d8-0ee2-4bd0-8f9b-6bbe5d5cc529",
+		"name": "Bazaar Online REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Email Code Jwt",
+					"item": [
+						{
+							"name": "Send Email Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{example_email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/sendEmailLoginCode/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"auth",
+										"sendEmailLoginCode",
+										""
+									]
+								},
+								"description": "Send login code to user's email.\n\n*Notes*\n1- Until last login code is not expired, user **can not** get new code and response status will be 400."
+							},
+							"response": []
+						},
+						{
+							"name": "Login With Email Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var res = pm.response.json();\r",
+											"pm.collectionVariables.set('JWT_TOKEN', res.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{example_email}}\",\r\n    \"code\": \"{{default_active_code}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/loginByEmail/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"auth",
+										"loginByEmail",
+										""
+									]
+								},
+								"description": "Login and get JWT token.\nthis is next step of `Send Email Code`.\n\n*Notes*\n1- If previous step not called, response status code will be 400.\n2- If code wasn't correct, response status code will be 400.\n3- If code was expired, response status code will be 400.\n\n**Development Note:** in development, default value of `code` is `\"123456\"`.\n\n**Postman Note:** the `token` in body will set to `JWT_TOKEN` variable of collection."
+							},
+							"response": []
+						}
+					],
+					"description": "**Login with email and get JWT token for authorization.**\n\nAt first, for sending code to user,s email, you must call `Send Email Code`. \nNext, for get JWT token, call `Login With Email Code`."
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User Dashboard",
+			"item": [
+				{
+					"name": "User Short Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/getUserShortDetail/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"users",
+								"me",
+								"getUserShortDetail",
+								""
+							]
+						},
+						"description": "Get authenticated user short detail which can be used for getting info after login."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dashboard Detail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"displayName\":\"Bazaar User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/updateUserDashboardDetail/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"users",
+								"me",
+								"updateUserDashboardDetail",
+								""
+							]
+						},
+						"description": "Update user dashboard data. like display name.\n\n*fields*\n\n\n`displayName`: \"string\"\n  - **Required**\n  - **Min length** is 4\n  - **Max length** is 60"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{JWT_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://localhost:7223/api",
+			"type": "default"
+		},
+		{
+			"key": "API_VERSION",
+			"value": "v1",
+			"type": "default"
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "example_email",
+			"value": "user@example.com",
+			"type": "default"
+		},
+		{
+			"key": "default_active_code",
+			"value": "123456",
+			"type": "default"
+		}
+	]
+}
