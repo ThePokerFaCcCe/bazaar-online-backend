@@ -1,3 +1,4 @@
+using BazaarOnline.Application.DTOs.UserDashboardDTOs;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,16 @@ namespace BazaarOnline.API.Controllers.Users
         {
             return Ok(_userDashboardService.GetUserShortDetail(User.Identity.Name));
         }
+        
+        [HttpPut(nameof(UpdateUserDashboardDetail))]
+        public ActionResult<UserShortDashboardDetailViewModel> UpdateUserDashboardDetail(UpdateUserDashboardDetailDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(dto);
+            
+            return Ok(_userDashboardService.UpdateUserDashboardDetail(User.Identity.Name, dto));
+        }
+
+        
         
     }
 }

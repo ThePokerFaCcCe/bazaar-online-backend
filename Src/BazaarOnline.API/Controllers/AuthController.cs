@@ -31,6 +31,7 @@ namespace BazaarOnline.API.Controllers
             if (validationResult == null) return ValidationProblem(ModelState);
 
             _validationCodeService.DeleteValidationCode(validationResult.ValidationCode);
+            _userService.ActivateUser(validationResult.User);
 
             var token = _authService.CreateJwtToken(validationResult.User);
             return Ok(token);

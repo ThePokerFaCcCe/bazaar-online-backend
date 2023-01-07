@@ -4,6 +4,7 @@ using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
 using System.Security.Claims;
+using BazaarOnline.Application.DTOs.UserDashboardDTOs;
 
 namespace BazaarOnline.Application.Services.Users
 {
@@ -26,6 +27,21 @@ namespace BazaarOnline.Application.Services.Users
         {
             var user = _repository.Get<User>(userId);
             if (user == null) return null;
+
+            var result = new UserShortDashboardDetailViewModel();
+            return result.FillFromObject(user);
+        }
+
+        public UserShortDashboardDetailViewModel? UpdateUserDashboardDetail(string userId, UpdateUserDashboardDetailDTO dto)
+        {
+            var user = _repository.Get<User>(userId);
+            if (user == null) return null;
+            
+            dto.TrimStrings();
+            user.FillFromObject(dto);
+            
+            _repository.Update(user);
+            _repository.Save();
 
             var result = new UserShortDashboardDetailViewModel();
             return result.FillFromObject(user);
