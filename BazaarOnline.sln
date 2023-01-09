@@ -1,33 +1,30 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{52698490-DDA0-4EEB-AFFF-783825F65786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.API", "Src\BazaarOnline.API\BazaarOnline.API.csproj", "{EB38E262-D93C-4484-A823-5091DC479E04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.API", "Src\BazaarOnline.API\BazaarOnline.API.csproj", "{EB38E262-D93C-4484-A823-5091DC479E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.Application", "Src\BazaarOnline.Application\BazaarOnline.Application.csproj", "{DAFB6D4D-527A-42B3-9810-0FCE3170A5CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.Application", "Src\BazaarOnline.Application\BazaarOnline.Application.csproj", "{DAFB6D4D-527A-42B3-9810-0FCE3170A5CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.Domain", "Src\BazaarOnline.Domain\BazaarOnline.Domain.csproj", "{9CD502B6-8A5B-4352-ADBF-090A8D9B0E9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.Domain", "Src\BazaarOnline.Domain\BazaarOnline.Domain.csproj", "{9CD502B6-8A5B-4352-ADBF-090A8D9B0E9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.Infra.Data", "Src\BazaarOnline.Infra.Data\BazaarOnline.Infra.Data.csproj", "{F6D18634-3507-447D-99B4-3663A85572C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.Infra.Data", "Src\BazaarOnline.Infra.Data\BazaarOnline.Infra.Data.csproj", "{F6D18634-3507-447D-99B4-3663A85572C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.Infra.IoC", "Src\BazaarOnline.Infra.IoC\BazaarOnline.Infra.IoC.csproj", "{438F4921-486F-42ED-B7FD-1E67D715C3A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.Infra.IoC", "Src\BazaarOnline.Infra.IoC\BazaarOnline.Infra.IoC.csproj", "{438F4921-486F-42ED-B7FD-1E67D715C3A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{ECA1C3AD-DAB1-4E1C-AFEC-67EFE3596083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.API.UnitTests", "Test\BazaarOnline.API.UnitTests\BazaarOnline.API.UnitTests.csproj", "{A6967B62-EBDA-4513-B2B5-023A2F890CF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.API.UnitTests", "Test\BazaarOnline.API.UnitTests\BazaarOnline.API.UnitTests.csproj", "{A6967B62-EBDA-4513-B2B5-023A2F890CF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaarOnline.Application.UnitTests", "Test\BazaarOnline.Application.UnitTests\BazaarOnline.Application.UnitTests.csproj", "{EFB1C54D-E64E-4415-B972-92206FE7D2D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BazaarOnline.Application.UnitTests", "Test\BazaarOnline.Application.UnitTests\BazaarOnline.Application.UnitTests.csproj", "{EFB1C54D-E64E-4415-B972-92206FE7D2D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EB38E262-D93C-4484-A823-5091DC479E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -59,6 +56,9 @@ Global
 		{EFB1C54D-E64E-4415-B972-92206FE7D2D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB1C54D-E64E-4415-B972-92206FE7D2D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EB38E262-D93C-4484-A823-5091DC479E04} = {52698490-DDA0-4EEB-AFFF-783825F65786}
 		{DAFB6D4D-527A-42B3-9810-0FCE3170A5CE} = {52698490-DDA0-4EEB-AFFF-783825F65786}
@@ -67,5 +67,8 @@ Global
 		{438F4921-486F-42ED-B7FD-1E67D715C3A6} = {52698490-DDA0-4EEB-AFFF-783825F65786}
 		{A6967B62-EBDA-4513-B2B5-023A2F890CF1} = {ECA1C3AD-DAB1-4E1C-AFEC-67EFE3596083}
 		{EFB1C54D-E64E-4415-B972-92206FE7D2D5} = {ECA1C3AD-DAB1-4E1C-AFEC-67EFE3596083}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9EBAD900-1BD0-45AB-93AA-6C0D288A87DA}
 	EndGlobalSection
 EndGlobal
