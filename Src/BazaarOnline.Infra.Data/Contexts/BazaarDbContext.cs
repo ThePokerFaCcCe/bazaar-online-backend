@@ -1,4 +1,5 @@
 using BazaarOnline.Domain.Entities.Categories;
+using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Infra.Data.FluentConfigs;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,13 @@ namespace BazaarOnline.Infra.Data.Contexts
         #region Categories
 
         public DbSet<Category> Categories { get; set; }
+
+        #endregion
+
+        #region Maps
+
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         #endregion
 

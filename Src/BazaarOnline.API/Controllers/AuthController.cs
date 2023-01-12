@@ -15,7 +15,8 @@ namespace BazaarOnline.API.Controllers
         private readonly IUserService _userService;
         private readonly IValidationCodeService _validationCodeService;
 
-        public AuthController(IAuthService authService, IUserService userService, IValidationCodeService validationCodeService)
+        public AuthController(IAuthService authService, IUserService userService,
+            IValidationCodeService validationCodeService)
         {
             _authService = authService;
             _userService = userService;
@@ -53,7 +54,7 @@ namespace BazaarOnline.API.Controllers
             }
             else if (_validationCodeService.IsActiveEmailValidationExists(user.Id))
             {
-                ModelState.AddModelError(nameof(dto.Email),"کد قبلا برای این ایمیل ارسال شده است.");
+                ModelState.AddModelError(nameof(dto.Email), "کد قبلا برای این ایمیل ارسال شده است.");
                 return ValidationProblem(ModelState);
             }
 

@@ -193,6 +193,129 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Map",
+			"item": [
+				{
+					"name": "Province",
+					"item": [
+						{
+							"name": "Get Province List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"province",
+										""
+									]
+								},
+								"description": "Get full list of provinces"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter Province List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"تان\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/filter/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"province",
+										"filter",
+										""
+									]
+								},
+								"description": "Get filtered list of provinces\n\n*fields*\n\n\n`name`: \"string\"\nfilter provinces that contain this string\n\n  - **Min length** is 2\n  - **Max length** is 50"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "City",
+					"item": [
+						{
+							"name": "Get Province City List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/1/cities/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"province",
+										"1",
+										"cities",
+										""
+									]
+								},
+								"description": "Get full list of cities of a province\n\n*query params*\n\n\n`provinceId`: int\nprovince id to get it's cities\n  - **Required**\n\n*Notes*\n  - If `provinceId` wasn't valid, status code will be 404"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter Province City List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"تان\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/1/cities/filter/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"province",
+										"1",
+										"cities",
+										"filter",
+										""
+									]
+								},
+								"description": "Get filtered list of cities of a province\n\n*fields*\n\n\n`name`: \"string\"\nfilter provinces that contain this string\n\n  - **Min length** is 2\n  - **Max length** is 50\n\n\n\n*query params*\n\n\n`provinceId`: int\nprovince id to get it's cities\n  - **Required**\n\n\n*Notes*\n  - If `provinceId` wasn't valid, status code will be 404"
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
