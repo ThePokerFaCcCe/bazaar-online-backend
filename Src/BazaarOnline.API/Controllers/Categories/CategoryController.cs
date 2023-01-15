@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BazaarOnline.API.Controllers.Categories
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
     {

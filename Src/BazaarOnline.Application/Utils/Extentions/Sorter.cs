@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace BazaarOnline.Application.Utils.Extentions
+namespace BazaarOnline.Application.Utils.Extensions
 {
     public static class Sorter
     {
@@ -13,8 +13,8 @@ namespace BazaarOnline.Application.Utils.Extentions
         /// <param name="allowedProperties">available property names for ordering</param>
         /// <returns>Ordered query if `propertyName` is valid, else the self query</returns>
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source,
-                             string propertyName,
-                             string[] allowedProperties)
+            string propertyName,
+            string[] allowedProperties)
         {
             string command = propertyName[0] == '-' ? "OrderByDescending" : "OrderBy";
             propertyName = _ValidateOrderProp(propertyName, allowedProperties.ToList());
@@ -28,8 +28,9 @@ namespace BazaarOnline.Application.Utils.Extentions
             var property = GetProperty(parameter, propertyName, out propertyAccess);
 
             var orderByExpression = Expression.Lambda(propertyAccess, parameter);
-            var resultExpression = Expression.Call(typeof(Queryable), command, new Type[] { type, property.PropertyType },
-                                          source.Expression, Expression.Quote(orderByExpression));
+            var resultExpression = Expression.Call(typeof(Queryable), command,
+                new Type[] { type, property.PropertyType },
+                source.Expression, Expression.Quote(orderByExpression));
             return source.Provider.CreateQuery<TEntity>(resultExpression);
         }
 
@@ -40,7 +41,8 @@ namespace BazaarOnline.Application.Utils.Extentions
         /// <param name="propertyNameDotted">property name that splitted with dots(if it's nested)</param>
         /// <param name="memberAccess">variable that member access expression sets to it</param>
         /// <returns>the property that found</returns>
-        private static PropertyInfo? GetProperty(ParameterExpression parameter, string propertyNameDotted, out MemberExpression memberAccess)
+        private static PropertyInfo? GetProperty(ParameterExpression parameter, string propertyNameDotted,
+            out MemberExpression memberAccess)
         {
             var propNames = propertyNameDotted.Split('.');
             PropertyInfo property = parameter.Type.GetProperty(propNames[0]);
@@ -51,6 +53,7 @@ namespace BazaarOnline.Application.Utils.Extentions
                 property = property.PropertyType.GetProperty(propName);
                 memberAccess = Expression.MakeMemberAccess(memberAccess, property);
             }
+
             return property;
         }
 
@@ -61,7 +64,7 @@ namespace BazaarOnline.Application.Utils.Extentions
         /// <param name="allowedProperties">available property names for ordering</param>
         /// <returns>Validated property name</returns>
         private static string? _ValidateOrderProp(string orderByProperty,
-                                                  List<string> allowedProperties)
+            List<string> allowedProperties)
         {
             orderByProperty = orderByProperty.Replace("-", "").Trim().ToLower();
             return allowedProperties.Find(p => p.ToLower() == orderByProperty);

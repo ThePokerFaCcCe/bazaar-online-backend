@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using BazaarOnline.Application.Filters.Generic.Attributes;
-using BazaarOnline.Application.Utils.Extentions;
+using BazaarOnline.Application.Utils.Extensions;
 
 #pragma warning disable
 
@@ -79,7 +79,6 @@ namespace BazaarOnline.Application.Filters
                             property.PropertyType.GetMethod("Contains", new[] { modelProp.Type }),
                             modelProp);
                         break;
-
                 }
 
                 var lambda = Expression.Lambda<Func<TEntity, bool>>(expression, modelParam);
@@ -142,4 +141,4 @@ namespace BazaarOnline.Application.Filters
     }
 }
 
-#pragma warning restore 
+#pragma warning restore

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BazaarOnline.API.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/map")]
     [ApiController]
     public class MapController : ControllerBase
     {
@@ -17,40 +17,24 @@ namespace BazaarOnline.API.Controllers
         }
 
 
-        [HttpGet("Province")]
+        [HttpGet("provinces")]
         public ActionResult<IEnumerable<ProvinceListDetailViewModel>> GetProvinceList()
         {
-            return Ok(_mapService.GetProvincesList());
+            return Ok(_mapService.GetProvinces());
         }
 
-
-        [HttpPost("Province/Filter")]
-        public ActionResult<IEnumerable<ProvinceListDetailViewModel>> GetProvinceFilteredList(
-            [FromBody] ProvinceFilterDTO dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(dto);
-
-            return Ok(_mapService.FindProvinces(dto));
-        }
-
-
-        [HttpGet("Province/{provinceId}/Cities")]
+        [HttpGet("provinces/{provinceId}/cities")]
         public ActionResult<IEnumerable<ProvinceListDetailViewModel>> GetProvinceCitiesList(int provinceId)
         {
             if (!_mapService.IsProvinceExists(provinceId)) return NotFound();
 
-            return Ok(_mapService.GetCitiesList(provinceId));
+            return Ok(_mapService.GetProvinceCities(provinceId));
         }
 
-
-        [HttpPost("Province/{provinceId}/Cities/Filter")]
-        public ActionResult<IEnumerable<ProvinceListDetailViewModel>> GetProvinceCitiesFilteredList(
-            int provinceId, [FromBody] CityFilterDTO dto)
+        [HttpGet("find")]
+        public ActionResult<IEnumerable<LocationListViewModel>> FindLocation([FromQuery] MapSearchDTO dto)
         {
-            if (!ModelState.IsValid) return BadRequest(dto);
-            if (!_mapService.IsProvinceExists(provinceId)) return NotFound();
-
-            return Ok(_mapService.FindCities(provinceId, dto));
+            return Ok(_mapService.FindLocation(dto));
         }
     }
 }

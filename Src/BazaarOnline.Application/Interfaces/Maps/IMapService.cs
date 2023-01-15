@@ -7,8 +7,7 @@ namespace BazaarOnline.Application.Interfaces.Maps
     {
         #region Province
 
-        IEnumerable<ProvinceListDetailViewModel> GetProvincesList();
-        IEnumerable<ProvinceListDetailViewModel> FindProvinces(ProvinceFilterDTO filterDto);
+        IEnumerable<ProvinceListDetailViewModel> GetProvinces();
 
         bool IsProvinceExists(int provinceId);
 
@@ -16,9 +15,10 @@ namespace BazaarOnline.Application.Interfaces.Maps
 
         #region City
 
-        IEnumerable<CityListDetailViewModel> GetCitiesList(int provinceId);
-        IEnumerable<CityListDetailViewModel> FindCities(int provinceId, CityFilterDTO filterDto);
+        IEnumerable<CityListDetailViewModel> GetProvinceCities(int provinceId);
 
         #endregion
+
+        IEnumerable<LocationListViewModel> FindLocation(MapSearchDTO searchDto);
     }
 }

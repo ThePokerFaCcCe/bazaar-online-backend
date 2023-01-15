@@ -1,5 +1,5 @@
 using BazaarOnline.Application.Interfaces.Users;
-using BazaarOnline.Application.Utils.Extentions;
+using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
@@ -20,7 +20,6 @@ namespace BazaarOnline.Application.Services.Users
         public User? GetAuthorizedUser(ClaimsPrincipal user)
         {
             return _repository.Get<User>(user.Identity.Name);
-
         }
 
         public UserShortDashboardDetailViewModel? GetUserShortDetail(string userId)
@@ -32,14 +31,15 @@ namespace BazaarOnline.Application.Services.Users
             return result.FillFromObject(user);
         }
 
-        public UserShortDashboardDetailViewModel? UpdateUserDashboardDetail(string userId, UpdateUserDashboardDetailDTO dto)
+        public UserShortDashboardDetailViewModel? UpdateUserDashboardDetail(string userId,
+            UpdateUserDashboardDetailDTO dto)
         {
             var user = _repository.Get<User>(userId);
             if (user == null) return null;
-            
+
             dto.TrimStrings();
             user.FillFromObject(dto);
-            
+
             _repository.Update(user);
             _repository.Save();
 

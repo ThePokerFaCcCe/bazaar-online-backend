@@ -120,7 +120,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/getUserShortDetail/",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/info",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -128,8 +128,7 @@
 								"{{API_VERSION}}",
 								"users",
 								"me",
-								"getUserShortDetail",
-								""
+								"info"
 							]
 						},
 						"description": "Get authenticated user short detail which can be used for getting info after login."
@@ -151,16 +150,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/updateUserDashboardDetail/",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"users",
-								"me",
-								"updateUserDashboardDetail",
-								""
+								"me"
 							]
 						},
 						"description": "Update user dashboard data. like display name.\n\n*fields*\n\n\n`displayName`: \"string\"\n  - **Required**\n  - **Min length** is 4\n  - **Max length** is 60"
@@ -178,14 +175,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/category/",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/categories",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
-								"category",
-								""
+								"categories"
 							]
 						},
 						"description": "Return hierarchy list of categories"
@@ -198,122 +194,72 @@
 			"name": "Map",
 			"item": [
 				{
-					"name": "Province",
-					"item": [
-						{
-							"name": "Get Province List",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"map",
-										"province",
-										""
-									]
-								},
-								"description": "Get full list of provinces"
-							},
-							"response": []
+					"name": "Get Province List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/map/provinces",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"map",
+								"provinces"
+							]
 						},
-						{
-							"name": "Filter Province List",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\":\"تان\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/filter/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"map",
-										"province",
-										"filter",
-										""
-									]
-								},
-								"description": "Get filtered list of provinces\n\n*fields*\n\n\n`name`: \"string\"\nfilter provinces that contain this string\n\n  - **Min length** is 2\n  - **Max length** is 50"
-							},
-							"response": []
-						}
-					]
+						"description": "Get full list of provinces"
+					},
+					"response": []
 				},
 				{
-					"name": "City",
-					"item": [
-						{
-							"name": "Get Province City List",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/1/cities/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"map",
-										"province",
-										"1",
-										"cities",
-										""
-									]
-								},
-								"description": "Get full list of cities of a province\n\n*query params*\n\n\n`provinceId`: int\nprovince id to get it's cities\n  - **Required**\n\n*Notes*\n  - If `provinceId` wasn't valid, status code will be 404"
-							},
-							"response": []
+					"name": "Get Province City List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/map/provinces/1/cities",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"map",
+								"provinces",
+								"1",
+								"cities"
+							]
 						},
-						{
-							"name": "Filter Province City List",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\":\"تان\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/province/1/cities/filter/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"map",
-										"province",
-										"1",
-										"cities",
-										"filter",
-										""
-									]
-								},
-								"description": "Get filtered list of cities of a province\n\n*fields*\n\n\n`name`: \"string\"\nfilter provinces that contain this string\n\n  - **Min length** is 2\n  - **Max length** is 50\n\n\n\n*query params*\n\n\n`provinceId`: int\nprovince id to get it's cities\n  - **Required**\n\n\n*Notes*\n  - If `provinceId` wasn't valid, status code will be 404"
-							},
-							"response": []
-						}
-					]
+						"description": "Get full list of cities of a province\n\n*query params*\n\n\n`provinceId`: int\nprovince id to get it's cities\n  - **Required**\n\n*Notes*\n  - If `provinceId` wasn't valid, status code will be 404"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/map/find?name=تان",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"map",
+								"find"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "تان"
+								}
+							]
+						},
+						"description": "Get filtered list of locations. \n\n\n*query_params*\n\n\n`name`: \"string\"\nfilter locations that contain this string\n\n  - **Min length** is 2\n  - **Max length** is 50\n\n\n*Notes*\n\n  - `locationTypeId` : enum\n    - 1 : Province\n    - 2 : City"
+					},
+					"response": []
 				}
 			]
 		}

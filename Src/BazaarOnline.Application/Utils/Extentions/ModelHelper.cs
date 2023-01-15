@@ -1,4 +1,4 @@
-namespace BazaarOnline.Application.Utils.Extentions
+namespace BazaarOnline.Application.Utils.Extensions
 {
     public static class ModelHelper
     {
@@ -11,7 +11,8 @@ namespace BazaarOnline.Application.Utils.Extentions
         /// <param name="filler">Filler object that should be used for filling model</param>
         /// <param name="ignoreNulls">Don't fill properties with `null` values in filler</param>
         /// <returns>`model` that filled from `filler`</returns>
-        public static TModel FillFromObject<TModel, TFiller>(this TModel model, TFiller filler, bool ignoreNulls = false)
+        public static TModel FillFromObject<TModel, TFiller>(this TModel model, TFiller filler,
+            bool ignoreNulls = false)
         {
             var modelType = model.GetType();
             var fillerType = filler.GetType();
@@ -71,15 +72,15 @@ namespace BazaarOnline.Application.Utils.Extentions
         public static void TrimStrings<T>(this T model) where T : class
         {
             model.GetType().GetProperties()
-            .Where(p => p.PropertyType == typeof(string))
-            .ToList()
-            .ForEach(
-                p =>
-                {
-                    var value = p.GetValue(model)?.ToString()?.Trim();
-                    p.SetValue(model, value);
-                }
-            );
+                .Where(p => p.PropertyType == typeof(string))
+                .ToList()
+                .ForEach(
+                    p =>
+                    {
+                        var value = p.GetValue(model)?.ToString()?.Trim();
+                        p.SetValue(model, value);
+                    }
+                );
         }
     }
 }
