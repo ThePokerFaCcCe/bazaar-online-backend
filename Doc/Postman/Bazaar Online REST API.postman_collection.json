@@ -262,6 +262,95 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Advertisement",
+			"item": [
+				{
+					"name": "Create Advertisement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Title",
+									"value": "وانت نیسان تمیز",
+									"description": "string\nMaxLength : 50",
+									"type": "default"
+								},
+								{
+									"key": "Description",
+									"value": "نوی نو فقط 300 کیلومتر کار کرده\nاما جلوبندی ترکیده",
+									"description": "string\nMaxLength : 500",
+									"type": "default"
+								},
+								{
+									"key": "Address",
+									"value": "قم - باجک - فرهنگیان - بیطرفان 5 - پ3",
+									"description": "string\nMaxLength : 100",
+									"type": "default"
+								},
+								{
+									"key": "Latitude",
+									"value": "34.688582",
+									"description": "float",
+									"type": "default"
+								},
+								{
+									"key": "Longitude",
+									"value": "50.852065",
+									"description": "float",
+									"type": "default"
+								},
+								{
+									"key": "ContactType",
+									"value": "1",
+									"description": "enum:\n1: تماس و چت\n2: فقط چت\n3: فقط تماس",
+									"type": "default"
+								},
+								{
+									"key": "CategoryId",
+									"value": "24",
+									"description": "int",
+									"type": "default"
+								},
+								{
+									"key": "ProvinceId",
+									"value": "19",
+									"description": "int",
+									"type": "default"
+								},
+								{
+									"key": "CityId",
+									"value": "1081",
+									"description": "int",
+									"type": "default"
+								},
+								{
+									"key": "Pictures",
+									"description": ".jpg or .png\nsize smaller that 2000kb",
+									"type": "file",
+									"src": "/C:/Users/Matin/Desktop/2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements"
+							]
+						},
+						"description": "Create Advertisement\n\n*fields*\n\n\n`Pictures`: List\n  - Error message is a json string object. example: `[{\\\"0\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\",\\\"1\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\"}\"]`\n\n*Notes*\n\n  - **Login Required**"
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

@@ -1,3 +1,4 @@
+using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
 using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Entities.Users;
@@ -8,7 +9,9 @@ namespace BazaarOnline.Infra.Data.Contexts
 {
     public class BazaarDbContext : DbContext
     {
-        public BazaarDbContext(DbContextOptions<BazaarDbContext> options) : base(options) { }
+        public BazaarDbContext(DbContextOptions<BazaarDbContext> options) : base(options)
+        {
+        }
 
         #region DB Sets
 
@@ -29,6 +32,13 @@ namespace BazaarOnline.Infra.Data.Contexts
 
         public DbSet<Province> Provinces { get; set; }
         public DbSet<City> Cities { get; set; }
+
+        #endregion
+
+        #region Advertisements
+
+        public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<AdvertisementPicture> AdvertisementPictures { get; set; }
 
         #endregion
 

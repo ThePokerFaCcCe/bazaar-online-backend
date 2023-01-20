@@ -1,0 +1,57 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using BazaarOnline.Domain.Entities.Categories;
+using BazaarOnline.Domain.Entities.Maps;
+using BazaarOnline.Domain.Entities.Users;
+
+namespace BazaarOnline.Domain.Entities.Advertisements;
+
+public class Advertisement
+{
+    public int Id { get; set; }
+
+    public string Title { get; set; }
+
+    public string Description { get; set; }
+
+    public string Address { get; set; }
+
+    public double Longitude { get; set; }
+
+    public double Latitude { get; set; }
+
+    public AdvertisementStatusTypeEnum StatusType { get; set; }
+
+    public string? StatusReason { get; set; }
+
+    public AdvertisementContactTypeEnum ContactType { get; set; }
+
+    public DateTime CreateDate { get; set; }
+
+    public DateTime UpdateDate { get; set; }
+
+    public int CategoryId { get; set; }
+
+    public int ProvinceId { get; set; }
+
+    public int CityId { get; set; }
+
+    public string UserId { get; set; }
+
+    [NotMapped]
+    public bool IsDeleted =>
+        StatusType is AdvertisementStatusTypeEnum.DeletedByAdmin or AdvertisementStatusTypeEnum.DeletedByUser;
+
+    #region Relations
+
+    public IEnumerable<AdvertisementPicture> Pictures { get; set; }
+
+    public Category Category { get; set; }
+
+    public Province Province { get; set; }
+
+    public City City { get; set; }
+
+    public User User { get; set; }
+
+    #endregion
+}

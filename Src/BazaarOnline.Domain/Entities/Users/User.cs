@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BazaarOnline.Domain.Entities.Advertisements;
 
 namespace BazaarOnline.Domain.Entities.Users
 {
@@ -23,7 +24,9 @@ namespace BazaarOnline.Domain.Entities.Users
 
         #region Relations
 
-        public List<ValidationCode> ValidationCodes { get; set; }
+        public IEnumerable<ValidationCode> ValidationCodes { get; set; }
+
+        public IEnumerable<Advertisement> Advertisements { get; set; }
 
         #endregion
     }

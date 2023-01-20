@@ -1,6 +1,7 @@
 ﻿using BazaarOnline.Application.DTOs.MapDTOs;
 using BazaarOnline.Application.Filters;
 using BazaarOnline.Application.Interfaces.Maps;
+using BazaarOnline.Application.Requesters;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Maps;
 using BazaarOnline.Domain.Entities.Maps;
@@ -60,6 +61,51 @@ namespace BazaarOnline.Application.Services.Maps
             resultList.AddRange(cityList);
 
             return resultList.OrderBy(v => v.LocationTypeId);
+        }
+
+        public LocationValidationResultDTO ValidateLocation(int provinceId, int cityId, double longitude,
+            double latitude)
+        {
+            var province = _repository.GetAll<Province>()
+                .SingleOrDefault(p => p.Id == provinceId);
+
+            if (province == null)
+            {
+                return new LocationValidationResultDTO
+                {
+                    Status = LocationValidationStatusEnum.ProvinceNotFound,
+                    Message = "استان یافت نشد",
+                };
+            }
+
+            bool isCityExists = _repository.GetAll<City>()
+                .Any(c => c.Id == cityId && c.ProvinceId == provinceId);
+
+            if (!isCityExists)
+            {
+                return new LocationValidationResultDTO
+                {
+                    Status = LocationValidationStatusEnum.CityNotFound,
+                    Message = "شهر یافت نشد",
+                };
+            }
+
+            bool isValidCoordinates =
+                ReverseGeocoding.IsCoordinateInsideProvince(province.AmarCode, latitude, longitude);
+
+            if (!isValidCoordinates)
+            {
+                return new LocationValidationResultDTO
+                {
+                    Status = LocationValidationStatusEnum.CoordinatesNotInProvince,
+                    Message = $"مختصات منطقه انتخاب شده داخل استان {province.Name} نیست",
+                };
+            }
+
+            return new LocationValidationResultDTO
+            {
+                Status = LocationValidationStatusEnum.IsValid
+            };
         }
     }
 }

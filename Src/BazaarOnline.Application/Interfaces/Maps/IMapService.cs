@@ -20,5 +20,7 @@ namespace BazaarOnline.Application.Interfaces.Maps
         #endregion
 
         IEnumerable<LocationListViewModel> FindLocation(MapSearchDTO searchDto);
+
+        LocationValidationResultDTO ValidateLocation(int provinceId, int cityId, double longitude, double latitude);
     }
 }

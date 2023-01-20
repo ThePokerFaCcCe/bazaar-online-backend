@@ -53,6 +53,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired()
                 .HasDefaultValue<bool>(false);
         }
+
         private void ConfigureQueryFilters(EntityTypeBuilder<User> builder)
         {
             builder.HasQueryFilter(u => u.IsDeleted == false);
@@ -63,6 +64,12 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
             builder.HasMany(u => u.ValidationCodes)
                 .WithOne(a => a.User)
                 .HasForeignKey(a => a.UserId);
+
+
+            builder.HasMany(u => u.Advertisements)
+                .WithOne(a => a.User)
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<User> builder)

@@ -1,4 +1,6 @@
-﻿namespace BazaarOnline.Domain.Entities.Maps
+﻿using BazaarOnline.Domain.Entities.Advertisements;
+
+namespace BazaarOnline.Domain.Entities.Maps
 {
     public class Province
     {
@@ -11,6 +13,8 @@
         #region Relations
 
         public IEnumerable<City> Cities { get; set; }
+
+        public IEnumerable<Advertisement> Advertisements { get; set; }
 
         #endregion
     }

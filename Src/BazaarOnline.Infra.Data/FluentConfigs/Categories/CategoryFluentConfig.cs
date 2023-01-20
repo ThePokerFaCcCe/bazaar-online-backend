@@ -27,7 +27,6 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Categories
 
         private void ConfigureQueryFilters(EntityTypeBuilder<Category> builder)
         {
-
         }
 
         private void ConfigureRelations(EntityTypeBuilder<Category> builder)
@@ -41,11 +40,15 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Categories
                 .WithMany(c2 => c2.ChildCategories)
                 .HasForeignKey(c => c.ParentCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(c => c.Advertisements)
+                .WithOne(a => a.Category)
+                .HasForeignKey(a => a.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Category> builder)
         {
-
         }
     }
 }

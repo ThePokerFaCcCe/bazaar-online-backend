@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BazaarOnline.Application.Services.Categories
 {
-    public class CategoryService:ICategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly IRepository _repository;
 
@@ -34,17 +34,19 @@ namespace BazaarOnline.Application.Services.Categories
                     if (cChild.ParentId == cParent.Id)
                     {
                         cParent.Children.Add(cChild);
-                        cParent.HasChildren=true;;
+                        cParent.HasChildren = true;
+                        ;
                     }
                 });
             });
 
-            return categories.Where(c=>c.ParentId == null);
+            return categories.Where(c => c.ParentId == null);
         }
 
         public bool IsCategoryExists(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetAll<Category>()
+                .Any(c => c.Id == id);
         }
     }
 }

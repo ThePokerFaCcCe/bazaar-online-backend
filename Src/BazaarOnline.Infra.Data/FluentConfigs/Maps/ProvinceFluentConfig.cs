@@ -38,6 +38,12 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Maps
             builder.HasMany(p => p.Cities)
                 .WithOne(c => c.Province)
                 .HasForeignKey(c => c.ProvinceId);
+
+
+            builder.HasMany(p => p.Advertisements)
+                .WithOne(a => a.Province)
+                .HasForeignKey(a => a.ProvinceId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Province> builder)

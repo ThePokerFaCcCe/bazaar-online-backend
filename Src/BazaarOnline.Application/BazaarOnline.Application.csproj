@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <Folder Include="DTOs\AdvertisementDTOs\" />
+    <Folder Include="Interfaces\Advertisements\" />
+    <Folder Include="Requesters\" />
   </ItemGroup>
 
   <PropertyGroup>
