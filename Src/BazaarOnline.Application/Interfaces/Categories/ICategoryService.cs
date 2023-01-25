@@ -6,6 +6,8 @@ namespace BazaarOnline.Application.Interfaces.Categories
     {
         IEnumerable<CategoryListDetailViewModel> GetAllCategories();
 
+        CategoryTreeNodeTypeEnum? GetCategoryType(int categoryId);
+
         #region Find
 
         bool IsCategoryExists(int id);

@@ -43,6 +43,26 @@ namespace BazaarOnline.Application.Services.Categories
             return categories.Where(c => c.ParentId == null);
         }
 
+        public CategoryTreeNodeTypeEnum? GetCategoryType(int categoryId)
+        {
+            var category = _repository.GetAll<Category>()
+                .Include(c => c.ChildCategories)
+                .SingleOrDefault(c => c.Id == categoryId);
+
+            if (category == null) return null;
+
+            bool hasChildren = category.ChildCategories.Any();
+            bool hasParent = (category.ParentCategory == null);
+
+            if (hasParent && hasChildren)
+                return CategoryTreeNodeTypeEnum.Internal;
+
+            if (!hasParent && hasChildren)
+                return CategoryTreeNodeTypeEnum.Root;
+
+            return CategoryTreeNodeTypeEnum.Leaf;
+        }
+
         public bool IsCategoryExists(int id)
         {
             return _repository.GetAll<Category>()

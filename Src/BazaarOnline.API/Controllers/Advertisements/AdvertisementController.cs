@@ -3,6 +3,7 @@ using BazaarOnline.Application.DTOs.MapDTOs;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Interfaces.Categories;
 using BazaarOnline.Application.Interfaces.Maps;
+using BazaarOnline.Application.ViewModels.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,11 @@ namespace BazaarOnline.API.Controllers.Advertisements
             if (!_categoryService.IsCategoryExists(dto.CategoryId))
             {
                 ModelState.AddModelError(nameof(dto.CategoryId), "دسته بندی یافت نشد");
+                hasErrors = true;
+            }
+            else if (_categoryService.GetCategoryType(dto.CategoryId) != CategoryTreeNodeTypeEnum.Leaf)
+            {
+                ModelState.AddModelError(nameof(dto.CategoryId), "در این دسته بندی امکان ساخت آگهی وجود ندارد");
                 hasErrors = true;
             }
 
