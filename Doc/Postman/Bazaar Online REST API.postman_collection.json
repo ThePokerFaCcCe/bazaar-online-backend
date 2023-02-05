@@ -187,6 +187,70 @@
 						"description": "Return hierarchy list of categories"
 					},
 					"response": []
+				},
+				{
+					"name": "Get Category Features List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/categories/24/features",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"categories",
+								"24",
+								"features"
+							]
+						},
+						"description": "Return list of features that needed for creating advertisement in category\n\n\n\n*query params*\n\n\n`categoryId`: int\n  - **Required**"
+					},
+					"response": [
+						{
+							"name": "Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/categories/244/features",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"categories",
+										"244",
+										"features"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 05 Feb 2023 14:44:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"typeObject\": {\n                \"minimum\": 1300,\n                \"maximum\": 1401,\n                \"placeholder\": \"سال شمسی ...\"\n            }\n        }\n    },\n    {\n        \"id\": 3,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"typeObject\": {\n                \"minLength\": 2,\n                \"maxLength\": 10,\n                \"regex\": null,\n                \"placeholder\": \"خاکستری\"\n            }\n        }\n    },\n    {\n        \"id\": 4,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"typeObject\": {\n                \"options\": \"سایپا,پژو,سمند,زامیاد\",\n                \"optionsList\": [\n                    \"سایپا\",\n                    \"پژو\",\n                    \"سمند\",\n                    \"زامیاد\"\n                ]\n            }\n        }\n    }\n]"
+						}
+					]
 				}
 			]
 		},
@@ -278,61 +342,151 @@
 									"key": "Title",
 									"value": "وانت نیسان تمیز",
 									"description": "string\nMaxLength : 50",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "Description",
 									"value": "نوی نو فقط 300 کیلومتر کار کرده\nاما جلوبندی ترکیده",
 									"description": "string\nMaxLength : 500",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "Address",
 									"value": "قم - باجک - فرهنگیان - بیطرفان 5 - پ3",
 									"description": "string\nMaxLength : 100",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "Latitude",
 									"value": "34.688582",
 									"description": "float",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "Longitude",
 									"value": "50.852065",
 									"description": "float",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "ContactType",
 									"value": "1",
 									"description": "enum:\n1: تماس و چت\n2: فقط چت\n3: فقط تماس",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "CategoryId",
 									"value": "24",
-									"description": "int",
-									"type": "default"
+									"description": "int\nAds only can be placed in categories that not have any children (like Leaf nodes in binary trees)",
+									"type": "text"
 								},
 								{
 									"key": "ProvinceId",
 									"value": "19",
 									"description": "int",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "CityId",
 									"value": "1081",
 									"description": "int",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "Pictures",
 									"description": ".jpg or .png\nsize smaller that 2000kb",
 									"type": "file",
-									"src": "/C:/Users/Matin/Desktop/2.jpg"
+									"src": []
+								},
+								{
+									"key": "Features[0][Id]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Features[0][Value]",
+									"value": "1350",
+									"type": "text"
+								},
+								{
+									"key": "Features[1][Id]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "Features[1][Value]",
+									"value": "264000",
+									"type": "text"
+								},
+								{
+									"key": "Features[2][Id]",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Features[2][Value]",
+									"value": "قهوه ای",
+									"type": "text"
+								},
+								{
+									"key": "Features[3][Id]",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "Features[3][Value]",
+									"value": "زامیاد",
+									"type": "text"
+								},
+								{
+									"key": "Features[4][Id]",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "Features[4][Value]",
+									"value": "برقی",
+									"type": "text"
+								},
+								{
+									"key": "Features[5][Id]",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "Features[5][Value]",
+									"value": "اتوماتیک",
+									"type": "text"
+								},
+								{
+									"key": "Features[6][Id]",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "Features[6][Value]",
+									"value": "دارد",
+									"type": "text"
+								},
+								{
+									"key": "Features[7][Id]",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "Features[7][Value]",
+									"value": "ندارد",
+									"type": "text"
+								},
+								{
+									"key": "Features[8][Id]",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "Features[8][Value]",
+									"value": "دارد",
+									"type": "text"
 								}
 							]
 						},
@@ -346,9 +500,527 @@
 								"advertisements"
 							]
 						},
-						"description": "Create Advertisement\n\n*fields*\n\n\n`Pictures`: List\n  - Error message is a json string object. example: `[{\\\"0\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\",\\\"1\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\"}\"]`\n\n*Notes*\n\n  - **Login Required**"
+						"description": "Create Advertisement\n\n*fields*\n\n\n`Pictures`: List\n  - Error message is a json string object.\ntemplate:`{\"item_index\":\"error msg\"}`\nexample: `[{\"0\":\"Error\",\"1\":\"Error\"}\"]`\n\n`Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n\n*Notes*\n\n  - **Login Required**"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Title",
+											"value": "وانت نیسان تمیز",
+											"description": "string\nMaxLength : 50",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "نوی نو فقط 300 کیلومتر کار کرده\nاما جلوبندی ترکیده",
+											"description": "string\nMaxLength : 500",
+											"type": "text"
+										},
+										{
+											"key": "Address",
+											"value": "قم - باجک - فرهنگیان - بیطرفان 5 - پ3",
+											"description": "string\nMaxLength : 100",
+											"type": "text"
+										},
+										{
+											"key": "Latitude",
+											"value": "34.688582",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "Longitude",
+											"value": "50.852065",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "ContactType",
+											"value": "1",
+											"description": "enum:\n1: تماس و چت\n2: فقط چت\n3: فقط تماس",
+											"type": "text"
+										},
+										{
+											"key": "CategoryId",
+											"value": "24",
+											"description": "int\nAds only can be placed in categories that not have any children (like Leaf nodes in binary trees)",
+											"type": "text"
+										},
+										{
+											"key": "ProvinceId",
+											"value": "19",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "CityId",
+											"value": "1081",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "Features[0][Id]",
+											"value": "1",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "text"
+										},
+										{
+											"key": "Features[0][Value]",
+											"value": "1350",
+											"type": "text"
+										},
+										{
+											"key": "Features[1][Id]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "Features[1][Value]",
+											"value": "264000",
+											"type": "text"
+										},
+										{
+											"key": "Features[2][Id]",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "Features[2][Value]",
+											"value": "قهوه ای",
+											"type": "text"
+										},
+										{
+											"key": "Features[3][Id]",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "Features[3][Value]",
+											"value": "زامیاد",
+											"type": "text"
+										},
+										{
+											"key": "Features[4][Id]",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "Features[4][Value]",
+											"value": "برقی",
+											"type": "text"
+										},
+										{
+											"key": "Features[5][Id]",
+											"value": "7",
+											"type": "text"
+										},
+										{
+											"key": "Features[5][Value]",
+											"value": "اتوماتیک",
+											"type": "text"
+										},
+										{
+											"key": "Features[6][Id]",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "Features[6][Value]",
+											"value": "دارد",
+											"type": "text"
+										},
+										{
+											"key": "Features[7][Id]",
+											"value": "9",
+											"type": "text"
+										},
+										{
+											"key": "Features[7][Value]",
+											"value": "ندارد",
+											"type": "text"
+										},
+										{
+											"key": "Features[8][Id]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "Features[8][Value]",
+											"value": "دارد",
+											"type": "text"
+										},
+										{
+											"key": "Pictures",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 05 Feb 2023 14:33:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Location",
+									"value": "https://google.com"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 5\n}"
+						},
+						{
+							"name": "Bad Features",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Title",
+											"value": "وانت نیسان تمیز",
+											"description": "string\nMaxLength : 50",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "نوی نو فقط 300 کیلومتر کار کرده\nاما جلوبندی ترکیده",
+											"description": "string\nMaxLength : 500",
+											"type": "text"
+										},
+										{
+											"key": "Address",
+											"value": "قم - باجک - فرهنگیان - بیطرفان 5 - پ3",
+											"description": "string\nMaxLength : 100",
+											"type": "text"
+										},
+										{
+											"key": "Latitude",
+											"value": "34.688582",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "Longitude",
+											"value": "50.852065",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "ContactType",
+											"value": "1",
+											"description": "enum:\n1: تماس و چت\n2: فقط چت\n3: فقط تماس",
+											"type": "text"
+										},
+										{
+											"key": "CategoryId",
+											"value": "24",
+											"description": "int\nAds only can be placed in categories that not have any children (like Leaf nodes in binary trees)",
+											"type": "text"
+										},
+										{
+											"key": "ProvinceId",
+											"value": "19",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "CityId",
+											"value": "1081",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "Pictures",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "Features[0][Id]",
+											"value": "1",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "text"
+										},
+										{
+											"key": "Features[0][Value]",
+											"value": "112",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 05 Feb 2023 14:35:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-67e6cb2fa7f5a76e124aad8ccf2e1c8b-bcc1dd0fd8cdfdda-00\",\n    \"errors\": {\n        \"Features\": [\n            \"{\\\"1\\\":\\\"عدد بزرگتر از 1300 وارد کنید\\\",\\\"2\\\":\\\"این فیلد اجباری است\\\",\\\"3\\\":\\\"این فیلد اجباری است\\\",\\\"4\\\":\\\"این فیلد اجباری است\\\",\\\"5\\\":\\\"این فیلد اجباری است\\\",\\\"7\\\":\\\"این فیلد اجباری است\\\",\\\"8\\\":\\\"این فیلد اجباری است\\\",\\\"9\\\":\\\"این فیلد اجباری است\\\",\\\"10\\\":\\\"این فیلد اجباری است\\\"}\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Bad Pictures",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Title",
+											"value": "وانت نیسان تمیز",
+											"description": "string\nMaxLength : 50",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "نوی نو فقط 300 کیلومتر کار کرده\nاما جلوبندی ترکیده",
+											"description": "string\nMaxLength : 500",
+											"type": "text"
+										},
+										{
+											"key": "Address",
+											"value": "قم - باجک - فرهنگیان - بیطرفان 5 - پ3",
+											"description": "string\nMaxLength : 100",
+											"type": "text"
+										},
+										{
+											"key": "Latitude",
+											"value": "34.688582",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "Longitude",
+											"value": "50.852065",
+											"description": "float",
+											"type": "text"
+										},
+										{
+											"key": "ContactType",
+											"value": "1",
+											"description": "enum:\n1: تماس و چت\n2: فقط چت\n3: فقط تماس",
+											"type": "text"
+										},
+										{
+											"key": "CategoryId",
+											"value": "24",
+											"description": "int\nAds only can be placed in categories that not have any children (like Leaf nodes in binary trees)",
+											"type": "text"
+										},
+										{
+											"key": "ProvinceId",
+											"value": "19",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "CityId",
+											"value": "1081",
+											"description": "int",
+											"type": "text"
+										},
+										{
+											"key": "Features[0][Id]",
+											"value": "1",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "text"
+										},
+										{
+											"key": "Features[0][Value]",
+											"value": "1350",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "text"
+										},
+										{
+											"key": "Features[1][Id]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "Features[1][Value]",
+											"value": "264000",
+											"type": "text"
+										},
+										{
+											"key": "Features[2][Id]",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "Features[2][Value]",
+											"value": "قهوه ای",
+											"type": "text"
+										},
+										{
+											"key": "Features[3][Id]",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "Features[3][Value]",
+											"value": "زامیاد",
+											"type": "text"
+										},
+										{
+											"key": "Features[4][Id]",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "Features[4][Value]",
+											"value": "برقی",
+											"type": "text"
+										},
+										{
+											"key": "Features[5][Id]",
+											"value": "7",
+											"type": "text"
+										},
+										{
+											"key": "Features[5][Value]",
+											"value": "اتوماتیک",
+											"type": "text"
+										},
+										{
+											"key": "Features[6][Id]",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "Features[6][Value]",
+											"value": "دارد",
+											"type": "text"
+										},
+										{
+											"key": "Features[7][Id]",
+											"value": "9",
+											"type": "text"
+										},
+										{
+											"key": "Features[7][Value]",
+											"value": "ندارد",
+											"type": "text"
+										},
+										{
+											"key": "Features[8][Id]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "Features[8][Value]",
+											"value": "دارد",
+											"type": "text"
+										},
+										{
+											"key": "Pictures",
+											"description": ".jpg or .png\nsize smaller that 2000kb",
+											"type": "file",
+											"src": [
+												"/C:/Users/Matin/Pictures/Days Gone/2022.12.23-13.42.25.png",
+												"/C:/Users/Matin/Pictures/Days Gone/2022.12.23-13.42.58.png",
+												"/C:/Users/Matin/Pictures/Days Gone/2022.12.23-22.12.14.png"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 05 Feb 2023 14:37:08 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-63cf460049ce04ad5cc20c2aa5f84aa6-115434ff20c7990b-00\",\n    \"errors\": {\n        \"Pictures\": [\n            \"{\\\"0\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\",\\\"1\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\",\\\"2\\\":\\\"حجم فایل بزرگتر از 2000 کیلوبایت است.\\\"}\"\n        ]\n    }\n}"
+						}
+					]
 				}
 			]
 		}
