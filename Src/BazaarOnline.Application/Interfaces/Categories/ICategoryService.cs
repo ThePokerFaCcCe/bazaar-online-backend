@@ -1,4 +1,5 @@
 ﻿using BazaarOnline.Application.ViewModels.Categories;
+using BazaarOnline.Application.ViewModels.Categories.CategoryFeatures;
 
 namespace BazaarOnline.Application.Interfaces.Categories
 {
@@ -8,10 +9,6 @@ namespace BazaarOnline.Application.Interfaces.Categories
 
         CategoryTreeNodeTypeEnum? GetCategoryType(int categoryId);
 
-        #region Find
-
         bool IsCategoryExists(int id);
-
-        #endregion
     }
 }

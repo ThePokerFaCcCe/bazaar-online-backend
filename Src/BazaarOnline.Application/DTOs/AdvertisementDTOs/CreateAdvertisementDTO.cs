@@ -47,4 +47,7 @@ public class CreateAdvertisementDTO
     [ValidateImage]
     public List<IFormFile>? Pictures { get; set; }
         = new List<IFormFile>();
+
+    public List<CreateAdvertisementFeatureDTO> Features { get; set; }
+        = new List<CreateAdvertisementFeatureDTO>();
 }

@@ -43,6 +43,8 @@ public class Advertisement
 
     #region Relations
 
+    public IEnumerable<AdvertisementFeature> AdvertisementFeatures { get; set; }
+
     public IEnumerable<AdvertisementPicture> Pictures { get; set; }
 
     public Category Category { get; set; }

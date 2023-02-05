@@ -14,6 +14,8 @@ namespace BazaarOnline.Domain.Entities.Categories
 
         public Category? ParentCategory { get; set; }
 
+        public IEnumerable<CategoryFeature> CategoryFeatures { get; set; }
+
         public IEnumerable<Category> ChildCategories { get; set; }
 
         public IEnumerable<Advertisement> Advertisements { get; set; }

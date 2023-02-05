@@ -2,6 +2,7 @@
 using BazaarOnline.Application.DTOs.MapDTOs;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Interfaces.Categories;
+using BazaarOnline.Application.Interfaces.Features;
 using BazaarOnline.Application.Interfaces.Maps;
 using BazaarOnline.Application.ViewModels.Categories;
 using Microsoft.AspNetCore.Authorization;
@@ -16,13 +17,15 @@ namespace BazaarOnline.API.Controllers.Advertisements
         private readonly IAdvertisementService _advertisementService;
         private readonly IMapService _mapService;
         private readonly ICategoryService _categoryService;
+        private readonly IFeatureHandlerService _featureHandlerService;
 
         public AdvertisementController(IAdvertisementService advertisementService, IMapService mapService,
-            ICategoryService categoryService)
+            ICategoryService categoryService, IFeatureHandlerService featureHandlerService)
         {
             _advertisementService = advertisementService;
             _mapService = mapService;
             _categoryService = categoryService;
+            _featureHandlerService = featureHandlerService;
         }
 
         [Authorize]
@@ -61,6 +64,13 @@ namespace BazaarOnline.API.Controllers.Advertisements
                         break;
                 }
 
+                hasErrors = true;
+            }
+
+            var featureValidation = _featureHandlerService.ValidateAdvertisementFeatures(dto.CategoryId, dto.Features);
+            if (!featureValidation.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.Features), featureValidation.Message);
                 hasErrors = true;
             }
 

@@ -13,9 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\AdvertisementDTOs\" />
     <Folder Include="Interfaces\Advertisements\" />
+    <Folder Include="Interfaces\Features\" />
     <Folder Include="Requesters\" />
+    <Folder Include="Services\Features\" />
+    <Folder Include="ViewModels\Categories\CategoryFeatures\" />
+    <Folder Include="ViewModels\Features\" />
   </ItemGroup>
 
   <PropertyGroup>

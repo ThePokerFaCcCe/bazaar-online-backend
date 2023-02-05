@@ -1,5 +1,6 @@
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
+using BazaarOnline.Domain.Entities.Features;
 using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Infra.Data.FluentConfigs;
@@ -25,6 +26,7 @@ namespace BazaarOnline.Infra.Data.Contexts
         #region Categories
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryFeature> CategoryFeatures { get; set; }
 
         #endregion
 
@@ -39,6 +41,16 @@ namespace BazaarOnline.Infra.Data.Contexts
 
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<AdvertisementPicture> AdvertisementPictures { get; set; }
+        public DbSet<AdvertisementFeature> AdvertisementFeatures { get; set; }
+
+        #endregion
+
+        #region Features
+
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<FeatureStringType> FeatureStringTypes { get; set; }
+        public DbSet<FeatureIntegerType> FeatureIntegerTypes { get; set; }
+        public DbSet<FeatureSelectType> FeatureSelectTypes { get; set; }
 
         #endregion
 

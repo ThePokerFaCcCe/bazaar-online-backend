@@ -96,6 +96,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .WithOne(ap => ap.Advertisement)
                 .HasForeignKey(ap => ap.AdvertisementId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(a => a.AdvertisementFeatures)
+                .WithOne(af => af.Advertisement)
+                .HasForeignKey(ap => ap.AdvertisementId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Advertisement> builder)

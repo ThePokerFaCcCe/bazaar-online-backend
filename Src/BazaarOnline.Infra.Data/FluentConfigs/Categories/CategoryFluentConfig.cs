@@ -45,6 +45,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Categories
                 .WithOne(a => a.Category)
                 .HasForeignKey(a => a.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(c => c.CategoryFeatures)
+                .WithOne(cf => cf.Category)
+                .HasForeignKey(cf => cf.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Category> builder)

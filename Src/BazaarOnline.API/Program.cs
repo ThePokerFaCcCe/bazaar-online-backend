@@ -18,15 +18,12 @@ DotNetEnv.Env.Load();
 string NextJsOrigin = "NextJS";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(NextJsOrigin, builder =>
-    {
-        builder.WithOrigins("localhost:3000").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
+    options.AddPolicy(NextJsOrigin,
+        builder => { builder.WithOrigins("localhost:3000").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 });
 
 // XML Content Type
 builder.Services.AddControllers();
-
 // Access to HttpContext in DI
 // https://stackoverflow.com/a/56388997/14034832
 // builder.Services.AddHttpContextAccessor();
@@ -37,27 +34,30 @@ builder.Services.AddDbContext<BazaarDbContext>(options =>
 
 // Authentication
 builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
 
 // Adding Jwt Bearer
-.AddJwtBearer(options =>
-{
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = false,
-        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(System.Environment.GetEnvironmentVariable("JWT__SIGNKEY"))),
-        TokenDecryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(System.Environment.GetEnvironmentVariable("JWT__ENCRYPTKEY")))
-    };
-});
-
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            IssuerSigningKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(System.Environment.GetEnvironmentVariable("JWT__SIGNKEY"))),
+            TokenDecryptionKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(System.Environment.GetEnvironmentVariable("JWT__ENCRYPTKEY")))
+        };
+    });
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -83,18 +83,19 @@ builder.Services.AddSwaggerGen(options =>
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        new OpenApiSecurityScheme
         {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
         }
-        },
-        new string[] { }
-    }
     });
 });
 
@@ -106,11 +107,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/V1/swagger.json", "V1");
-    });
+    app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/V1/swagger.json", "V1"); });
 }
+
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("en-US")
