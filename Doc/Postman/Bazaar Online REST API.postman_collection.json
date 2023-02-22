@@ -205,7 +205,7 @@
 								"features"
 							]
 						},
-						"description": "Return list of features that needed for creating advertisement in category\n\n\n\n*query params*\n\n\n`categoryId`: int\n  - **Required**"
+						"description": "Return list of features that needed for creating advertisement in category\n\n\n\n*query params*\n\n\n`categoryId`: int\n  - **Required**\n\n\n*Notes*\n\n  - Until now, we have 3 types, 1:text, 2:number, 3:select. in every type, some fields will be filled.\n    - 1:text : `minLength`,`maxLength`,`regex`\n    - 2:number : `minimum`,`maximum`\n    - 3:select : `optionsList`"
 					},
 					"response": [
 						{
@@ -214,14 +214,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/categories/244/features",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/categories/24/features",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
 										"{{API_VERSION}}",
 										"categories",
-										"244",
+										"24",
 										"features"
 									]
 								}
@@ -236,7 +236,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 05 Feb 2023 14:44:55 GMT"
+									"value": "Thu, 09 Feb 2023 21:08:54 GMT"
 								},
 								{
 									"key": "Server",
@@ -248,7 +248,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"typeObject\": {\n                \"minimum\": 1300,\n                \"maximum\": 1401,\n                \"placeholder\": \"سال شمسی ...\"\n            }\n        }\n    },\n    {\n        \"id\": 3,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"typeObject\": {\n                \"minLength\": 2,\n                \"maxLength\": 10,\n                \"regex\": null,\n                \"placeholder\": \"خاکستری\"\n            }\n        }\n    },\n    {\n        \"id\": 4,\n        \"isRequired\": true,\n        \"feature\": {\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"typeObject\": {\n                \"options\": \"سایپا,پژو,سمند,زامیاد\",\n                \"optionsList\": [\n                    \"سایپا\",\n                    \"پژو\",\n                    \"سمند\",\n                    \"زامیاد\"\n                ]\n            }\n        }\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-dd3025bf426743488ecb6c1c76960f70\",\n            \"value\": null,\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"minimum\": 1300,\n            \"maximum\": 1401,\n            \"optionsList\": null,\n            \"placeholder\": \"سال شمسی ...\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-drjdxjdjf488ecb6c1c76960f70\",\n            \"value\": null,\n            \"minLength\": 2,\n            \"maxLength\": 10,\n            \"regex\": \"[a-z]*\",\n            \"minimum\": null,\n            \"maximum\": null,\n            \"optionsList\": null,\n            \"placeholder\": \"خاکستری\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"number-dd3025bf426743488y6u7eiuwwu\",\n            \"value\": null,\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"optionsList\": [\n                \"سایپا\",\n                \"پژو\",\n                \"سمند\",\n                \"زامیاد\"\n            ],\n            \"placeholder\": null\n        }\n    }\n]"
 						}
 					]
 				}

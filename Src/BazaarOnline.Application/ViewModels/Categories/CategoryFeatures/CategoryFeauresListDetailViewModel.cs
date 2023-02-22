@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.Utils.Extensions;
+﻿using BazaarOnline.Application.Generators;
+using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Domain.Entities.Features;
 
 namespace BazaarOnline.Application.ViewModels.Categories.CategoryFeatures;
@@ -23,6 +24,12 @@ public class CategoryFeaturesListFeatureDetailViewModel
     public FeatureTypeEnum Type { get; set; }
 
     public string TypeName => Type.GetDisplayName();
+
+    //front developer request
+    public string UniqueKey => $"{TypeName}-{StringGenerator.GenerateUniqueCodeWithoutDash()}";
+
+    //front developer request
+    public string? Value { get; set; } = null;
 
     #region StringValidation
 
