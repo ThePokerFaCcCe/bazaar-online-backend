@@ -28,22 +28,22 @@ public class AdvertisementService : IAdvertisementService
 
         _repository.Add(advertisement);
 
-        var advertisementPictures = dto.Pictures.Select(formFile =>
-        {
-            var fileName = FileHelper.SaveImageWithThumb(
-                formFile,
-                PathHelper.AdvertisementImages,
-                PathHelper.AdvertisementThumbs
-            );
+        //var advertisementPictures = dto.Pictures.Select(formFile =>
+        //{
+        //    var fileName = FileHelper.SaveImageWithThumb(
+        //        formFile,
+        //        PathHelper.AdvertisementImages,
+        //        PathHelper.AdvertisementThumbs
+        //    );
 
-            return new AdvertisementPicture
-            {
-                Advertisement = advertisement,
-                PictureName = fileName,
-            };
-        });
+        //    return new AdvertisementPicture
+        //    {
+        //        Advertisement = advertisement,
+        //        PictureName = fileName,
+        //    };
+        //});
 
-        _repository.AddRange(advertisementPictures);
+        //_repository.AddRange(advertisementPictures);
 
         _repository.Save();
         return advertisement.Id;

@@ -20,8 +20,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
 
         private void ConfigureProperties(EntityTypeBuilder<AdvertisementPicture> builder)
         {
-            builder.Property(ap => ap.PictureName)
-                .IsRequired();
+
         }
 
         private void ConfigureQueryFilters(EntityTypeBuilder<AdvertisementPicture> builder)
@@ -33,6 +32,10 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
             builder.HasOne(ap => ap.Advertisement)
                 .WithMany(ap => ap.Pictures)
                 .HasForeignKey(ap => ap.AdvertisementId);
+
+            builder.HasOne(ap => ap.FileCenter)
+                .WithMany()
+                .HasForeignKey(ap => ap.FileCenterId);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<AdvertisementPicture> builder)
