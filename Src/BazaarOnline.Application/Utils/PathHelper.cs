@@ -11,5 +11,7 @@ namespace BazaarOnline.Application.Utils
         public static readonly string AdvertisementThumbs = AdvertisementsBase + "thumbnails/";
 
         #endregion
+
+        public static readonly string OtherFiles = "other";
     }
 }

@@ -8,6 +8,7 @@ namespace BazaarOnline.Infra.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("TRUNCATE TABLE AdvertisementPictures;");
             migrationBuilder.DropColumn(
                 name: "PictureName",
                 table: "AdvertisementPictures");
@@ -51,6 +52,7 @@ namespace BazaarOnline.Infra.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("TRUNCATE TABLE AdvertisementPictures;");
             migrationBuilder.DropForeignKey(
                 name: "FK_AdvertisementPictures_FileCenter_FileCenterId",
                 table: "AdvertisementPictures");

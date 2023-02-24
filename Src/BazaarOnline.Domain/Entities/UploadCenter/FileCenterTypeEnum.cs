@@ -2,5 +2,5 @@
 
 public enum FileCenterTypeEnum
 {
-    AdvertiesementPicture=1,
+    AdvertisementPicture = 1,
 }

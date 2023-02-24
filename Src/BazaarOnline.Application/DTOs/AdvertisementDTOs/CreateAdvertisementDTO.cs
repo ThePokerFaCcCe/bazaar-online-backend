@@ -45,8 +45,8 @@ public class CreateAdvertisementDTO
     public int CityId { get; set; }
 
     [ValidateImage]
-    public List<IFormFile>? Pictures { get; set; }
-        = new List<IFormFile>();
+    public List<int>? Pictures { get; set; }
+        = new List<int>();
 
     public List<CreateAdvertisementFeatureDTO> Features { get; set; }
         = new List<CreateAdvertisementFeatureDTO>();
