@@ -28,19 +28,10 @@ public class AdvertisementService : IAdvertisementService
 
         _repository.Add(advertisement);
 
-        var advertisementPictures = dto.Pictures.Select(formFile =>
+        var advertisementPictures = dto.Pictures.Select(fileId => new AdvertisementPicture
         {
-            var fileName = FileHelper.SaveImageWithThumb(
-                formFile,
-                PathHelper.AdvertisementImages,
-                PathHelper.AdvertisementThumbs
-            );
-
-            return new AdvertisementPicture
-            {
-                Advertisement = advertisement,
-                PictureName = fileName,
-            };
+            Advertisement = advertisement,
+            FileCenterId = fileId,
         });
 
         _repository.AddRange(advertisementPictures);

@@ -4,7 +4,9 @@ using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Interfaces.Categories;
 using BazaarOnline.Application.Interfaces.Features;
 using BazaarOnline.Application.Interfaces.Maps;
+using BazaarOnline.Application.Interfaces.UploadCenter;
 using BazaarOnline.Application.ViewModels.Categories;
+using BazaarOnline.Domain.Entities.UploadCenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,19 +20,22 @@ namespace BazaarOnline.API.Controllers.Advertisements
         private readonly IMapService _mapService;
         private readonly ICategoryService _categoryService;
         private readonly IFeatureHandlerService _featureHandlerService;
+        private readonly IFileCenterService _fileCenterService;
 
         public AdvertisementController(IAdvertisementService advertisementService, IMapService mapService,
-            ICategoryService categoryService, IFeatureHandlerService featureHandlerService)
+            ICategoryService categoryService, IFeatureHandlerService featureHandlerService,
+            IFileCenterService fileCenterService)
         {
             _advertisementService = advertisementService;
             _mapService = mapService;
             _categoryService = categoryService;
             _featureHandlerService = featureHandlerService;
+            _fileCenterService = fileCenterService;
         }
 
         [Authorize]
         [HttpPost("")]
-        public IActionResult CreateAdvertisement([FromForm] CreateAdvertisementDTO dto)
+        public IActionResult CreateAdvertisement([FromBody] CreateAdvertisementDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(dto);
 
@@ -43,6 +48,14 @@ namespace BazaarOnline.API.Controllers.Advertisements
             else if (_categoryService.GetCategoryType(dto.CategoryId) != CategoryTreeNodeTypeEnum.Leaf)
             {
                 ModelState.AddModelError(nameof(dto.CategoryId), "در این دسته بندی امکان ساخت آگهی وجود ندارد");
+                hasErrors = true;
+            }
+
+            var pictureValidation =
+                _fileCenterService.ValidateFileTypes(dto.Pictures, FileCenterTypeEnum.AdvertisementPicture);
+            if (!pictureValidation.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.Pictures), pictureValidation.Message);
                 hasErrors = true;
             }
 
