@@ -57,16 +57,18 @@ public class FeatureHandlerService : IFeatureHandlerService
             {
                 var model = new CategoryFeaturesListDetailViewModel
                 {
-                    Feature = new CategoryFeaturesListFeatureDetailViewModel().FillFromObject(cf.Feature, false),
+                    Data = new CategoryFeaturesListFeatureDetailViewModel().FillFromObject(cf.Feature, false),
                 }.FillFromObject(cf);
+                model.Data.IsRequired = cf.IsRequired;
 
-                model.Feature.TypeObject = cf.Feature.Type switch
+                object? typeObjectViewModel = cf.Feature.Type switch
                 {
                     FeatureTypeEnum.Integer => new FeatureIntegerTypeViewModel().FillFromObject(cf.Feature.TypeObject),
                     FeatureTypeEnum.Select => new FeatureSelectTypeViewModel().FillFromObject(cf.Feature.TypeObject),
                     FeatureTypeEnum.String => new FeatureStringTypeViewModel().FillFromObject(cf.Feature.TypeObject),
-                    _ => model.Feature.TypeObject
+                    _ => null
                 };
+                model.Data.FillFromObject(typeObjectViewModel);
 
                 return model;
             }

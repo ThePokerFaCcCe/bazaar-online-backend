@@ -1,8 +1,10 @@
-﻿namespace BazaarOnline.Domain.Entities.Features;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BazaarOnline.Domain.Entities.Features;
 
 public enum FeatureTypeEnum
 {
-    String = 1,
-    Integer = 2,
-    Select = 3,
+    [Display(Name = "text")] String = 1,
+    [Display(Name = "number")] Integer = 2,
+    [Display(Name = "select")] Select = 3,
 }
