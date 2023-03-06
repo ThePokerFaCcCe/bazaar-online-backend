@@ -7,6 +7,7 @@ namespace BazaarOnline.Application.Interfaces.UploadCenter;
 public interface IFileCenterService
 {
     OperationResultDTO Validate(IFormFile file, FileCenterTypeEnum type);
+    OperationResultDTO Validate(List<IFormFile> files, FileCenterTypeEnum type);
 
     /// <summary>
     /// Save an image and create thumbnail for that
@@ -16,6 +17,15 @@ public interface IFileCenterService
     /// <param name="thumbPath">path without 'wwwroot'</param>
     /// <returns>Image filename</returns>
     FileCenter SaveImage(IFormFile image, FileCenterTypeEnum type);
+
+    /// <summary>
+    /// Save images and create thumbnail for them
+    /// </summary>
+    /// <param name="images"></param>
+    /// <param name="imagePath">path without 'wwwroot'</param>
+    /// <param name="thumbPath">path without 'wwwroot'</param>
+    /// <returns>Image filename</returns>
+    List<FileCenter> SaveImage(List<IFormFile> images, FileCenterTypeEnum type);
 
     /// <summary>
     /// Validate that all files are in same type

@@ -20,23 +20,25 @@ namespace BazaarOnline.API.Controllers.UploadCenter
         }
 
         [HttpPost("images")]
-        public ActionResult<UploadFileResultDTO> UploadImage([FromForm] UploadFileDTO dto)
+        public ActionResult<IEnumerable<UploadFileResultDTO>> UploadImage([FromForm] UploadFileDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(dto);
 
-            var validateFileResult = _fileCenterService.Validate(dto.File, dto.Type);
+            var validateFileResult = _fileCenterService.Validate(dto.Files, dto.Type);
             if (!validateFileResult.IsSuccess)
             {
-                ModelState.AddModelError(nameof(dto.File), validateFileResult.Message);
+                ModelState.AddModelError(nameof(dto.Files), validateFileResult.Message);
                 return ValidationProblem(ModelState);
             }
 
-            var file = _fileCenterService.SaveImage(dto.File, dto.Type);
+            var files = _fileCenterService.SaveImage(dto.Files, dto.Type);
 
-            var result = new UploadFileResultDTO
+            var result = files.Select(f => new UploadFileResultDTO
             {
-                Success = true
-            }.FillFromObject(file);
+                Id = f.Id,
+                SizeKB = f.SizeKB,
+            });
+
 
             return Ok(result);
         }

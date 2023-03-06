@@ -18,16 +18,44 @@ public class FileCenterService : IFileCenterService
         _repository = repository;
     }
 
+    private readonly int advertisementImageSize = 5126;
+
     public OperationResultDTO Validate(IFormFile file, FileCenterTypeEnum type)
     {
         switch (type)
         {
             case FileCenterTypeEnum.AdvertisementPicture:
-                return ValidateImage(file, 2048);
+                return ValidateImage(file, advertisementImageSize);
 
             default:
                 throw new ArgumentException("This type isn't implemented!");
         }
+    }
+
+    public OperationResultDTO Validate(List<IFormFile> files, FileCenterTypeEnum type)
+    {
+        if (type is FileCenterTypeEnum.AdvertisementPicture)
+        {
+            var errors = new Dictionary<int, string>();
+            for (int i = 0; i < files.Count; i++)
+            {
+                var validation = ValidateImage(files[i], advertisementImageSize);
+                if (!validation.IsSuccess)
+                    errors[i] = validation.Message;
+            }
+
+            if (errors.Any())
+            {
+                return new OperationResultDTO
+                {
+                    Message = Newtonsoft.Json.JsonConvert.SerializeObject(errors)
+                };
+            }
+
+            return new OperationResultDTO { IsSuccess = true };
+        }
+
+        throw new ArgumentException("This type isn't implemented!");
     }
 
     private OperationResultDTO ValidateImage(IFormFile file, int fileSizeKb)
@@ -100,6 +128,55 @@ public class FileCenterService : IFileCenterService
             throw;
         }
     }
+
+    public List<FileCenter> SaveImage(List<IFormFile> images, FileCenterTypeEnum type)
+    {
+        string imagePath = PathHelper.OtherFiles;
+        string thumbPath = PathHelper.OtherFiles;
+
+        switch (type)
+        {
+            case FileCenterTypeEnum.AdvertisementPicture:
+                imagePath = PathHelper.AdvertisementImages;
+                thumbPath = PathHelper.AdvertisementThumbs;
+                break;
+        }
+
+        var createdFiles = new List<FileCenter>();
+
+        foreach (var image in images)
+        {
+            var filename = FileHelper.SaveImageWithThumb(image, imagePath, thumbPath);
+
+            var file = new FileCenter
+            {
+                FileName = filename,
+                FileType = Path.GetExtension(image.FileName),
+                SizeKB = image.Length / 1024,
+                UsageType = type,
+            };
+
+            createdFiles.Add(file);
+        }
+
+        try
+        {
+            _repository.AddRange(createdFiles);
+            _repository.Save();
+        }
+        catch (Exception e)
+        {
+            createdFiles.ForEach(f =>
+            {
+                FileHelper.DeleteFile(Path.Combine(imagePath, f.FileName));
+                FileHelper.DeleteFile(Path.Combine(thumbPath, f.FileName));
+            });
+            throw;
+        }
+
+        return createdFiles;
+    }
+
 
     public OperationResultDTO ValidateFileTypes(List<int> fileIds, FileCenterTypeEnum type)
     {

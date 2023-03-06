@@ -8,5 +8,5 @@ public class UploadFileDTO
 {
     [Required] public FileCenterTypeEnum Type { get; set; }
 
-    [Required] public IFormFile File { get; set; }
+    [Required] public List<IFormFile> Files { get; set; }
 }

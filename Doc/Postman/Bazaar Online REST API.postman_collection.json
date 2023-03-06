@@ -1023,6 +1023,171 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Uploads",
+			"item": [
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Files",
+									"description": ".jpg or .png",
+									"type": "file",
+									"src": [
+										"/E:/Other/Eitaa/edata/1873F7AEE725C6ABs",
+										"/E:/Other/Eitaa/edata/B0DB7C6B056BA957s"
+									]
+								},
+								{
+									"key": "Type",
+									"value": "1",
+									"description": "Usage Type",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"uploads",
+								"images"
+							]
+						},
+						"description": "Upload Image \n\n*fields*\n\n\n`Type`: Enum-int.\n*Upload image for this type of usage.*\n  - 1: Advertisement Picture Usage\n\n`File` File\nError message is a json object string.\ntemplate:`{\"file_index\":[\"err1\",\"err2\"]}`\n\n\n*Notes*\n\n  - **Login Required**"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Files",
+											"description": ".jpg or .png",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "Type",
+											"value": "1",
+											"description": "Usage Type",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"uploads",
+										"images"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Mar 2023 17:34:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 5,\n        \"sizeKB\": 79\n    },\n    {\n        \"id\": 6,\n        \"sizeKB\": 169\n    }\n]"
+						},
+						{
+							"name": "Upload Image",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Files",
+											"description": ".jpg or .png",
+											"type": "file",
+											"src": [
+												"/E:/Other/Eitaa/edata/1873F7AEE725C6ABs",
+												"/E:/Other/Eitaa/edata/B0DB7C6B056BA957s"
+											]
+										},
+										{
+											"key": "Type",
+											"value": "1",
+											"description": "Usage Type",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"uploads",
+										"images"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Mar 2023 17:37:48 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-552a7df615945f87ba3647237a88657e-1f5c91df3ec636b0-00\",\n    \"errors\": {\n        \"Files\": [\n            \"{\\\"0\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\",\\\"1\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\"}\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
