@@ -180,6 +180,27 @@ public class FileCenterService : IFileCenterService
 
     public OperationResultDTO ValidateFileTypes(List<int> fileIds, FileCenterTypeEnum type)
     {
-        return new OperationResultDTO();
-    }
+        var files= _repository.GetAll<FileCenter>()
+            .Where(fc=>fileIds.Contains(fc.Id))
+            .Select(fc => new { fc.Id,fc.UsageType});
+
+        var wrongTypeFiles = files.Where(fc => fc.UsageType != type).ToList();
+
+        var notExists = fileIds.Except(files.Select(f => f.Id)).ToList();
+
+        var errors = new Dictionary<int, string>();
+
+        wrongTypeFiles.ForEach(f => errors[f.Id] = "Selected file have different type");
+        notExists.ForEach(id => errors[id] = "File not found");
+
+        if (errors.Any())
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = Newtonsoft.Json.JsonConvert.SerializeObject(errors),
+            };
+        
+
+        return new OperationResultDTO { IsSuccess = true };
+    } 
 }

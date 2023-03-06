@@ -35,7 +35,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
 
         [Authorize]
         [HttpPost("")]
-        public IActionResult CreateAdvertisement([FromForm] CreateAdvertisementDTO dto)
+        public IActionResult CreateAdvertisement([FromBody] CreateAdvertisementDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(dto);
 
