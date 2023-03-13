@@ -13,10 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\UploadCenter\" />
     <Folder Include="Interfaces\Advertisements\" />
     <Folder Include="Interfaces\Features\" />
+    <Folder Include="Interfaces\UploadCenter\" />
     <Folder Include="Requesters\" />
     <Folder Include="Services\Features\" />
+    <Folder Include="Utils\Attributes\" />
     <Folder Include="ViewModels\Categories\CategoryFeatures\" />
     <Folder Include="ViewModels\Features\" />
   </ItemGroup>

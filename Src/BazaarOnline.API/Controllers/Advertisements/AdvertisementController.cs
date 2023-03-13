@@ -33,6 +33,12 @@ namespace BazaarOnline.API.Controllers.Advertisements
             _fileCenterService = fileCenterService;
         }
 
+        [HttpGet("")]
+        public IActionResult GetAdvertisementList([FromQuery] AdvertisemenFilterDTO filterDto)
+        {
+            return Ok(_advertisementService.GetAdvertisementList(filterDto));
+        }
+
         [Authorize]
         [HttpPost("")]
         public IActionResult CreateAdvertisement([FromBody] CreateAdvertisementDTO dto)

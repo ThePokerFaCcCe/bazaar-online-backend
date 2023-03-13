@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c52c22ba-2f86-4609-92a1-c2955ab79491",
+		"_postman_id": "63dea5bd-b0fb-47e9-89c8-339c754ee3c6",
 		"name": "Bazaar Online REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -337,7 +337,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Title\": \"وانت نیسان تمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 19,\r\n    \"CityId\": 1081,\r\n    \"Pictures\":[1],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 19,\r\n    \"CityId\": 1081,\r\n    \"Pictures\":[],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,6 +514,129 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-3b334d9f8b54681330f933e44120d595-b7564fa8272fe41b-00\",\n    \"errors\": {\n        \"Pictures\": [\n            \"{\\\"3\\\":\\\"File not found\\\",\\\"2\\\":\\\"File not found\\\"}\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Advertisement List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements"
+							],
+							"query": [
+								{
+									"key": "Title",
+									"value": "",
+									"description": "Search by Title",
+									"disabled": true
+								},
+								{
+									"key": "Category",
+									"value": null,
+									"description": "Category ID",
+									"disabled": true
+								},
+								{
+									"key": "Cities",
+									"value": null,
+									"description": "List of City IDs\ne.g. 2,4,1",
+									"disabled": true
+								},
+								{
+									"key": "OrderBy",
+									"value": null,
+									"description": "Order Result. Add ` - ` for Descending Order\nFields: Title , UpdateDate\ne.g. ` Title ` (ASC)\ne.g. ` -Title ` (DESC)",
+									"disabled": true
+								},
+								{
+									"key": "HasPicture",
+									"value": "true",
+									"description": "Show Ads That Have Pictures - boolen",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements"
+									],
+									"query": [
+										{
+											"key": "Title",
+											"value": "",
+											"description": "Search by Title",
+											"disabled": true
+										},
+										{
+											"key": "Category",
+											"value": null,
+											"description": "Category ID",
+											"disabled": true
+										},
+										{
+											"key": "Cities",
+											"value": null,
+											"description": "List of City IDs\ne.g. 2,4,1",
+											"disabled": true
+										},
+										{
+											"key": "OrderBy",
+											"value": null,
+											"description": "Order Result. Add ` - ` for Descending Order\nFields: Title , UpdateDate\ne.g. ` Title ` (ASC)\ne.g. ` -Title ` (DESC)",
+											"disabled": true
+										},
+										{
+											"key": "HasPicture",
+											"value": "true",
+											"description": "Show Ads That Have Pictures - boolen",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Mar 2023 20:28:06 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 11,\n        \"title\": \"وانت نیسان aaaaتمیز\",\n        \"features\": [\n            {\n                \"id\": 2,\n                \"value\": \"264000\",\n                \"sortNumber\": 2,\n                \"name\": \"کارکرد\"\n            }\n        ],\n        \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n        \"picture\": null,\n        \"timeText\": \"لحظاتی پیش\",\n        \"locationText\": \"قم\",\n        \"infoText\": \"لحظاتی پیش در قم\"\n    },\n    {\n        \"id\": 9,\n        \"title\": \"وانت نیسان تمیز\",\n        \"features\": [],\n        \"updateDate\": \"2023-03-13T23:51:17.61\",\n        \"picture\": null,\n        \"timeText\": \"دقایقی پیش\",\n        \"locationText\": \"قم\",\n        \"infoText\": \"دقایقی پیش در قم\"\n    },\n    {\n        \"id\": 8,\n        \"title\": \"وانت نیسان تمیز\",\n        \"features\": [],\n        \"updateDate\": \"2023-03-13T23:51:07.7033333\",\n        \"picture\": {\n            \"fileName\": \"66a190f9b2b4431e8764d06086003d0a.jpg\",\n            \"imageUrl\": \"/advertiesements/images/66a190f9b2b4431e8764d06086003d0a.jpg\",\n            \"thumbUrl\": \"/advertiesements/thumbnails/66a190f9b2b4431e8764d06086003d0a.jpg\"\n        },\n        \"timeText\": \"دقایقی پیش\",\n        \"locationText\": \"قم\",\n        \"infoText\": \"دقایقی پیش در قم\"\n    }\n]"
 						}
 					]
 				}
