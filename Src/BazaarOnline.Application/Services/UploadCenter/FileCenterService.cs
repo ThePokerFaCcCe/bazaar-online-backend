@@ -60,12 +60,12 @@ public class FileCenterService : IFileCenterService
 
     private OperationResultDTO ValidateImage(IFormFile file, int fileSizeKb)
     {
-        var allowedExtensions = new[] { ".jpg", ".png" };
+        var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
         var errors = new List<string>();
 
         if (!file.HasValidExtension(allowedExtensions))
         {
-            errors.Add("فرمت فایل مجاز نیست. باید jpg یا png باشد");
+            errors.Add("فرمت فایل مجاز نیست. باید jpg یا png یا jpeg باشد");
         }
 
         if (!file.IsValidImage())
