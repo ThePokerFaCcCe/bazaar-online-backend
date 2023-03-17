@@ -78,7 +78,6 @@ public class AdvertisementService : IAdvertisementService
             {
                 Data = new AdvertisementListDetailDataViewModel
                 {
-                    UpdateDate = a.UpdateDate,
                     Picture = picture,
                     LocationText = a.City.Name,
                     TimeText = a.UpdateDate.PassedFromNowString(),
@@ -90,8 +89,8 @@ public class AdvertisementService : IAdvertisementService
                             Name = af.CategoryFeature.Feature.Name,
                             Value = af.Value,
                             SortNumber = af.CategoryFeature.SortNumber,
-                        }.FillFromObject(a)),
-                }
+                        }),
+                }.FillFromObject(a)
             }.FillFromObject(a);
         });
     }
