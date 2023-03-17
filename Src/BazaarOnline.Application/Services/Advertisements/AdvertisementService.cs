@@ -81,16 +81,16 @@ public class AdvertisementService : IAdvertisementService
                     Picture = picture,
                     LocationText = a.City.Name,
                     TimeText = a.UpdateDate.PassedFromNowString(),
+                    IsChatEnabled = a.ContactType is AdvertisementContactTypeEnum.ChatOnly,
                     Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
-                    .Select(af => new AdvertisementFeatureDetailViewModel
-                    {
-                        Id = af.Id,
-                        Name = af.CategoryFeature.Feature.Name,
-                        Value = af.Value,
-                        SortNumber = af.CategoryFeature.SortNumber,
-                        IsChatEnabled = a.ContactType is AdvertisementContactTypeEnum.ChatOnly,
-                    }.FillFromObject(a)),
-                }
+                        .Select(af => new AdvertisementFeatureDetailViewModel
+                        {
+                            Id = af.Id,
+                            Name = af.CategoryFeature.Feature.Name,
+                            Value = af.Value,
+                            SortNumber = af.CategoryFeature.SortNumber,
+                        }),
+                }.FillFromObject(a)
             }.FillFromObject(a);
         });
     }
