@@ -24,7 +24,8 @@ namespace BazaarOnline.Application.Utils.Extensions
                     if (!ignoreNulls || value != null)
                     {
                         var prop = modelType.GetProperty(p.Name);
-                        if (prop != null && (prop.PropertyType.IsValueType || prop?.PropertyType == typeof(string)))
+                        if (prop != null && prop.PropertyType == p.PropertyType &&
+                            (prop.PropertyType.IsValueType || prop?.PropertyType == typeof(string)))
                             prop?.SetValue(model, value);
                     }
                 }
