@@ -39,6 +39,16 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return Ok(_advertisementService.GetAdvertisementList(filterDto));
         }
 
+        [HttpGet("{id:int}")]
+        public IActionResult GetAdvertisementDetail(int id)
+        {
+            var advertisement = _advertisementService.GetAdvertisementDetail(id, acceptedOnly: true);
+            if (advertisement == null)
+                return NotFound();
+
+            return Ok(advertisement);
+        }
+
         [Authorize]
         [HttpPost("")]
         public IActionResult CreateAdvertisement([FromBody] CreateAdvertisementDTO dto)
@@ -96,8 +106,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
             if (hasErrors) return ValidationProblem(ModelState);
 
             var advertisementId = _advertisementService.CreateAdvertisement(dto, User.Identity.Name);
-            return Created("https://google.com", new { Id = advertisementId });
-            //return CreatedAtAction("", new { Id = advertisementId });
+            return CreatedAtAction(nameof(GetAdvertisementDetail), new { Id = advertisementId }, null);
         }
     }
 }

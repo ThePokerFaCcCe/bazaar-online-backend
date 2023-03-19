@@ -624,7 +624,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Fri, 17 Mar 2023 09:51:28 GMT"
+									"value": "Sun, 19 Mar 2023 11:25:02 GMT"
 								},
 								{
 									"key": "Server",
@@ -636,7 +636,100 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 11,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n            \"features\": [\n                {\n                    \"id\": 2,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\"\n                }\n            ],\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"3 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"3 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:51:27.3633333\",\n            \"features\": [],\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"3 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"3 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:17.61\",\n            \"features\": [],\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"3 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"3 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:07.7033333\",\n            \"features\": [],\n            \"isChatEnabled\": false,\n            \"picture\": {\n                \"fileName\": \"66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"imageUrl\": \"/advertiesements/images/66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"thumbUrl\": \"/advertiesements/thumbnails/66a190f9b2b4431e8764d06086003d0a.jpg\"\n            },\n            \"timeText\": \"3 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"3 روز پیش در قم\"\n        }\n    }\n]"
+							"body": "[\n    {\n        \"id\": 11,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n            \"features\": [\n                {\n                    \"id\": 2,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"5 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"5 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:51:27.3633333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"5 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"5 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:17.61\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"5 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"5 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:07.7033333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": {\n                \"fileName\": \"66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"imageUrl\": \"/advertiesements/images/66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"thumbUrl\": \"/advertiesements/thumbnails/66a190f9b2b4431e8764d06086003d0a.jpg\"\n            },\n            \"timeText\": \"5 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"5 روز پیش در قم\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Advertisement Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"11"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11"
+									],
+									"query": [
+										{
+											"key": "Title",
+											"value": "",
+											"description": "Search by Title",
+											"disabled": true
+										},
+										{
+											"key": "Category",
+											"value": null,
+											"description": "Category ID",
+											"disabled": true
+										},
+										{
+											"key": "Cities",
+											"value": null,
+											"description": "List of City IDs\ne.g. 2,4,1",
+											"disabled": true
+										},
+										{
+											"key": "OrderBy",
+											"value": null,
+											"description": "Order Result. Add ` - ` for Descending Order\nFields: Title , UpdateDate\ne.g. ` Title ` (ASC)\ne.g. ` -Title ` (DESC)",
+											"disabled": true
+										},
+										{
+											"key": "HasPicture",
+											"value": "true",
+											"description": "Show Ads That Have Pictures - boolen",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Mar 2023 11:24:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 11,\n    \"data\": {\n        \"title\": \"وانت نیسان aaaaتمیز\",\n        \"description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\n        \"address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\n        \"contactType\": 1,\n        \"createDate\": \"2023-03-13T23:57:52.0933333\",\n        \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n        \"pictures\": [],\n        \"province\": \"قم\",\n        \"city\": \"قم\",\n        \"location\": {\n            \"longitude\": 50.85206604003906,\n            \"latitude\": 34.68858337402344\n        },\n        \"isChatEnabled\": true,\n        \"timeText\": \"5 روز پیش\",\n        \"topFeatures\": [\n            {\n                \"id\": 1,\n                \"value\": \"1350\",\n                \"sortNumber\": 1,\n                \"name\": \"مدل\",\n                \"position\": 1\n            },\n            {\n                \"id\": 2,\n                \"value\": \"264000\",\n                \"sortNumber\": 2,\n                \"name\": \"کارکرد\",\n                \"position\": 1\n            },\n            {\n                \"id\": 3,\n                \"value\": \"قهوه ای\",\n                \"sortNumber\": 3,\n                \"name\": \"رنگ\",\n                \"position\": 1\n            }\n        ],\n        \"middleFeatures\": [\n            {\n                \"id\": 4,\n                \"value\": \"زامیاد\",\n                \"sortNumber\": 5,\n                \"name\": \"برند\",\n                \"position\": 2\n            },\n            {\n                \"id\": 5,\n                \"value\": \"برقی\",\n                \"sortNumber\": 6,\n                \"name\": \"نوع سوخت\",\n                \"position\": 2\n            },\n            {\n                \"id\": 6,\n                \"value\": \"اتوماتیک\",\n                \"sortNumber\": 8,\n                \"name\": \"گیربکس\",\n                \"position\": 2\n            }\n        ],\n        \"bottomFeatures\": [\n            {\n                \"id\": 7,\n                \"value\": \"دارد\",\n                \"sortNumber\": 9,\n                \"name\": \"شیشه دودی\",\n                \"position\": 3\n            },\n            {\n                \"id\": 8,\n                \"value\": \"ندارد\",\n                \"sortNumber\": 10,\n                \"name\": \"بدنه اسپرت\",\n                \"position\": 3\n            },\n            {\n                \"id\": 9,\n                \"value\": \"دارد\",\n                \"sortNumber\": 11,\n                \"name\": \"روکش صندلی\",\n                \"position\": 3\n            }\n        ],\n        \"otherFeatures\": [],\n        \"categoryPath\": [\n            {\n                \"id\": 24,\n                \"title\": \"سواری و وانت\"\n            },\n            {\n                \"id\": 20,\n                \"title\": \"خودرو\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"وسایل نقلیه\"\n            }\n        ]\n    }\n}"
 						}
 					]
 				}

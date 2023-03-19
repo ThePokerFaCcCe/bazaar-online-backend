@@ -14,4 +14,6 @@ public interface IAdvertisementService
     int CreateAdvertisement(CreateAdvertisementDTO dto, string userId);
 
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
+
+    AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false);
 }

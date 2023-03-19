@@ -1,4 +1,6 @@
-﻿namespace BazaarOnline.Application.ViewModels.Advertisements;
+﻿using BazaarOnline.Domain.Entities.Features;
+
+namespace BazaarOnline.Application.ViewModels.Advertisements;
 
 public class AdvertisementFeatureDetailViewModel
 {
@@ -9,4 +11,6 @@ public class AdvertisementFeatureDetailViewModel
     public int SortNumber { get; set; }
 
     public string Name { get; set; }
+
+    public FeaturePositionEnum Position { get; set; }
 }
