@@ -28,6 +28,10 @@ namespace BazaarOnline.Domain.Entities.Users
 
         public IEnumerable<Advertisement> Advertisements { get; set; }
 
+        public IEnumerable<UserAdvertisementHistory> WatchedAdvertisements { get; set; }
+
+        public IEnumerable<UserAdvertisementNote> AdvertisementNotes { get; set; }
+
         #endregion
     }
 }

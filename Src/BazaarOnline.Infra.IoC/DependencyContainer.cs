@@ -29,6 +29,7 @@ namespace BazaarOnline.Infra.IoC
             #region Users
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserAdvertisementService, UserAdvertisementService>();
             services.AddScoped<IUserDashboardService, UserDashboardService>();
             services.AddScoped<IValidationCodeService, ValidationCodeService>();
 

@@ -28,6 +28,5 @@ namespace BazaarOnline.Application.Interfaces.Users
         void ActivateUser(User user);
 
         #endregion
-
     }
 }
