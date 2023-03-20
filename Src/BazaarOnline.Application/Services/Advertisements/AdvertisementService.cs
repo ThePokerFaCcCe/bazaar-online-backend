@@ -7,6 +7,7 @@ using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
 using BazaarOnline.Domain.Entities.Features;
+using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,6 +55,12 @@ public class AdvertisementService : IAdvertisementService
         return advertisement.Id;
     }
 
+    public bool IsAdvertisementExists(int id)
+    {
+        return _repository.GetAll<Advertisement>()
+            .Any(a => a.Id == id);
+    }
+
     public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)
     {
         var advertisements = _repository.GetAll<Advertisement>()
@@ -99,7 +106,8 @@ public class AdvertisementService : IAdvertisementService
         });
     }
 
-    public AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false)
+    public AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false,
+        string? userId = null)
     {
         var advertisement = _repository.GetAll<Advertisement>()
             .Include(a => a.Province)
@@ -115,6 +123,15 @@ public class AdvertisementService : IAdvertisementService
 
         if (advertisement == null)
             return null;
+
+        var note = string.Empty;
+        if (!string.IsNullOrEmpty(userId))
+        {
+            var foundNote = _repository.GetAll<UserAdvertisementNote>()
+                .SingleOrDefault(u => u.UserId == userId && u.AdvertisementId == advertisement.Id);
+            if (foundNote != null)
+                note = foundNote.Note;
+        }
 
         var features = advertisement.AdvertisementFeatures
             .Select(af => new AdvertisementFeatureDetailViewModel
@@ -142,6 +159,7 @@ public class AdvertisementService : IAdvertisementService
         {
             Data = new AdvertisementDetailDataViewModel
             {
+                Note = note,
                 Province = advertisement.Province.Name,
                 City = advertisement.City.Name,
                 CategoryPath = advertisementCategoryPath,

@@ -16,6 +16,8 @@ public class AdvertisementDetailDataViewModel
 
     public string Description { get; set; } = string.Empty;
 
+    public string Note { get; set; } = string.Empty;
+
     public string Address { get; set; } = string.Empty;
 
     public string Province { get; set; } = string.Empty;

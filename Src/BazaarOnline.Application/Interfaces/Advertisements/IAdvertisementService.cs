@@ -13,7 +13,9 @@ public interface IAdvertisementService
     /// <returns>Created ad Id on success or -1 on failure</returns>
     int CreateAdvertisement(CreateAdvertisementDTO dto, string userId);
 
+    bool IsAdvertisementExists(int id);
+
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
 
-    AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false);
+    AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false, string? userId = null);
 }

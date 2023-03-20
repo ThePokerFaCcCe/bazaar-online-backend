@@ -47,6 +47,10 @@ public class Advertisement
 
     public IEnumerable<AdvertisementPicture> Pictures { get; set; }
 
+    public IEnumerable<UserAdvertisementHistory> WatchedUsers { get; set; }
+
+    public IEnumerable<UserAdvertisementNote> UserNotes { get; set; }
+
     public Category Category { get; set; }
 
     public Province Province { get; set; }

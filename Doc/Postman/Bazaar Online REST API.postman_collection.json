@@ -732,6 +732,139 @@
 							"body": "{\n    \"id\": 11,\n    \"data\": {\n        \"title\": \"وانت نیسان aaaaتمیز\",\n        \"description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\n        \"address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\n        \"contactType\": 1,\n        \"createDate\": \"2023-03-13T23:57:52.0933333\",\n        \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n        \"pictures\": [],\n        \"province\": \"قم\",\n        \"city\": \"قم\",\n        \"location\": {\n            \"longitude\": 50.85206604003906,\n            \"latitude\": 34.68858337402344\n        },\n        \"isChatEnabled\": true,\n        \"timeText\": \"5 روز پیش\",\n        \"topFeatures\": [\n            {\n                \"id\": 1,\n                \"value\": \"1350\",\n                \"sortNumber\": 1,\n                \"name\": \"مدل\",\n                \"position\": 1\n            },\n            {\n                \"id\": 2,\n                \"value\": \"264000\",\n                \"sortNumber\": 2,\n                \"name\": \"کارکرد\",\n                \"position\": 1\n            },\n            {\n                \"id\": 3,\n                \"value\": \"قهوه ای\",\n                \"sortNumber\": 3,\n                \"name\": \"رنگ\",\n                \"position\": 1\n            }\n        ],\n        \"middleFeatures\": [\n            {\n                \"id\": 4,\n                \"value\": \"زامیاد\",\n                \"sortNumber\": 5,\n                \"name\": \"برند\",\n                \"position\": 2\n            },\n            {\n                \"id\": 5,\n                \"value\": \"برقی\",\n                \"sortNumber\": 6,\n                \"name\": \"نوع سوخت\",\n                \"position\": 2\n            },\n            {\n                \"id\": 6,\n                \"value\": \"اتوماتیک\",\n                \"sortNumber\": 8,\n                \"name\": \"گیربکس\",\n                \"position\": 2\n            }\n        ],\n        \"bottomFeatures\": [\n            {\n                \"id\": 7,\n                \"value\": \"دارد\",\n                \"sortNumber\": 9,\n                \"name\": \"شیشه دودی\",\n                \"position\": 3\n            },\n            {\n                \"id\": 8,\n                \"value\": \"ندارد\",\n                \"sortNumber\": 10,\n                \"name\": \"بدنه اسپرت\",\n                \"position\": 3\n            },\n            {\n                \"id\": 9,\n                \"value\": \"دارد\",\n                \"sortNumber\": 11,\n                \"name\": \"روکش صندلی\",\n                \"position\": 3\n            }\n        ],\n        \"otherFeatures\": [],\n        \"categoryPath\": [\n            {\n                \"id\": 24,\n                \"title\": \"سواری و وانت\"\n            },\n            {\n                \"id\": 20,\n                \"title\": \"خودرو\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"وسایل نقلیه\"\n            }\n        ]\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "Add Advertisement Note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"11",
+								"note"
+							]
+						},
+						"description": "*fields*\n\n`note`: \"string\"\n  - **Required**\n  - **Max length** is 255\n\n\n*Notes*\n\n  - **Login Required**"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"note"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 20 Mar 2023 11:26:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
+						},
+						{
+							"name": "Bad Note",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"note\":\"this is my note that is very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"note"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 20 Mar 2023 11:27:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-17ab9d1d3fdbd4c9b47f3ad4931ad4b8-882aad154d5f7f67-00\",\n    \"errors\": {\n        \"Note\": [\n            \"یادداشت باید حداکثر 255 کاراکتر باشد\"\n        ]\n    }\n}"
+						}
+					]
 				}
 			]
 		},

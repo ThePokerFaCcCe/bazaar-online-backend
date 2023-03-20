@@ -70,6 +70,16 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .WithOne(a => a.User)
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(u => u.WatchedAdvertisements)
+                .WithOne(ua => ua.User)
+                .HasForeignKey(ua => ua.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(u => u.AdvertisementNotes)
+                .WithOne(un => un.User)
+                .HasForeignKey(un => un.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<User> builder)
