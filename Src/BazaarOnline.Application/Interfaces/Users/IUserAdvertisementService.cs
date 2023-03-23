@@ -15,4 +15,10 @@ public interface IUserAdvertisementService
     bool AddNote(CreateAdvertisementNoteDTO dto, string userId, int advertisementId);
 
     #endregion
+
+    #region Bookmark
+
+    AdvertisementBookmarkDTO AddOrRemoveBookmark(AdvertisementBookmarkDTO dto, string userId, int advertisementId);
+
+    #endregion
 }

@@ -56,4 +56,28 @@ public class UserAdvertisementService : IUserAdvertisementService
         _repository.Save();
         return true;
     }
+
+    public AdvertisementBookmarkDTO AddOrRemoveBookmark(AdvertisementBookmarkDTO dto, string userId,
+        int advertisementId)
+    {
+        var bookmark = _repository
+            .GetAll<UserAdvertisementBookmark>()
+            .SingleOrDefault(u => u.UserId == userId && u.AdvertisementId == advertisementId);
+
+        if (dto.IsBookmarked == false && bookmark != null)
+        {
+            _repository.Remove(bookmark);
+        }
+        else if (dto.IsBookmarked && bookmark == null)
+        {
+            _repository.Add(new UserAdvertisementBookmark
+            {
+                AdvertisementId = advertisementId,
+                UserId = userId,
+            });
+        }
+
+        _repository.Save();
+        return dto;
+    }
 }

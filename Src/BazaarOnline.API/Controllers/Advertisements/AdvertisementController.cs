@@ -123,6 +123,22 @@ namespace BazaarOnline.API.Controllers.Advertisements
         }
 
         [Authorize]
+        [HttpPost("{id:int}/bookmark")]
+        public IActionResult AddAdvertisementBookmark(int id, [FromBody] AdvertisementBookmarkDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(dto);
+
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.AddOrRemoveBookmark(dto, userId, id);
+            return Ok(result);
+        }
+
+        [Authorize]
         [HttpPost("{id:int}/note")]
         public IActionResult AddAdvertisementNote(int id, [FromBody] CreateAdvertisementNoteDTO dto)
         {

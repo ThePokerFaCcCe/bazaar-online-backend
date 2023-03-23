@@ -2,11 +2,13 @@
 
 namespace BazaarOnline.Domain.Entities.Users;
 
-public class UserAdvertisementBookmark
+public class UserAdvertisementHistory
 {
     public int Id { get; set; }
 
     public DateTime CreateDate { get; set; }
+
+    public bool IsDeleted { get; set; }
 
     public string UserId { get; set; }
 

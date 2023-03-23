@@ -111,6 +111,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .WithOne(u => u.Advertisement)
                 .HasForeignKey(u => u.AdvertisementId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(a => a.UserBookmarks)
+                .WithOne(u => u.Advertisement)
+                .HasForeignKey(u => u.AdvertisementId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Advertisement> builder)
