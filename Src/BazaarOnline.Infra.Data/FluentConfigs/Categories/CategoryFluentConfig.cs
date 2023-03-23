@@ -23,6 +23,10 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Categories
             builder.Property(c => c.Title)
                 .HasMaxLength(32)
                 .IsRequired();
+
+            builder.Property(c => c.Icon)
+                .HasMaxLength(32)
+                .HasDefaultValue("");
         }
 
         private void ConfigureQueryFilters(EntityTypeBuilder<Category> builder)
