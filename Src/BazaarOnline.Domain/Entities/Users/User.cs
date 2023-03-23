@@ -32,6 +32,8 @@ namespace BazaarOnline.Domain.Entities.Users
 
         public IEnumerable<UserAdvertisementNote> AdvertisementNotes { get; set; }
 
+        public IEnumerable<UserAdvertisementBookmark> AdvertisementBookmarks { get; set; }
+
         #endregion
     }
 }

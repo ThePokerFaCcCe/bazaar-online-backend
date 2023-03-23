@@ -22,6 +22,7 @@ namespace BazaarOnline.Infra.Data.Contexts
         public DbSet<ValidationCode> ActiveCodes { get; set; }
         public DbSet<UserAdvertisementNote> UserAdvertisementNotes { get; set; }
         public DbSet<UserAdvertisementHistory> UserAdvertisementHistories { get; set; }
+        public DbSet<UserAdvertisementBookmark> UserAdvertisementBookmark { get; set; }
 
         #endregion
 

@@ -125,13 +125,18 @@ public class AdvertisementService : IAdvertisementService
             return null;
 
         var note = string.Empty;
+        var isBookmarked = false;
         if (!string.IsNullOrEmpty(userId))
         {
             var foundNote = _repository.GetAll<UserAdvertisementNote>()
                 .SingleOrDefault(u => u.UserId == userId && u.AdvertisementId == advertisement.Id);
             if (foundNote != null)
                 note = foundNote.Note;
+
+            isBookmarked = _repository.GetAll<UserAdvertisementBookmark>()
+                .Any(u => u.UserId == userId && u.AdvertisementId == advertisement.Id);
         }
+
 
         var features = advertisement.AdvertisementFeatures
             .Select(af => new AdvertisementFeatureDetailViewModel
@@ -160,6 +165,7 @@ public class AdvertisementService : IAdvertisementService
             Data = new AdvertisementDetailDataViewModel
             {
                 Note = note,
+                IsBookmarked = isBookmarked,
                 Province = advertisement.Province.Name,
                 City = advertisement.City.Name,
                 CategoryPath = advertisementCategoryPath,

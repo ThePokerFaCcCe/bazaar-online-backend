@@ -18,6 +18,8 @@ public class AdvertisementDetailDataViewModel
 
     public string Note { get; set; } = string.Empty;
 
+    public bool IsBookmarked { get; set; } = false;
+
     public string Address { get; set; } = string.Empty;
 
     public string Province { get; set; } = string.Empty;

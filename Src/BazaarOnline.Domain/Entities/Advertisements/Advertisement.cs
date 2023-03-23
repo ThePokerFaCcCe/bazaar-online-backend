@@ -51,6 +51,8 @@ public class Advertisement
 
     public IEnumerable<UserAdvertisementNote> UserNotes { get; set; }
 
+    public IEnumerable<UserAdvertisementBookmark> UserBookmarks { get; set; }
+
     public Category Category { get; set; }
 
     public Province Province { get; set; }
