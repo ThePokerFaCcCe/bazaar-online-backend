@@ -6,4 +6,5 @@ public enum LocationValidationStatusEnum
     ProvinceNotFound,
     CityNotFound,
     CoordinatesNotInProvince,
+    ServerError,
 }

@@ -90,8 +90,20 @@ namespace BazaarOnline.Application.Services.Maps
                 };
             }
 
-            bool isValidCoordinates =
-                ReverseGeocoding.IsCoordinateInsideProvince(province.AmarCode, latitude, longitude);
+            bool isValidCoordinates = false;
+            try
+            {
+                isValidCoordinates =
+                    ReverseGeocoding.IsCoordinateInsideProvince(province.AmarCode, latitude, longitude);
+            }
+            catch (Exception e)
+            {
+                return new LocationValidationResultDTO
+                {
+                    Status = LocationValidationStatusEnum.ServerError,
+                    Message = $"خطا در برقراری ارتباط با سرور اعتبارسنجی مختصات. - {e.Message}",
+                };
+            }
 
             if (!isValidCoordinates)
             {
