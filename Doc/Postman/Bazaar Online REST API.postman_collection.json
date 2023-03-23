@@ -186,7 +186,48 @@
 						},
 						"description": "Return hierarchy list of categories"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/categories",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Mar 2023 11:35:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"املاک\",\n        \"hasChildren\": true,\n        \"indentLevel\": 0,\n        \"children\": [\n            {\n                \"id\": 11,\n                \"parentId\": 1,\n                \"icon\": \"\",\n                \"title\": \"فروش مسکونی\",\n                \"hasChildren\": true,\n                \"indentLevel\": 1,\n                \"children\": [\n                    {\n                        \"id\": 17,\n                        \"parentId\": 11,\n                        \"icon\": \"\",\n                        \"title\": \"آپارتمان\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 18,\n                        \"parentId\": 11,\n                        \"icon\": \"\",\n                        \"title\": \"خانه و ویلا\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    }\n                ]\n            },\n            {\n                \"id\": 12,\n                \"parentId\": 1,\n                \"icon\": \"\",\n                \"title\": \"اجاره مسکونی\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"وسایل نقلیه\",\n        \"hasChildren\": true,\n        \"indentLevel\": 0,\n        \"children\": [\n            {\n                \"id\": 20,\n                \"parentId\": 2,\n                \"icon\": \"\",\n                \"title\": \"خودرو\",\n                \"hasChildren\": true,\n                \"indentLevel\": 1,\n                \"children\": [\n                    {\n                        \"id\": 24,\n                        \"parentId\": 20,\n                        \"icon\": \"\",\n                        \"title\": \"سواری و وانت\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 25,\n                        \"parentId\": 20,\n                        \"icon\": \"\",\n                        \"title\": \"کلاسیک\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 26,\n                        \"parentId\": 20,\n                        \"icon\": \"\",\n                        \"title\": \"اجاره\\u200cای\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 27,\n                        \"parentId\": 20,\n                        \"icon\": \"\",\n                        \"title\": \"سنگین\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    }\n                ]\n            },\n            {\n                \"id\": 21,\n                \"parentId\": 2,\n                \"icon\": \"\",\n                \"title\": \"قطعات یدکی و لوازم جانبی خودرو\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            },\n            {\n                \"id\": 22,\n                \"parentId\": 2,\n                \"icon\": \"\",\n                \"title\": \"موتورسیکلت و لوازم جانبی\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"کالای دیجیتال\",\n        \"hasChildren\": true,\n        \"indentLevel\": 0,\n        \"children\": [\n            {\n                \"id\": 28,\n                \"parentId\": 3,\n                \"icon\": \"\",\n                \"title\": \"موبایل و تبلت\",\n                \"hasChildren\": true,\n                \"indentLevel\": 1,\n                \"children\": [\n                    {\n                        \"id\": 33,\n                        \"parentId\": 28,\n                        \"icon\": \"\",\n                        \"title\": \"گوشی موبایل\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 34,\n                        \"parentId\": 28,\n                        \"icon\": \"\",\n                        \"title\": \"تبلت\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 35,\n                        \"parentId\": 28,\n                        \"icon\": \"\",\n                        \"title\": \"لوازم جانبی موبایل و تبلت\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    },\n                    {\n                        \"id\": 36,\n                        \"parentId\": 28,\n                        \"icon\": \"\",\n                        \"title\": \"سیم کارت\",\n                        \"hasChildren\": false,\n                        \"indentLevel\": 2,\n                        \"children\": []\n                    }\n                ]\n            },\n            {\n                \"id\": 29,\n                \"parentId\": 3,\n                \"icon\": \"\",\n                \"title\": \"رایانه\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            },\n            {\n                \"id\": 30,\n                \"parentId\": 3,\n                \"icon\": \"\",\n                \"title\": \"کنسول، بازی\\u200c ویدئویی و آنلاین\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            },\n            {\n                \"id\": 31,\n                \"parentId\": 3,\n                \"icon\": \"\",\n                \"title\": \"صوتی و تصویری\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            },\n            {\n                \"id\": 32,\n                \"parentId\": 3,\n                \"icon\": \"\",\n                \"title\": \"تلفن رومیزی\",\n                \"hasChildren\": false,\n                \"indentLevel\": 1,\n                \"children\": []\n            }\n        ]\n    },\n    {\n        \"id\": 4,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"خانه و آشپزخانه\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 5,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"خدمات\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 6,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"وسایل شخصی\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 7,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"سرگرمی و فراغت\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 8,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"اجتماعی\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 9,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"تجهیزات و صنعتی\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    },\n    {\n        \"id\": 10,\n        \"parentId\": null,\n        \"icon\": \"\",\n        \"title\": \"استخدام و کاریابی\",\n        \"hasChildren\": false,\n        \"indentLevel\": 0,\n        \"children\": []\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Get Category Features List",
@@ -863,6 +904,88 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-17ab9d1d3fdbd4c9b47f3ad4931ad4b8-882aad154d5f7f67-00\",\n    \"errors\": {\n        \"Note\": [\n            \"یادداشت باید حداکثر 255 کاراکتر باشد\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Advertisement Bookmark",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"11",
+								"bookmark"
+							]
+						},
+						"description": "*fields*\n\n`isBookmarked`: \"bool\"\n  - **Required**\n\n\n\n*Notes*\n\n  - **Login Required**"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"bookmark"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Mar 2023 12:09:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isBookmarked\": true\n}"
 						}
 					]
 				}
