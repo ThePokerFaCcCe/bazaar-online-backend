@@ -102,6 +102,8 @@ namespace BazaarOnline.API.Controllers.Advertisements
                         ModelState.AddModelError(nameof(dto.Latitude), locationValidation.Message);
                         ModelState.AddModelError(nameof(dto.Longitude), locationValidation.Message);
                         break;
+                    case LocationValidationStatusEnum.ServerError:
+                        return StatusCode(500, locationValidation);
                 }
 
                 hasErrors = true;

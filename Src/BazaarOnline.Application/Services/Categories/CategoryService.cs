@@ -15,6 +15,15 @@ namespace BazaarOnline.Application.Services.Categories
             _repository = repository;
         }
 
+        private void SetLevel(IEnumerable<CategoryListDetailViewModel> categories, int level)
+        {
+            foreach (var c in categories)
+            {
+                c.IndentLevel = level;
+                SetLevel(c.Children, level + 1);
+            }
+        }
+
         public IEnumerable<CategoryListDetailViewModel> GetAllCategories()
         {
             var categories = _repository.GetAll<Category>()
@@ -35,12 +44,12 @@ namespace BazaarOnline.Application.Services.Categories
                     {
                         cParent.Children.Add(cChild);
                         cParent.HasChildren = true;
-                        ;
                     }
                 });
             });
-
-            return categories.Where(c => c.ParentId == null);
+            categories = categories.Where(c => c.ParentId == null).ToList();
+            SetLevel(categories, 0);
+            return categories;
         }
 
         public CategoryTreeNodeTypeEnum? GetCategoryType(int categoryId)
