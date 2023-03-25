@@ -139,6 +139,31 @@ namespace BazaarOnline.API.Controllers.Advertisements
         }
 
         [Authorize]
+        [HttpDelete("{id:int}/note")]
+        public IActionResult RemoveAdvertisementNote(int id)
+        {
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.RemoveNote(userId, id);
+            if (result)
+            {
+                return Ok(new OperationResultDTO
+                {
+                    IsSuccess = true
+                });
+            }
+
+            return StatusCode(500, new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = "خطا در حذف یادداشت"
+            });
+        }
+
+        [Authorize]
         [HttpPost("{id:int}/note")]
         public IActionResult AddAdvertisementNote(int id, [FromBody] CreateAdvertisementNoteDTO dto)
         {
