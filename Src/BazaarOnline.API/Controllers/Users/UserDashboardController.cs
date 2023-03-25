@@ -12,10 +12,13 @@ namespace BazaarOnline.API.Controllers.Users
     public class UserDashboardController : ControllerBase
     {
         private readonly IUserDashboardService _userDashboardService;
+        private readonly IUserAdvertisementService _userAdvertisementService;
 
-        public UserDashboardController(IUserDashboardService userDashboardService)
+        public UserDashboardController(IUserDashboardService userDashboardService,
+            IUserAdvertisementService userAdvertisementService)
         {
             _userDashboardService = userDashboardService;
+            _userAdvertisementService = userAdvertisementService;
         }
 
         [HttpGet("info")]
@@ -31,6 +34,30 @@ namespace BazaarOnline.API.Controllers.Users
             if (!ModelState.IsValid) return BadRequest(dto);
 
             return Ok(_userDashboardService.UpdateUserDashboardDetail(User.Identity.Name, dto));
+        }
+
+        [HttpGet("bookmarks")]
+        public IActionResult GetUserBookmarks()
+        {
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.GetUserBookmarks(userId);
+            return Ok(result);
+        }
+
+        [HttpGet("history")]
+        public IActionResult GetUserHistory()
+        {
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.GetAdvertisementsHistory(userId);
+            return Ok(result);
+        }
+
+        [HttpGet("notes")]
+        public IActionResult GetUserNotes()
+        {
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.GetUserNotes(userId);
+            return Ok(result);
         }
     }
 }

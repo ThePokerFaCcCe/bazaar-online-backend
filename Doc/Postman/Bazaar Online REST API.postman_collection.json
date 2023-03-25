@@ -133,7 +133,242 @@
 						},
 						"description": "Get authenticated user short detail which can be used for getting info after login."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/info",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me",
+										"info"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 13:23:34 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"displayName\": \"Bazaar User\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "User Bookmarked Ads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/bookmarks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"users",
+								"me",
+								"bookmarks"
+							]
+						},
+						"description": "Get List of Ads which User Bookmarked them\n\n*Notes*\n  - `feaures` key is always empty array"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/bookmarks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me",
+										"bookmarks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 13:23:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 11,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"11 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"11 روز پیش در قم\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "User Noted Ads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/notes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"users",
+								"me",
+								"notes"
+							]
+						},
+						"description": "Get List of Ads which User Wrote note for them\n\n*Notes*\n  - `feaures` key is always empty array\n  - `note` will be trimmed automatically but should be truncated by yourself"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/notes",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me",
+										"notes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 13:20:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 11,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n            \"note\": \"this is my note\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"11 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"11 روز پیش در قم\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "User History of Ads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/history",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"users",
+								"me",
+								"history"
+							]
+						},
+						"description": "Get List of Ads which User Watched them\n\n*Notes*\n  - `feaures` key is always empty array"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me/history",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me",
+										"history"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 12:46:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 12,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-23T13:52:16.5333333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:17.61\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"11 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"11 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"title\": \"وانت نیسان تمیز\",\n            \"updateDate\": \"2023-03-13T23:51:07.7033333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": {\n                \"fileName\": \"66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"imageUrl\": \"/advertiesements/images/66a190f9b2b4431e8764d06086003d0a.jpg\",\n                \"thumbUrl\": \"/advertiesements/thumbnails/66a190f9b2b4431e8764d06086003d0a.jpg\"\n            },\n            \"timeText\": \"11 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"11 روز پیش در قم\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n            \"features\": [],\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"11 روز پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"11 روز پیش در قم\"\n        }\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Update Dashboard Detail",
@@ -162,7 +397,108 @@
 						},
 						"description": "Update user dashboard data. like display name.\n\n*fields*\n\n\n`displayName`: \"string\"\n  - **Required**\n  - **Min length** is 4\n  - **Max length** is 60"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"displayName\":\"Bazaar User\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 13:23:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"displayName\": \"Bazaar User\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null\n}"
+						},
+						{
+							"name": "Bad Input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"displayName\":\"Bazaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddr User\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/users/me",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"users",
+										"me"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Mar 2023 13:24:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-5364021061286f5c88b39ae91066daef-3c78c84ab8064ba7-00\",\n    \"errors\": {\n        \"DisplayName\": [\n            \"نام نمایشی باید بین 60 و 4 کاراکتر باشد\"\n        ]\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -775,6 +1111,88 @@
 					]
 				},
 				{
+					"name": "Advertisement Bookmark",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"11",
+								"bookmark"
+							]
+						},
+						"description": "*fields*\n\n`isBookmarked`: \"bool\"\n  - **Required**\n\n\n\n*Notes*\n\n  - **Login Required**"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"bookmark"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Mar 2023 12:09:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isBookmarked\": true\n}"
+						}
+					]
+				},
+				{
 					"name": "Add Advertisement Note",
 					"request": {
 						"method": "POST",
@@ -908,21 +1326,12 @@
 					]
 				},
 				{
-					"name": "Advertisement Bookmark",
+					"name": "Rem Advertisement Note",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"isBookmarked\":true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -930,10 +1339,10 @@
 								"{{API_VERSION}}",
 								"advertisements",
 								"11",
-								"bookmark"
+								"note"
 							]
 						},
-						"description": "*fields*\n\n`isBookmarked`: \"bool\"\n  - **Required**\n\n\n\n*Notes*\n\n  - **Login Required**"
+						"description": "*Notes*\n\n  - **Login Required**"
 					},
 					"response": [
 						{
@@ -943,7 +1352,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+									"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -951,7 +1360,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
 									"host": [
 										"{{BASE_URL}}"
 									],
@@ -959,7 +1368,7 @@
 										"{{API_VERSION}}",
 										"advertisements",
 										"11",
-										"bookmark"
+										"note"
 									]
 								}
 							},
@@ -973,7 +1382,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 23 Mar 2023 12:09:15 GMT"
+									"value": "Mon, 20 Mar 2023 11:26:23 GMT"
 								},
 								{
 									"key": "Server",
@@ -985,7 +1394,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"isBookmarked\": true\n}"
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
 						}
 					]
 				}
