@@ -32,6 +32,7 @@ namespace BazaarOnline.Application.Services.Categories
                     Id = c.Id,
                     ParentId = c.ParentCategoryId,
                     Title = c.Title,
+                    Icon = c.Icon,
                     HasChildren = false,
                     Children = new List<CategoryListDetailViewModel>(),
                 }).ToList();
