@@ -22,9 +22,9 @@ public class AdvertisementDetailDataViewModel
 
     public string Address { get; set; } = string.Empty;
 
-    public string Province { get; set; } = string.Empty;
+    public AdvertisementProvinceDetailViewModel Province { get; set; } = new AdvertisementProvinceDetailViewModel();
 
-    public string City { get; set; } = string.Empty;
+    public AdvertisementCityDetailViewModel City { get; set; } = new AdvertisementCityDetailViewModel();
 
     public AdvertisementLocationDetailViewModel Location { get; set; } = new AdvertisementLocationDetailViewModel();
 

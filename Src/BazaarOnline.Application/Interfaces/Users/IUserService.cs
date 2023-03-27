@@ -1,4 +1,5 @@
 using BazaarOnline.Application.DTOs.UserDTOs;
+using BazaarOnline.Application.ViewModels.Users;
 using BazaarOnline.Domain.Entities.Users;
 
 namespace BazaarOnline.Application.Interfaces.Users

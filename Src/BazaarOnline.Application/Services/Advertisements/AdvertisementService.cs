@@ -61,6 +61,11 @@ public class AdvertisementService : IAdvertisementService
             .Any(a => a.Id == id);
     }
 
+    public Advertisement? GetAdvertisement(int id)
+    {
+        return _repository.Get<Advertisement>(id);
+    }
+
     public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)
     {
         var advertisements = _repository.GetAll<Advertisement>()
@@ -166,8 +171,8 @@ public class AdvertisementService : IAdvertisementService
             {
                 Note = note,
                 IsBookmarked = isBookmarked,
-                Province = advertisement.Province.Name,
-                City = advertisement.City.Name,
+                Province = new AdvertisementProvinceDetailViewModel().FillFromObject(advertisement.Province),
+                City = new AdvertisementCityDetailViewModel().FillFromObject(advertisement.City),
                 CategoryPath = advertisementCategoryPath,
                 Location = new AdvertisementLocationDetailViewModel().FillFromObject(advertisement),
 
