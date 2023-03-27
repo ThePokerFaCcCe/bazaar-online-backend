@@ -8,6 +8,8 @@ using BazaarOnline.Application.Interfaces.Maps;
 using BazaarOnline.Application.Interfaces.UploadCenter;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.ViewModels.Categories;
+using BazaarOnline.Application.ViewModels.Users;
+using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.UploadCenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -161,6 +163,26 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 IsSuccess = false,
                 Message = "خطا در حذف یادداشت"
             });
+        }
+
+        [Authorize]
+        [HttpGet("{id:int}/contact")]
+        public IActionResult GetAdvertisementContactDetail(int id)
+        {
+            var advertisement = _advertisementService.GetAdvertisement(id);
+            if (advertisement == null)
+                return NotFound();
+
+            if (advertisement.ContactType is AdvertisementContactTypeEnum.ChatOnly)
+                return Ok(new UserContactViewModel
+                {
+                    Success = false,
+                    ErrorMessage = "اطلاعات تماس کاربر مخفی میباشد. از چت استفاده کنید"
+                });
+
+            var userId = advertisement.UserId;
+            var result = _userAdvertisementService.GetUserContactDetail(userId);
+            return Ok(result);
         }
 
         [Authorize]

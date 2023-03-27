@@ -1,6 +1,7 @@
 using BazaarOnline.Application.DTOs.UserDTOs;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.Utils.Extensions;
+using BazaarOnline.Application.ViewModels.Users;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
 

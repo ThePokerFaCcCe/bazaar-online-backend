@@ -61,6 +61,11 @@ public class AdvertisementService : IAdvertisementService
             .Any(a => a.Id == id);
     }
 
+    public Advertisement? GetAdvertisement(int id)
+    {
+        return _repository.Get<Advertisement>(id);
+    }
+
     public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)
     {
         var advertisements = _repository.GetAll<Advertisement>()

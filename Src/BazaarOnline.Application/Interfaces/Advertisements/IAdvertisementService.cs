@@ -1,5 +1,6 @@
 ﻿using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.ViewModels.Advertisements;
+using BazaarOnline.Domain.Entities.Advertisements;
 
 namespace BazaarOnline.Application.Interfaces.Advertisements;
 
@@ -14,6 +15,7 @@ public interface IAdvertisementService
     int CreateAdvertisement(CreateAdvertisementDTO dto, string userId);
 
     bool IsAdvertisementExists(int id);
+    Advertisement? GetAdvertisement(int id);
 
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
 

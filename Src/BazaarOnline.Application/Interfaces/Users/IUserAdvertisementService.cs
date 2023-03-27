@@ -1,10 +1,13 @@
 ﻿using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.ViewModels.Advertisements;
+using BazaarOnline.Application.ViewModels.Users;
 
 namespace BazaarOnline.Application.Interfaces.Users;
 
 public interface IUserAdvertisementService
 {
+    UserContactViewModel GetUserContactDetail(string userId);
+
     #region History
 
     void AddAdvertisementToUserHistory(string userId, int advertisementId);

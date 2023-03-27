@@ -4,6 +4,7 @@ using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Advertisements;
+using BazaarOnline.Application.ViewModels.Users;
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
@@ -18,6 +19,17 @@ public class UserAdvertisementService : IUserAdvertisementService
     public UserAdvertisementService(IRepository repository)
     {
         _repository = repository;
+    }
+
+    public UserContactViewModel GetUserContactDetail(string userId)
+    {
+        var user = _repository.Get<User>(userId);
+        return new UserContactViewModel
+        {
+            Success = true,
+            Email = user?.Email ?? string.Empty,
+            PhoneNumber = user?.PhoneNumber ?? string.Empty,
+        };
     }
 
     public void AddAdvertisementToUserHistory(string userId, int advertisementId)
