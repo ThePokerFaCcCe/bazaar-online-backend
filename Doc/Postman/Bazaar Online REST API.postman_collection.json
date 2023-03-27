@@ -731,7 +731,7 @@
 								"advertisements"
 							]
 						},
-						"description": "Create Advertisement\n\n*fields*\n\n\n`Pictures`: List int\n*List of image ids that uploaded to* `Upload Image` *request.*\n  - Error message is a json string object.\ntemplate:`{\"image_id\":\"error msg\"}`\nexample: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n\n`Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n\n*Notes*\n\n  - **Login Required**"
+						"description": "Create Advertisement\n\n*fields*\n\n\n- `Pictures`: List int\n  - *List of image ids that uploaded to* `Upload Image` *request.*\n  - Error message is a json string object.\ntemplate:`{\"image_id\":\"error msg\"}`\nexample: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n\n- `Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only\n\n*Notes*\n\n  - **Login Required**"
 					},
 					"response": [
 						{
@@ -1023,16 +1023,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/2",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"advertisements",
-								"11"
+								"2"
 							]
-						}
+						},
+						"description": "Get Advertisement Detail\n\n*Output*\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only"
 					},
 					"response": [
 						{
@@ -1041,46 +1042,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/2",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
 										"{{API_VERSION}}",
 										"advertisements",
-										"11"
-									],
-									"query": [
-										{
-											"key": "Title",
-											"value": "",
-											"description": "Search by Title",
-											"disabled": true
-										},
-										{
-											"key": "Category",
-											"value": null,
-											"description": "Category ID",
-											"disabled": true
-										},
-										{
-											"key": "Cities",
-											"value": null,
-											"description": "List of City IDs\ne.g. 2,4,1",
-											"disabled": true
-										},
-										{
-											"key": "OrderBy",
-											"value": null,
-											"description": "Order Result. Add ` - ` for Descending Order\nFields: Title , UpdateDate\ne.g. ` Title ` (ASC)\ne.g. ` -Title ` (DESC)",
-											"disabled": true
-										},
-										{
-											"key": "HasPicture",
-											"value": "true",
-											"description": "Show Ads That Have Pictures - boolen",
-											"disabled": true
-										}
+										"2"
 									]
 								}
 							},
@@ -1094,7 +1063,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 11:24:29 GMT"
+									"value": "Mon, 27 Mar 2023 13:19:10 GMT"
 								},
 								{
 									"key": "Server",
@@ -1106,7 +1075,112 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 11,\n    \"data\": {\n        \"title\": \"وانت نیسان aaaaتمیز\",\n        \"description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\n        \"address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\n        \"contactType\": 1,\n        \"createDate\": \"2023-03-13T23:57:52.0933333\",\n        \"updateDate\": \"2023-03-13T23:57:52.0933333\",\n        \"pictures\": [],\n        \"province\": \"قم\",\n        \"city\": \"قم\",\n        \"location\": {\n            \"longitude\": 50.85206604003906,\n            \"latitude\": 34.68858337402344\n        },\n        \"isChatEnabled\": true,\n        \"timeText\": \"5 روز پیش\",\n        \"topFeatures\": [\n            {\n                \"id\": 1,\n                \"value\": \"1350\",\n                \"sortNumber\": 1,\n                \"name\": \"مدل\",\n                \"position\": 1\n            },\n            {\n                \"id\": 2,\n                \"value\": \"264000\",\n                \"sortNumber\": 2,\n                \"name\": \"کارکرد\",\n                \"position\": 1\n            },\n            {\n                \"id\": 3,\n                \"value\": \"قهوه ای\",\n                \"sortNumber\": 3,\n                \"name\": \"رنگ\",\n                \"position\": 1\n            }\n        ],\n        \"middleFeatures\": [\n            {\n                \"id\": 4,\n                \"value\": \"زامیاد\",\n                \"sortNumber\": 5,\n                \"name\": \"برند\",\n                \"position\": 2\n            },\n            {\n                \"id\": 5,\n                \"value\": \"برقی\",\n                \"sortNumber\": 6,\n                \"name\": \"نوع سوخت\",\n                \"position\": 2\n            },\n            {\n                \"id\": 6,\n                \"value\": \"اتوماتیک\",\n                \"sortNumber\": 8,\n                \"name\": \"گیربکس\",\n                \"position\": 2\n            }\n        ],\n        \"bottomFeatures\": [\n            {\n                \"id\": 7,\n                \"value\": \"دارد\",\n                \"sortNumber\": 9,\n                \"name\": \"شیشه دودی\",\n                \"position\": 3\n            },\n            {\n                \"id\": 8,\n                \"value\": \"ندارد\",\n                \"sortNumber\": 10,\n                \"name\": \"بدنه اسپرت\",\n                \"position\": 3\n            },\n            {\n                \"id\": 9,\n                \"value\": \"دارد\",\n                \"sortNumber\": 11,\n                \"name\": \"روکش صندلی\",\n                \"position\": 3\n            }\n        ],\n        \"otherFeatures\": [],\n        \"categoryPath\": [\n            {\n                \"id\": 24,\n                \"title\": \"سواری و وانت\"\n            },\n            {\n                \"id\": 20,\n                \"title\": \"خودرو\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"وسایل نقلیه\"\n            }\n        ]\n    }\n}"
+							"body": "{\n    \"id\": 2,\n    \"data\": {\n        \"title\": \"وانت نیسان aaaaتمیز\",\n        \"description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\n        \"address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\n        \"contactType\": 1,\n        \"createDate\": \"2023-03-27T15:32:31.3066667\",\n        \"updateDate\": \"2023-03-27T15:32:31.3066667\",\n        \"pictures\": [],\n        \"province\": {\n            \"id\": 19,\n            \"name\": \"قم\"\n        },\n        \"city\": {\n            \"id\": 1081,\n            \"name\": \"قم\"\n        },\n        \"note\": \"\",\n        \"isBookmarked\": false,\n        \"location\": {\n            \"longitude\": 50.85206604003906,\n            \"latitude\": 34.68858337402344\n        },\n        \"isChatEnabled\": true,\n        \"timeText\": \"1 ساعت پیش\",\n        \"topFeatures\": [\n            {\n                \"id\": 1,\n                \"value\": \"1350\",\n                \"sortNumber\": 1,\n                \"name\": \"مدل\",\n                \"position\": 1\n            },\n            {\n                \"id\": 2,\n                \"value\": \"264000\",\n                \"sortNumber\": 2,\n                \"name\": \"کارکرد\",\n                \"position\": 1\n            },\n            {\n                \"id\": 3,\n                \"value\": \"قهوه ای\",\n                \"sortNumber\": 3,\n                \"name\": \"رنگ\",\n                \"position\": 1\n            }\n        ],\n        \"middleFeatures\": [\n            {\n                \"id\": 4,\n                \"value\": \"زامیاد\",\n                \"sortNumber\": 5,\n                \"name\": \"برند\",\n                \"position\": 2\n            },\n            {\n                \"id\": 5,\n                \"value\": \"برقی\",\n                \"sortNumber\": 6,\n                \"name\": \"نوع سوخت\",\n                \"position\": 2\n            },\n            {\n                \"id\": 6,\n                \"value\": \"اتوماتیک\",\n                \"sortNumber\": 8,\n                \"name\": \"گیربکس\",\n                \"position\": 2\n            }\n        ],\n        \"bottomFeatures\": [\n            {\n                \"id\": 7,\n                \"value\": \"دارد\",\n                \"sortNumber\": 9,\n                \"name\": \"شیشه دودی\",\n                \"position\": 3\n            },\n            {\n                \"id\": 8,\n                \"value\": \"ندارد\",\n                \"sortNumber\": 10,\n                \"name\": \"بدنه اسپرت\",\n                \"position\": 3\n            },\n            {\n                \"id\": 9,\n                \"value\": \"دارد\",\n                \"sortNumber\": 11,\n                \"name\": \"روکش صندلی\",\n                \"position\": 3\n            }\n        ],\n        \"otherFeatures\": [],\n        \"categoryPath\": [\n            {\n                \"id\": 24,\n                \"title\": \"سواری و وانت\"\n            },\n            {\n                \"id\": 20,\n                \"title\": \"خودرو\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"وسایل نقلیه\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Advertisement Contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/4/contact",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"4",
+								"contact"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/4/contact",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"4",
+										"contact"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 12:41:26 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"errorMessage\": \"\",\n    \"phoneNumber\": \"09191234567\",\n    \"email\": \"user@example.com\"\n}"
+						},
+						{
+							"name": "Error Chat Only",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/3/contact",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"3",
+										"contact"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 12:40:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"errorMessage\": \"اطلاعات تماس کاربر مخفی میباشد. از چت استفاده کنید\",\n    \"phoneNumber\": \"\",\n    \"email\": \"\"\n}"
 						}
 					]
 				},

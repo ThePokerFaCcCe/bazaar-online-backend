@@ -171,8 +171,8 @@ public class AdvertisementService : IAdvertisementService
             {
                 Note = note,
                 IsBookmarked = isBookmarked,
-                Province = advertisement.Province.Name,
-                City = advertisement.City.Name,
+                Province = new AdvertisementProvinceDetailViewModel().FillFromObject(advertisement.Province),
+                City = new AdvertisementCityDetailViewModel().FillFromObject(advertisement.City),
                 CategoryPath = advertisementCategoryPath,
                 Location = new AdvertisementLocationDetailViewModel().FillFromObject(advertisement),
 
