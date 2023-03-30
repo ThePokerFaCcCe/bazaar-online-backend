@@ -20,4 +20,6 @@ public interface IAdvertisementService
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
 
     AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false, string? userId = null);
+
+    IEnumerable<AdvertisementSearchSuggestViewModel> SearchSuggestAdvertisement(AdvertisementSearchDTO searchDto);
 }

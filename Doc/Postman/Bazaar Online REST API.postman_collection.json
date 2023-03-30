@@ -1794,6 +1794,129 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Suggest",
+			"item": [
+				{
+					"name": "Search Suggest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/suggest?query=نیسان",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"suggest"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "نیسان"
+								}
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/suggest?query=نیسان",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"suggest"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "نیسان"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 00:13:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"categoryId\": 24,\n        \"categoryTitle\": \"سواری و وانت\",\n        \"searchSuggest\": \"نیسان\",\n        \"advertisementsCount\": 3\n    }\n]"
+						},
+						{
+							"name": "Bad Query",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/suggest?query=s",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"suggest"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "s"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 29 Mar 2023 23:17:12 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-e432b34b67342ed58e14b17704431746-ed02addd4e4388b7-00\",\n    \"errors\": {\n        \"Query\": [\n            \"متن باید بین 50 و 3 کاراکتر باشد\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
