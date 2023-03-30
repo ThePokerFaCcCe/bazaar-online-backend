@@ -186,4 +186,61 @@ public class AdvertisementService : IAdvertisementService
             }.FillFromObject(advertisement)
         }.FillFromObject(advertisement);
     }
+
+    public IEnumerable<AdvertisementSearchSuggestViewModel> SearchSuggestAdvertisement(AdvertisementSearchDTO searchDto)
+    {
+        searchDto.TrimStrings();
+        var queryWords = searchDto.Query.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Trim().ToLower());
+        var queryLastWord = queryWords.Last();
+        var queryExceptLastWord = queryWords.Take(queryWords.Count() - 1);
+        var searchText = string.Join(' ', queryExceptLastWord) + " ";
+
+        var advertisementsQuery = _repository.GetAll<Advertisement>()
+            .Include(a => a.Category)
+            .AsQueryable();
+        foreach (var word in queryWords)
+        {
+            advertisementsQuery = advertisementsQuery.Where(a => a.Title.ToLower().Contains(word));
+        }
+
+        var advertisements = advertisementsQuery
+            .Select(a => new { a.Id, a.Title, a.CategoryId, CategoryTitle = a.Category.Title }).ToList();
+
+        var groupedCategories = advertisements
+            .GroupBy(a => a.CategoryId)
+            .OrderByDescending(c => c.Count())
+            .Take(5);
+
+        var suggests = new List<AdvertisementSearchSuggestViewModel>();
+
+
+        foreach (var category in groupedCategories)
+        {
+            var wordsList = category.OrderByDescending(a => a.Id).Take(500)
+                .Where(a => !queryExceptLastWord.Except(a.Title.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+                    .Any())
+                .SelectMany(a => a.Title
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => s.ToLower().Trim()));
+
+            var similarWords = wordsList
+                .GroupBy(s => s)
+                .OrderByDescending(s => s.Count())
+                .Where(s => !queryExceptLastWord.Any(q => s.Key == q) && s.Key.Contains(queryLastWord))
+                .Take(3);
+
+            suggests.AddRange(
+                similarWords.Select(s => new AdvertisementSearchSuggestViewModel
+                {
+                    AdvertisementsCount = category.Count(),
+                    CategoryId = category.Key,
+                    CategoryTitle = category.First().CategoryTitle,
+                    SearchSuggest = (searchText + s.Key).Trim(),
+                })
+            );
+        }
+
+        return suggests;
+    }
 }
