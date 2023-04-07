@@ -126,6 +126,12 @@ namespace BazaarOnline.API.Controllers.Advertisements
 
                     hasErrors = true;
                 }
+
+                if (dto.ShowExactCoordinates == null)
+                {
+                    ModelState.AddModelError(nameof(dto.ShowExactCoordinates), "این فیلد اجباری است");
+                    hasErrors = true;
+                }
             }
 
             var featureValidation = _featureHandlerService.ValidateAdvertisementFeatures(dto.CategoryId, dto.Features);

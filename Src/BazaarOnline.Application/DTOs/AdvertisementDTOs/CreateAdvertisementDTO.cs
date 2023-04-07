@@ -26,6 +26,8 @@ public class CreateAdvertisementDTO
 
     public double? Latitude { get; set; }
 
+    public bool ShowExactCoordinates { get; set; }
+
     [Display(Name = "نوع تماس")]
     [Required(ErrorMessage = "این فیلد اجباری است")]
     public AdvertisementContactTypeEnum ContactType { get; set; }

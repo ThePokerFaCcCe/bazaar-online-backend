@@ -25,6 +25,12 @@ public class AdvertisementService : IAdvertisementService
     public int CreateAdvertisement(CreateAdvertisementDTO dto, string userId)
     {
         dto.TrimStrings();
+        if (dto.Latitude == null || dto.Longitude == null)
+        {
+            dto.Latitude = null;
+            dto.Longitude = null;
+            dto.ShowExactCoordinates = false;
+        }
 
         var advertisement = new Advertisement
         {
@@ -32,7 +38,6 @@ public class AdvertisementService : IAdvertisementService
             StatusType = AdvertisementStatusTypeEnum.Accepted, //////////////////////////////////TODO: Remove line
             //StatusType = AdvertisementStatusTypeEnum.Pending,
         }.FillFromObject(dto);
-
         _repository.Add(advertisement);
 
         var advertisementPictures = dto.Pictures.Select(fileId => new AdvertisementPicture
@@ -165,6 +170,22 @@ public class AdvertisementService : IAdvertisementService
 
         advertisementCategoryPath = advertisementCategoryPath.OrderByDescending(c => c.Id).ToList();
 
+        var location = new AdvertisementLocationDetailViewModel();
+        if (advertisement.HasCoordinates)
+        {
+            if (advertisement.ShowExactCoordinates)
+            {
+                location.FillFromObject(advertisement);
+            }
+            else
+            {
+                location.Latitude = Math.Round((double)advertisement.Latitude, 5);
+                location.Longitude = Math.Round((double)advertisement.Longitude, 5);
+                location.ShowExactCoordinates = false;
+            }
+        }
+
+
         return new AdvertisementDetailViewModel
         {
             Data = new AdvertisementDetailDataViewModel
@@ -174,7 +195,7 @@ public class AdvertisementService : IAdvertisementService
                 Province = new AdvertisementProvinceDetailViewModel().FillFromObject(advertisement.Province),
                 City = new AdvertisementCityDetailViewModel().FillFromObject(advertisement.City),
                 CategoryPath = advertisementCategoryPath,
-                Location = new AdvertisementLocationDetailViewModel().FillFromObject(advertisement),
+                Location = location,
 
                 Pictures = advertisement.Pictures.Select(p =>
                     new AdvertisementPictureViewModel().FillFromObject(p.FileCenter)),

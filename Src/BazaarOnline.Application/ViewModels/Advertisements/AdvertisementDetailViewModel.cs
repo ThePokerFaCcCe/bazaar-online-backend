@@ -26,6 +26,8 @@ public class AdvertisementDetailDataViewModel
 
     public AdvertisementCityDetailViewModel City { get; set; } = new AdvertisementCityDetailViewModel();
 
+    public bool HasCoordinates { get; set; }
+
     public AdvertisementLocationDetailViewModel Location { get; set; } = new AdvertisementLocationDetailViewModel();
 
     public AdvertisementContactTypeEnum ContactType { get; set; } = AdvertisementContactTypeEnum.Normal;
