@@ -88,27 +88,50 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 hasErrors = true;
             }
 
-            var locationValidation =
-                _mapService.ValidateLocation(dto.ProvinceId, dto.CityId, dto.Longitude, dto.Latitude);
-            if (!locationValidation.IsValid)
+            if ((dto.Latitude == null && dto.Longitude != null) || (dto.Latitude != null && dto.Longitude == null))
             {
-                switch (locationValidation.Status)
+                if (dto.Latitude == null)
                 {
-                    case LocationValidationStatusEnum.ProvinceNotFound:
-                        ModelState.AddModelError(nameof(dto.ProvinceId), locationValidation.Message);
-                        break;
-                    case LocationValidationStatusEnum.CityNotFound:
-                        ModelState.AddModelError(nameof(dto.CityId), locationValidation.Message);
-                        break;
-                    case LocationValidationStatusEnum.CoordinatesNotInProvince:
-                        ModelState.AddModelError(nameof(dto.Latitude), locationValidation.Message);
-                        ModelState.AddModelError(nameof(dto.Longitude), locationValidation.Message);
-                        break;
-                    case LocationValidationStatusEnum.ServerError:
-                        return StatusCode(500, locationValidation);
+                    ModelState.AddModelError(nameof(dto.Latitude), "این فیلد اجباری است");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(dto.Longitude), "این فیلد اجباری است");
                 }
 
                 hasErrors = true;
+            }
+            else if (dto.Latitude != null && dto.Longitude != null)
+            {
+                var locationValidation =
+                    _mapService.ValidateLocation(dto.ProvinceId, dto.CityId, (double)dto.Longitude,
+                        (double)dto.Latitude);
+                if (!locationValidation.IsValid)
+                {
+                    switch (locationValidation.Status)
+                    {
+                        case LocationValidationStatusEnum.ProvinceNotFound:
+                            ModelState.AddModelError(nameof(dto.ProvinceId), locationValidation.Message);
+                            break;
+                        case LocationValidationStatusEnum.CityNotFound:
+                            ModelState.AddModelError(nameof(dto.CityId), locationValidation.Message);
+                            break;
+                        case LocationValidationStatusEnum.CoordinatesNotInProvince:
+                            ModelState.AddModelError(nameof(dto.Latitude), locationValidation.Message);
+                            ModelState.AddModelError(nameof(dto.Longitude), locationValidation.Message);
+                            break;
+                        case LocationValidationStatusEnum.ServerError:
+                            return StatusCode(500, locationValidation);
+                    }
+
+                    hasErrors = true;
+                }
+
+                if (dto.ShowExactCoordinates == null)
+                {
+                    ModelState.AddModelError(nameof(dto.ShowExactCoordinates), "این فیلد اجباری است");
+                    hasErrors = true;
+                }
             }
 
             var featureValidation = _featureHandlerService.ValidateAdvertisementFeatures(dto.CategoryId, dto.Features);

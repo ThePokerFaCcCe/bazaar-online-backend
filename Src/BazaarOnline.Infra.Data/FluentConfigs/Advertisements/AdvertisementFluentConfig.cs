@@ -33,11 +33,15 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .IsRequired();
 
             builder.Property(a => a.Longitude)
-                .HasPrecision(3, 6)
-                .IsRequired();
+                .HasPrecision(3, 7)
+                .IsRequired(false);
 
             builder.Property(a => a.Latitude)
-                .HasPrecision(3, 6)
+                .HasPrecision(3, 7)
+                .IsRequired(false);
+
+            builder.Property(a => a.ShowExactCoordinates)
+                .HasDefaultValue(false)
                 .IsRequired();
 
             builder.Property(a => a.StatusType)
@@ -61,6 +65,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .IsRequired();
 
             builder.Ignore(a => a.IsDeleted);
+            builder.Ignore(a => a.HasCoordinates);
         }
 
         private void ConfigureQueryFilters(EntityTypeBuilder<Advertisement> builder)

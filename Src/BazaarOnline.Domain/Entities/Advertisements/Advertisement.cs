@@ -15,9 +15,13 @@ public class Advertisement
 
     public string Address { get; set; }
 
-    public double Longitude { get; set; }
+    public double? Longitude { get; set; }
 
-    public double Latitude { get; set; }
+    public double? Latitude { get; set; }
+
+    public bool ShowExactCoordinates { get; set; }
+
+    public bool HasCoordinates => Longitude != null && Latitude != null;
 
     public AdvertisementStatusTypeEnum StatusType { get; set; }
 
