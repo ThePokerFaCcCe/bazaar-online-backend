@@ -731,7 +731,7 @@
 								"advertisements"
 							]
 						},
-						"description": "Create Advertisement\n\n*fields*\n\n\n- `Pictures`: List int\n  - *List of image ids that uploaded to* `Upload Image` *request.*\n  - Error message is a json string object.\ntemplate:`{\"image_id\":\"error msg\"}`\nexample: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n\n- `Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only\n\n*Notes*\n\n  - **Login Required**"
+						"description": "Create Advertisement\n\n*fields*\n\n\n- `Pictures`: List int\n  - *List of image ids that uploaded to* `Upload Image` *request.*\n  - Error message is a json string object.\ntemplate:`{\"image_id\":\"error msg\"}`\nexample: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n\n- `Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only\n\n- `Latitude` ,  `Longitude`: Double\n  - Not Required\n  - if coordinates exists, both of them should be passed. otherwise error code 400 will be returned.\n\n*Notes*\n\n  - **Login Required**"
 					},
 					"response": [
 						{

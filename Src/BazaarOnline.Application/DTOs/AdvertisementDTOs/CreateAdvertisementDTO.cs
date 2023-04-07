@@ -22,11 +22,9 @@ public class CreateAdvertisementDTO
     [MaxLength(100, ErrorMessage = "{0} باید حداکثر {1} کاراکتر باشد")]
     public string Address { get; set; }
 
-    [Required(ErrorMessage = "این فیلد اجباری است")]
-    public double Longitude { get; set; }
+    public double? Longitude { get; set; }
 
-    [Required(ErrorMessage = "این فیلد اجباری است")]
-    public double Latitude { get; set; }
+    public double? Latitude { get; set; }
 
     [Display(Name = "نوع تماس")]
     [Required(ErrorMessage = "این فیلد اجباری است")]
