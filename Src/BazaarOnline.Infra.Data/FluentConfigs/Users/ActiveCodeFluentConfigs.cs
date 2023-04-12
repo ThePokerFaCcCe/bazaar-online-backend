@@ -44,8 +44,8 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
 
         private void ConfigureIndexes(EntityTypeBuilder<ValidationCode> builder)
         {
-
         }
+
         private void ConfigureQueryFilters(EntityTypeBuilder<ValidationCode> builder)
         {
             builder.HasQueryFilter(m => m.ExpireDate > DateTime.Now);

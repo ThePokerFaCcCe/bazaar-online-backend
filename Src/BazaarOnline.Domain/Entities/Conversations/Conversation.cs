@@ -5,13 +5,13 @@ namespace BazaarOnline.Domain.Entities.Conversations
 {
     public class Conversation
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public int AdvertisementId { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
-        public int SenderId { get; set; }
+        public string CustomerId { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -21,11 +21,11 @@ namespace BazaarOnline.Domain.Entities.Conversations
         #region Relations
 
         public Advertisement Advertisement { get; set; }
-        public User Sender { get; set; }
+        public User Customer { get; set; }
         public User Owner { get; set; }
 
+        public IEnumerable<Message> Messages { get; set; }
+
         #endregion
-
-
     }
 }

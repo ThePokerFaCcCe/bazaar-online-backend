@@ -1,4 +1,5 @@
 // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,8 +11,8 @@ namespace BazaarOnline.Application.Securities
 {
     public class JwtAuthorization
     {
-
-        public static GeneratedTokenDTO GenerateToken(User user, string issuer, string signKey, string encKey, int expireMinutes = 40000)
+        public static GeneratedTokenDTO GenerateToken(User user, string issuer, string signKey, string encKey,
+            int expireMinutes = 40000)
         {
             if (string.IsNullOrEmpty(signKey))
                 throw new ArgumentNullException($"{nameof(signKey)} is null");
@@ -37,7 +38,8 @@ namespace BazaarOnline.Application.Securities
 
             // encryption
             var encryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(encKey));
-            var encryptingCredentials = new EncryptingCredentials(encryptionKey, SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
+            var encryptingCredentials = new EncryptingCredentials(encryptionKey, SecurityAlgorithms.Aes128KW,
+                SecurityAlgorithms.Aes128CbcHmacSha256);
 
             // Create SecurityTokenDescriptor
             var tokenDescriptor = new SecurityTokenDescriptor

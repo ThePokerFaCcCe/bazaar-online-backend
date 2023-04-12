@@ -1,19 +1,36 @@
-﻿namespace BazaarOnline.Domain.Entities.Conversations
+﻿using BazaarOnline.Domain.Entities.Users;
+
+namespace BazaarOnline.Domain.Entities.Conversations
 {
     public class Message
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public string Content { get; set; }
-        
-        public MessageContentTypeEnum ContentType { get; set; }
+        public string Text { get; set; }
 
-        public int ReplyToId { get; set; }
+        public string? AttachmentJson { get; set; }
+
+        public MessageAttachmentTypeEnum AttachmentType { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public bool IsSeen { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public Guid? ReplyToId { get; set; }
+
+        public string SenderId { get; set; }
+
+        public Guid ConversationId { get; set; }
 
 
         #region Relations
 
         public Message ReplyTo { get; set; }
+        public IEnumerable<Message> Replies { get; set; }
+        public User Sender { get; set; }
+        public Conversation Conversation { get; set; }
 
         #endregion
     }

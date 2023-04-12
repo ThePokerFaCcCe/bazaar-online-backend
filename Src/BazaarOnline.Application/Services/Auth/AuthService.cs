@@ -56,7 +56,8 @@ namespace BazaarOnline.Application.Services.Auth
             };
         }
 
-        public ValidatedUserCodeResultDTO? ValidateUserEmailLoginCode(UserLoginByEmailDTO loginDTO, ModelStateDictionary ModelState)
+        public ValidatedUserCodeResultDTO? ValidateUserEmailLoginCode(UserLoginByEmailDTO loginDTO,
+            ModelStateDictionary ModelState)
         {
             var user = _repository.GetAll<User>()
                 .Include(u => u.ValidationCodes)
@@ -75,10 +76,13 @@ namespace BazaarOnline.Application.Services.Auth
             }
 
 
-            var activeCode = user.ValidationCodes.FirstOrDefault(u => DateTime.Now < u.ExpireDate && u.Type == ActiveCodeType.UserLogin);
+            var activeCode =
+                user.ValidationCodes.FirstOrDefault(u =>
+                    DateTime.Now < u.ExpireDate && u.Type == ActiveCodeType.UserLogin);
             if (activeCode == null)
             {
-                ModelState.AddModelError(nameof(loginDTO.Code), "هیچ کد فعالی برای این حساب وجود ندارد. مجددا درخواست کد بدهید");
+                ModelState.AddModelError(nameof(loginDTO.Code),
+                    "هیچ کد فعالی برای این حساب وجود ندارد. مجددا درخواست کد بدهید");
                 return null;
             }
 
