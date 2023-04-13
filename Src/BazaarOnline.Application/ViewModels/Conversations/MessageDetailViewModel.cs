@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Domain.Entities.Conversations;
+﻿using BazaarOnline.Application.Utils.Extensions;
+using BazaarOnline.Domain.Entities.Conversations;
 
 namespace BazaarOnline.Application.ViewModels.Conversations;
 
@@ -17,6 +18,8 @@ public class MessageDetailDataViewModel
     public string? AttachmentJson { get; set; } = null;
 
     public MessageAttachmentTypeEnum AttachmentType { get; set; } = MessageAttachmentTypeEnum.NoAttachment;
+
+    public string AttachmentTypeName => AttachmentType.GetDisplayName();
 
     public Guid? ReplyToId { get; set; } = null;
 

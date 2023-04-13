@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ConversationDTOs\" />
     <Folder Include="DTOs\UploadCenter\" />
     <Folder Include="Interfaces\Advertisements\" />
     <Folder Include="Interfaces\Features\" />
