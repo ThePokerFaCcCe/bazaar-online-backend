@@ -2,7 +2,9 @@
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Domain.Entities.Conversations;
+using BazaarOnline.Domain.Entities.UploadCenter;
 using BazaarOnline.Domain.Interfaces;
+using Newtonsoft.Json;
 
 namespace BazaarOnline.Application.Services.Conversations;
 
@@ -45,14 +47,39 @@ public class ConversationService : IConversationService
     {
         dto.TrimStrings();
 
+        var validationErrors = ValidateMessage(dto);
+        if (!string.IsNullOrEmpty(validationErrors))
+        {
+            return new AddMessageResultDTO
+            {
+                ErrorCode = 400,
+                ErrorMessage = validationErrors,
+            };
+        }
 
         var message = new Message
         {
             SenderId = userId,
         }.FillFromObject(dto);
+     
+        switch (dto.AttachmentType)
+        {
+            case MessageAttachmentTypeEnum.Picture:
+                message.AttachmentJson = JsonConvert.SerializeObject(dto.PictureAttachment);
+                break;
+            case MessageAttachmentTypeEnum.Voice:
+                message.AttachmentJson = JsonConvert.SerializeObject(dto.VoiceAttachment);
+                break;
+            case MessageAttachmentTypeEnum.Location:
+                message.AttachmentJson = JsonConvert.SerializeObject(dto.LocationAttachment);
+                break;
+            default:
+                break;
+        }
 
-        throw new Exception();
-    }
+        _repository.Add(message);
+        _repository.Save();
+    }                       
 
     private string? ValidateMessage(AddMessageDTO dto)
     {
@@ -95,19 +122,45 @@ public class ConversationService : IConversationService
         }
         else if (dto.AttachmentType == MessageAttachmentTypeEnum.Picture)
         {
-            if (dto.PictureAttachment == null)
-                errors.Add(nameof(dto.PictureAttachment), "این فیلد اجباری است");
+            var pictureErrors = new Dictionary<string, string>();
+            if (dto.PictureAttachment?.FileId == null)
+                errors.Add(nameof(AddMessageDTO.PictureAttachment.FileId), "این فیلد اجباری است");
+            else
+            {
+                var isPictureExists = _repository.GetAll<FileCenter>()
+                    .Any(f=>f.Id== dto.PictureAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
+
+                if(!isPictureExists)
+                    errors.Add(nameof(dto.PictureAttachment.FileId), "فایل تصویر یافت نشد");
+            }
+
+            if (pictureErrors.Any())
+                errors.Add(nameof(dto.PictureAttachment), pictureErrors);
         }
         else if (dto.AttachmentType == MessageAttachmentTypeEnum.Voice)
         {
-            if (dto.VoiceAttachment == null)
-                errors.Add(nameof(dto.VoiceAttachment), "این فیلد اجباری است");
+            var voiceErrors = new Dictionary<string, string>();
+            if (dto.VoiceAttachment?.FileId == null)
+                errors.Add(nameof(AddMessageDTO.VoiceAttachment.FileId), "این فیلد اجباری است");
+            else
+            {
+                var isPictureExists = _repository.GetAll<FileCenter>()
+                    .Any(f => f.Id == dto.VoiceAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
+
+                if (!isPictureExists)
+                    errors.Add(nameof(dto.VoiceAttachment.FileId), "فایل صوتی یافت نشد");
+            }
+
+            if (voiceErrors.Any())
+                errors.Add(nameof(dto.VoiceAttachment), voiceErrors);
         }
         else
         {
             errors.Add(nameof(dto.AttachmentType), "مقدار ورودی معتبر نیست");
         }
 
+        if (errors.Any())
+            return JsonConvert.SerializeObject(errors);
         return null;
     }
 }
