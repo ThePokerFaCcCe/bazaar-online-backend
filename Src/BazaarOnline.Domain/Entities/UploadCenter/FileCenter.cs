@@ -10,5 +10,7 @@ public class FileCenter
 
     public long SizeKB { get; set; }
 
+    public string? ExtraProperties { get; set; }
+
     public FileCenterTypeEnum UsageType { get; set; }
 }

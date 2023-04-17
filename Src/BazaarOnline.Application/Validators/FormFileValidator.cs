@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using NVorbis;
 
 namespace BazaarOnline.Application.Validators
 {
@@ -9,6 +10,19 @@ namespace BazaarOnline.Application.Validators
             try
             {
                 var img = System.Drawing.Image.FromStream(file.OpenReadStream());
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool IsValidOggVoice(this IFormFile file)
+        {
+            try
+            {
+                using var f = new VorbisReader(file.OpenReadStream(), false);
                 return true;
             }
             catch (System.Exception)
