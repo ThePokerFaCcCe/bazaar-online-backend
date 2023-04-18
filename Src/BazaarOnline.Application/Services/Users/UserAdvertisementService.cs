@@ -27,9 +27,9 @@ public class UserAdvertisementService : IUserAdvertisementService
         return new UserContactViewModel
         {
             Success = true,
-            Email = user?.Email ?? string.Empty,
-            PhoneNumber = user?.PhoneNumber ?? string.Empty,
-        };
+            //Email = user?.Email ?? string.Empty,
+            //PhoneNumber = user?.PhoneNumber ?? string.Empty,
+        }.FillFromObject(user);
     }
 
     public void AddAdvertisementToUserHistory(string userId, int advertisementId)

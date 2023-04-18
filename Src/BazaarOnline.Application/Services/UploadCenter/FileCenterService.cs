@@ -41,29 +41,47 @@ public class FileCenterService : IFileCenterService
 
     public OperationResultDTO Validate(List<IFormFile> files, FileCenterTypeEnum type)
     {
-        if (type is FileCenterTypeEnum.AdvertisementPicture)
+        var errors = new Dictionary<int, string>();
+        for (int i = 0; i < files.Count; i++)
         {
-            var errors = new Dictionary<int, string>();
-            for (int i = 0; i < files.Count; i++)
+            IFormFile file = files[i];
+            var validation = new OperationResultDTO();
+
+            switch (type)
             {
-                var validation = ValidateImage(files[i], AdvertisementImageSize);
-                if (!validation.IsSuccess)
-                    errors[i] = validation.Message;
+                case FileCenterTypeEnum.AdvertisementPicture:
+                    validation = ValidateImage(file, AdvertisementImageSize);
+                    break;
+                case FileCenterTypeEnum.ChatVoice:
+                    validation = ValidateVoice(file, ChatVoiceSize);
+                    break;
+                case FileCenterTypeEnum.ChatPicture:
+                    validation = ValidateImage(file, ChatImageSize);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type));
             }
 
-            if (errors.Any())
+            if (!validation.IsSuccess)
             {
-                return new OperationResultDTO
-                {
-                    Message = Newtonsoft.Json.JsonConvert.SerializeObject(errors)
-                };
+                errors[i] = validation.Message;
             }
-
-            return new OperationResultDTO { IsSuccess = true };
         }
 
-        throw new ArgumentException("This type isn't implemented!");
+        if (errors.Any())
+        {
+            return new OperationResultDTO
+            {
+                Message = JsonConvert.SerializeObject(errors)
+            };
+        }
+
+        return new OperationResultDTO { IsSuccess = true };
     }
+
+
+
 
     private OperationResultDTO ValidateImage(IFormFile file, int fileSizeKb)
     {
@@ -193,7 +211,8 @@ public class FileCenterService : IFileCenterService
                 throw new ArgumentOutOfRangeException(nameof(type));
         }
 
-        var filename = FileHelper.SaveFile(file, filePath);
+        var savedFilePath = FileHelper.SaveFile(file, filePath);
+        var filename = Path.GetFileName(savedFilePath);
         try
         {
             object? extra = null;
@@ -202,7 +221,7 @@ public class FileCenterService : IFileCenterService
                 using var f = new VorbisReader(file.OpenReadStream(), false);
                 extra = new
                 {
-                    totalTime = f.TotalTime.Seconds,
+                    totalTime = (long)f.TotalTime.TotalSeconds,
                 };
             }
 
@@ -236,6 +255,10 @@ public class FileCenterService : IFileCenterService
             case FileCenterTypeEnum.AdvertisementPicture:
                 imagePath = PathHelper.AdvertisementImages;
                 thumbPath = PathHelper.AdvertisementThumbs;
+                break;
+            case FileCenterTypeEnum.ChatPicture:
+                imagePath = PathHelper.ChatImages;
+                thumbPath = PathHelper.ChatThumbs;
                 break;
 
 
@@ -278,7 +301,6 @@ public class FileCenterService : IFileCenterService
         return createdFiles;
     }
 
-
     public OperationResultDTO ValidateFileTypes(List<int> fileIds, FileCenterTypeEnum type)
     {
         var files = _repository.GetAll<FileCenter>()
@@ -295,13 +317,73 @@ public class FileCenterService : IFileCenterService
         notExists.ForEach(id => errors[id] = "File not found");
 
         if (errors.Any())
+        {
             return new OperationResultDTO
             {
                 IsSuccess = false,
                 Message = Newtonsoft.Json.JsonConvert.SerializeObject(errors),
             };
-
+        }
 
         return new OperationResultDTO { IsSuccess = true };
+    }
+
+    public List<FileCenter> SaveFile(List<IFormFile> files, FileCenterTypeEnum type)
+    {
+        string filePath = PathHelper.OtherFiles;
+
+        switch (type)
+        {
+            case FileCenterTypeEnum.ChatVoice:
+                filePath = PathHelper.ChatVoice;
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type));
+        }
+
+        var createdFiles = new List<FileCenter>();
+
+        foreach (var file in files)
+        {
+            var savedFilePath = FileHelper.SaveFile(file, filePath);
+            var filename = Path.GetFileName(savedFilePath);
+            object? extra = null;
+            if (type is FileCenterTypeEnum.ChatVoice)
+            {
+                using var f = new VorbisReader(file.OpenReadStream(), false);
+                extra = new
+                {
+                    totalTime = (long)f.TotalTime.TotalSeconds,
+                };
+            }
+
+            var fileCenter = new FileCenter
+            {
+                FileName = filename,
+                FileType = Path.GetExtension(file.FileName).ToLower(),
+                SizeKB = file.Length / 1024,
+                UsageType = type,
+                ExtraProperties = (extra == null) ? null : JsonConvert.SerializeObject(extra),
+            };
+
+            createdFiles.Add(fileCenter);
+        }
+
+        try
+        {
+            _repository.AddRange(createdFiles);
+            _repository.Save();
+        }
+        catch (Exception e)
+        {
+            createdFiles.ForEach(f =>
+            {
+                FileHelper.DeleteFile(Path.Combine(filePath, f.FileName));
+            });
+            throw;
+        }
+
+        return createdFiles;
     }
 }

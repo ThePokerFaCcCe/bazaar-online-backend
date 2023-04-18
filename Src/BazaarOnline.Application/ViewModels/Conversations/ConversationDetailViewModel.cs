@@ -25,6 +25,9 @@ public class ConversationDetailDataUserViewModel
 {
     public string Id { get; set; } = string.Empty;
     public string DisplayName { get; set; } = string.Empty;
+    public int AnswerHourStart { get; set; } = 0;
+    public int AnswerHourEnd { get; set; } = 23;
+
 }
 
 public class ConversationDetailDataAdvertisementViewModel

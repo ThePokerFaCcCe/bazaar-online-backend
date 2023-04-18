@@ -19,10 +19,17 @@ public interface IFileCenterService
     /// <summary>
     /// Save a file
     /// </summary>
-    /// <param name="filee"></param>
+    /// <param name="file"></param>
     /// <returns>Created Model</returns>
     FileCenter SaveFile(IFormFile file, FileCenterTypeEnum type);
 
+    /// <summary>
+    /// Save files
+    /// </summary>
+    /// <param name="files"></param>
+    /// <returns>Created Models</returns>
+    List<FileCenter> SaveFile(List<IFormFile> files, FileCenterTypeEnum type);
+    
     /// <summary>
     /// Save images and create thumbnail for them
     /// </summary>

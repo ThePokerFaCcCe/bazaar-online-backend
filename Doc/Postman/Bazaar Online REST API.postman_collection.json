@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "63dea5bd-b0fb-47e9-89c8-339c754ee3c6",
+		"_postman_id": "1eca7e1b-9a50-4674-b745-7810701fcb6f",
 		"name": "Bazaar Online REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -131,7 +131,7 @@
 								"info"
 							]
 						},
-						"description": "Get authenticated user short detail which can be used for getting info after login."
+						"description": "Get authenticated user short detail which can be used for getting info after login.\n\n*Response*\n  - `answerHourStart`  , `answerHourEnd`:int\n    - Hour that user answers to calls or chats"
 					},
 					"response": [
 						{
@@ -174,7 +174,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"displayName\": \"Bazaar User\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null\n}"
+							"body": "{\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null,\n    \"displayName\": \"کاربر بازار\",\n    \"answerHourStart\": 0,\n    \"answerHourEnd\": 23\n}"
 						}
 					]
 				},
@@ -377,7 +377,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"displayName\":\"Bazaar User\"\r\n}",
+							"raw": "{\r\n    \"displayName\":\"Bazaar User\",\r\n    \"answerHourStart\": 5,\r\n    \"answerHourEnd\": 23\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -395,7 +395,7 @@
 								"me"
 							]
 						},
-						"description": "Update user dashboard data. like display name.\n\n*fields*\n\n\n`displayName`: \"string\"\n  - **Required**\n  - **Min length** is 4\n  - **Max length** is 60"
+						"description": "Update user dashboard data. like display name.\n\n*fields*\n\n\n  - `displayName`: \"string\"\n    - **Required**\n    - **Min length** is 4\n    - **Max length** is 60\n\n\n  - `answerHourStart`  , `answerHourEnd`:int\n    - Hour that user answers to calls or chats\n    - **Required**"
 					},
 					"response": [
 						{
@@ -405,7 +405,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"displayName\":\"Bazaar User\"\r\n}",
+									"raw": "{\r\n    \"displayName\":\"Bazaar User\",\r\n    \"answerHourStart\": 5,\r\n    \"answerHourEnd\": 23\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -434,7 +434,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 25 Mar 2023 13:23:44 GMT"
+									"value": "Tue, 18 Apr 2023 06:41:41 GMT"
 								},
 								{
 									"key": "Server",
@@ -446,7 +446,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"displayName\": \"Bazaar User\",\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null\n}"
+							"body": "{\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null,\n    \"displayName\": \"Bazaar User\",\n    \"answerHourStart\": 5,\n    \"answerHourEnd\": 23\n}"
 						},
 						{
 							"name": "Bad Input",
@@ -455,7 +455,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"displayName\":\"Bazaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddr User\"\r\n}",
+									"raw": "{\r\n    \"displayName\":\"Bazaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddr User\",\r\n    \"answerHourStart\": -1,\r\n    \"answerHourEnd\": 25\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -484,7 +484,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 25 Mar 2023 13:24:07 GMT"
+									"value": "Tue, 18 Apr 2023 06:42:41 GMT"
 								},
 								{
 									"key": "Server",
@@ -496,7 +496,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-5364021061286f5c88b39ae91066daef-3c78c84ab8064ba7-00\",\n    \"errors\": {\n        \"DisplayName\": [\n            \"نام نمایشی باید بین 60 و 4 کاراکتر باشد\"\n        ]\n    }\n}"
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-08000577e738e152c1d876283a34a872-256039a4afb4ec8c-00\",\n    \"errors\": {\n        \"DisplayName\": [\n            \"نام نمایشی باید بین 60 و 4 کاراکتر باشد\"\n        ],\n        \"AnswerHourEnd\": [\n            \"باید عددی بین 0 تا 23 وارد کنید\"\n        ],\n        \"AnswerHourStart\": [\n            \"باید عددی بین 0 تا 23 وارد کنید\"\n        ]\n    }\n}"
 						}
 					]
 				}
@@ -1085,17 +1085,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/4/contact",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/1/contact",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"advertisements",
-								"4",
+								"1",
 								"contact"
 							]
-						}
+						},
+						"description": "Get advertisement contact detail for authorized users.\n\n\n*Response*\n  - `answerHourStart`  , `answerHourEnd`:int\n    - Hour that user answers to calls or chats"
 					},
 					"response": [
 						{
@@ -1138,7 +1139,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"errorMessage\": \"\",\n    \"phoneNumber\": \"09191234567\",\n    \"email\": \"user@example.com\"\n}"
+							"body": "{\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null,\n    \"answerHourStart\": 5,\n    \"answerHourEnd\": 23,\n    \"success\": true,\n    \"errorMessage\": \"\"\n}"
 						},
 						{
 							"name": "Error Chat Only",
@@ -1478,7 +1479,7 @@
 			"name": "Upload Center",
 			"item": [
 				{
-					"name": "Upload Image",
+					"name": "Upload Image(Deprecated)",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1486,7 +1487,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "File",
+									"key": "Files",
 									"description": ".jpg or .png",
 									"type": "file",
 									"src": "/C:/Users/khaleghinejad/Downloads/SalamatGetToken(1).PNG"
@@ -1509,7 +1510,7 @@
 								"images"
 							]
 						},
-						"description": "Create Advertisement\n\n*fields*\n\n\n`File`: File\n  - Error message is a json string list.\ntemplate:`{\"error 1\",\"error 2\"}`\n\n`Type`: Enum - int\n  *Usage type of file*\n  - 1: Advertisement Picture\n\n\n*Notes*\n\n  - **Login Required**"
+						"description": "**----------------------**\n**DEPRECATED**. Use `Upload File` instead\n**----------------------**\nAdd Image\n\n*fields*\n\n\n`File`: File\n  - Error message is a json string list.\ntemplate:`{\"error 1\",\"error 2\"}`\n\n`Type`: Enum - int\n  *Usage type of file*\n  - 1: Advertisement Picture\n  - 2: Chat Picture\n  - 3: Chat Voice\n\n*Notes*\n\n  - **Login Required**"
 					},
 					"response": [
 						{
@@ -1627,14 +1628,9 @@
 							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-960dec771163cb4bbf27e2c38d9887f0-076eaf9aa3f32832-00\",\n    \"errors\": {\n        \"File\": [\n            \"[\\\"فرمت فایل مجاز نیست. باید jpg یا png باشد\\\",\\\"فایل انتخاب شده عکس نیست\\\"]\"\n        ]\n    }\n}"
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "Uploads",
-			"item": [
+				},
 				{
-					"name": "Upload Image",
+					"name": "Upload File",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1642,96 +1638,34 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "Files",
-									"description": ".jpg or .png",
-									"type": "file",
-									"src": [
-										"/E:/Other/Eitaa/edata/1873F7AEE725C6ABs",
-										"/E:/Other/Eitaa/edata/B0DB7C6B056BA957s"
-									]
+									"key": "Type",
+									"value": "3",
+									"description": "1: Advertisement Picture\n2: Chat Picture\n3: Chat Voice",
+									"type": "default"
 								},
 								{
-									"key": "Type",
-									"value": "1",
-									"description": "Usage Type",
-									"type": "default"
+									"key": "Files",
+									"type": "file",
+									"src": "/D:/some.ogg"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/files",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"uploads",
-								"images"
+								"files"
 							]
 						},
-						"description": "Upload Image \n\n*fields*\n\n\n`Type`: Enum-int.\n*Upload image for this type of usage.*\n  - 1: Advertisement Picture Usage\n\n`File` File\nError message is a json object string.\ntemplate:`{\"file_index\":[\"err1\",\"err2\"]}`\n\n\n*Notes*\n\n  - **Login Required**"
+						"description": "Create Advertisement\n\n*fields*\n\n\n`File`: File\n  - Error message is a json object list.\ntemplate:`{\"index\":[\"error 1\",\"error 2\"], \"index2\":[\"error 4\",\"error 6\"]}`\n\n`Type`: Enum - int\n  *Usage type of file*\n  - 1: Advertisement Picture\n  - 2: Chat Picture\n  - 3: Chat Voice\n\n*Notes*\n\n  - **Login Required**"
 					},
 					"response": [
 						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "Files",
-											"description": ".jpg or .png",
-											"type": "file",
-											"src": []
-										},
-										{
-											"key": "Type",
-											"value": "1",
-											"description": "Usage Type",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"uploads",
-										"images"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 06 Mar 2023 17:34:33 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": 5,\n        \"sizeKB\": 79\n    },\n    {\n        \"id\": 6,\n        \"sizeKB\": 169\n    }\n]"
-						},
-						{
-							"name": "Upload Image",
+							"name": "Bad Files",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
@@ -1743,27 +1677,27 @@
 											"description": ".jpg or .png",
 											"type": "file",
 											"src": [
-												"/E:/Other/Eitaa/edata/1873F7AEE725C6ABs",
-												"/E:/Other/Eitaa/edata/B0DB7C6B056BA957s"
+												"/C:/Program Files/Google/Chrome/Application/chrome_proxy.exe",
+												"/C:/Program Files/Google/Chrome/Application/debug.log",
+												"/C:/Program Files/Google/Chrome/Application/master_preferences"
 											]
 										},
 										{
 											"key": "Type",
 											"value": "1",
-											"description": "Usage Type",
 											"type": "default"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/images",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/files",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
 										"{{API_VERSION}}",
 										"uploads",
-										"images"
+										"files"
 									]
 								}
 							},
@@ -1777,7 +1711,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 06 Mar 2023 17:37:48 GMT"
+									"value": "Tue, 18 Apr 2023 07:23:13 GMT"
 								},
 								{
 									"key": "Server",
@@ -1789,7 +1723,121 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-552a7df615945f87ba3647237a88657e-1f5c91df3ec636b0-00\",\n    \"errors\": {\n        \"Files\": [\n            \"{\\\"0\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\",\\\"1\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\"}\"\n        ]\n    }\n}"
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-25b1f574905842684e568227ba0e2337-9fcd359b436f9c73-00\",\n    \"errors\": {\n        \"Files\": [\n            \"{\\\"0\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png یا jpeg باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\",\\\"1\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png یا jpeg باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\",\\\"2\\\":\\\"[\\\\\\\"فرمت فایل مجاز نیست. باید jpg یا png یا jpeg باشد\\\\\\\",\\\\\\\"فایل انتخاب شده عکس نیست\\\\\\\"]\\\"}\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Success Image",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Type",
+											"value": "2",
+											"description": "1: Advertisement Picture\n2: Chat Picture\n3: Chat Voice",
+											"type": "default"
+										},
+										{
+											"key": "Files",
+											"type": "file",
+											"src": "/C:/Users/khaleghinejad/Desktop/infographics-vue-vs-react-966x2528.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/files",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"uploads",
+										"files"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 18 Apr 2023 07:35:39 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 3,\n            \"sizeKB\": 214,\n            \"extraProperties\": null\n        }\n    ]\n}"
+						},
+						{
+							"name": "Success Voice",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Type",
+											"value": "3",
+											"description": "1: Advertisement Picture\n2: Chat Picture\n3: Chat Voice",
+											"type": "default"
+										},
+										{
+											"key": "Files",
+											"type": "file",
+											"src": "/D:/some.ogg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/uploads/files",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"uploads",
+										"files"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 18 Apr 2023 07:49:16 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 6,\n            \"sizeKB\": 2027,\n            \"extraProperties\": \"{\\\"totalTime\\\":14}\"\n        }\n    ]\n}"
 						}
 					]
 				}

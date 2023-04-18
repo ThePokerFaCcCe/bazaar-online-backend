@@ -79,6 +79,10 @@ public class ConversationService : IConversationService
 
         _repository.Add(message);
         _repository.Save();
+        return new AddMessageResultDTO
+        {
+
+        };
     }                       
 
     private string? ValidateMessage(AddMessageDTO dto)

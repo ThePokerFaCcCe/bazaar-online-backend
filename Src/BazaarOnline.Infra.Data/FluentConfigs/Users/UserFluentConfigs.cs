@@ -36,6 +36,14 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired()
                 .HasMaxLength(60)
                 .HasDefaultValue("˜ÇÑÈÑ ÈÇÒÇÑ");
+            
+            builder.Property(u => u.AnswerHourStart)
+                .IsRequired()
+                .HasDefaultValue(0);
+            
+            builder.Property(u => u.AnswerHourEnd)
+                .IsRequired()
+                .HasDefaultValue(23);
 
             builder.Property(u => u.CreateDate)
                 .IsRequired()

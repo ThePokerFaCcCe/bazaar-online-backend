@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using BazaarOnline.Domain.Entities.Advertisements;
 
 namespace BazaarOnline.Domain.Entities.Users
@@ -7,8 +5,6 @@ namespace BazaarOnline.Domain.Entities.Users
     public class User
     {
         public string Id { get; set; }
-
-        public string DisplayName { get; set; }
 
         public string Email { get; set; }
 
@@ -21,6 +17,16 @@ namespace BazaarOnline.Domain.Entities.Users
         public bool IsActive { get; set; }
 
         public bool IsPhoneNumberActive { get; set; }
+
+        #region Chat
+
+        public string DisplayName { get; set; }
+
+        public int AnswerHourStart { get; set; }
+
+        public int AnswerHourEnd { get; set; }
+        
+        #endregion
 
         #region Relations
 

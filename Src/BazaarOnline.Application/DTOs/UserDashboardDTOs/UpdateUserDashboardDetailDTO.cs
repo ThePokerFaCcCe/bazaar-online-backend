@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazaarOnline.Application.DTOs.UserDashboardDTOs
 {
@@ -14,5 +9,15 @@ namespace BazaarOnline.Application.DTOs.UserDashboardDTOs
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [StringLength(60, MinimumLength = 4, ErrorMessage = "{0} باید بین {1} و {2} کاراکتر باشد")]
         public string DisplayName { get; set; }
+
+        [DisplayName("ساعت ضروع پاسخ دهی")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
+        [Range(0, 23, ErrorMessage = "باید عددی بین 0 تا 23 وارد کنید")]
+        public int AnswerHourStart { get; set; }
+
+        [DisplayName("ساعت پایان پاسخ دهی")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
+        [Range(0, 23, ErrorMessage = "باید عددی بین 0 تا 23 وارد کنید")]
+        public int AnswerHourEnd { get; set; }
     }
 }
