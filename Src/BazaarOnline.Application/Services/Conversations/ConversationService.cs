@@ -1,9 +1,11 @@
 ﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Utils.Extensions;
+using BazaarOnline.Application.ViewModels.Conversations;
 using BazaarOnline.Domain.Entities.Conversations;
 using BazaarOnline.Domain.Entities.UploadCenter;
 using BazaarOnline.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace BazaarOnline.Application.Services.Conversations;
@@ -61,7 +63,7 @@ public class ConversationService : IConversationService
         {
             SenderId = userId,
         }.FillFromObject(dto);
-     
+
         switch (dto.AttachmentType)
         {
             case MessageAttachmentTypeEnum.Picture:
@@ -83,23 +85,88 @@ public class ConversationService : IConversationService
         {
 
         };
-    }                       
+    }
+
+    public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
+    {
+        var messages = _repository.GetAll<Message>()
+            .Where(m=>m.ConversationId == conversationId)
+            .OrderByDescending(m=>m.Id);
+
+        return messages.Select(m => GetMessageViewModel(m, userId));
+    }
+
+    private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)
+    {
+        if (message == null) return null;
+
+        return new MessageDetailViewModel
+        {
+            Data = new MessageDetailDataViewModel
+            {
+                IsSentBySelf = (message.SenderId == userId),
+            }.FillFromObject(message),
+        }.FillFromObject(message);
+    }
+    public IEnumerable<ConversationDetailViewModel> GetConversations(string userId)
+    {
+        var conversations = _repository.GetAll<Conversation>()
+            .Include(c => c.Owner)
+            .Include(c => c.Customer)
+            .Include(c => c.Messages)
+            .Include(c => c.Advertisement)
+            .ThenInclude(a => a.Pictures)
+            .Where(c => c.OwnerId == userId || c.CustomerId == userId);
+
+        return conversations.AsEnumerable().Select(c =>
+        {
+            var user = c.OwnerId != userId ? c.Owner : c.Customer;
+
+            return new ConversationDetailViewModel
+            {
+                Data = new ConversationDetailDataViewModel
+                {
+                    Advertisement = new ConversationDetailDataAdvertisementViewModel
+                    {
+                        Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
+                        {
+
+                        }.FillFromObject(c.Advertisement.Pictures.OrderBy(p => p.Id).FirstOrDefault(), false),
+                    }.FillFromObject(c.Advertisement, false),
+
+                    User = new ConversationDetailDataUserViewModel
+                    {
+
+                    }.FillFromObject(user, false),
+
+                    LastMessage = GetMessageViewModel(c.Messages.OrderByDescending(m => m.Id).FirstOrDefault(),userId),
+                }
+
+            }.FillFromObject(c, false);
+        });
+    }
 
     private string? ValidateMessage(AddMessageDTO dto)
     {
         var errors = new Dictionary<string, object>();
 
         if (dto.ConversationId == null)
+        {
             errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
+        }
 
         if (dto.AttachmentType == null)
+        {
             errors.Add(nameof(dto.AttachmentType), "این فیلد اجباری است");
+        }
 
         if (dto.ReplyToId != null)
         {
             var isReplyExists = _repository.GetAll<Message>().Any(x => x.Id == dto.ReplyToId && !x.IsDeleted);
             if (!isReplyExists)
+            {
                 errors.Add(nameof(dto.ReplyToId), "پیغامی که قصد پاسخ به آن را دارید یافت نشد");
+            }
         }
 
         if (dto.Text != null && dto.Text.Length > 512)
@@ -111,52 +178,72 @@ public class ConversationService : IConversationService
         {
             var locationErrors = new Dictionary<string, string>();
             if (dto.LocationAttachment?.Latitude == null || dto.LocationAttachment.Latitude is < -180d or > 180d)
+            {
                 locationErrors.Add(nameof(dto.LocationAttachment.Latitude), "باید عددی بین -180 تا 180 باشد");
+            }
 
             if (dto.LocationAttachment?.Longitude == null || dto.LocationAttachment.Longitude is < -180d or > 180d)
+            {
                 locationErrors.Add(nameof(dto.LocationAttachment.Longitude), "باید عددی بین -180 تا 180 باشد");
+            }
 
             if (locationErrors.Any())
+            {
                 errors.Add(nameof(dto.LocationAttachment), locationErrors);
+            }
         }
         else if (dto.AttachmentType == MessageAttachmentTypeEnum.NoAttachment)
         {
             if (dto.Text == null)
+            {
                 errors.Add(nameof(dto.Text), "این فیلد اجباری است");
+            }
         }
         else if (dto.AttachmentType == MessageAttachmentTypeEnum.Picture)
         {
             var pictureErrors = new Dictionary<string, string>();
             if (dto.PictureAttachment?.FileId == null)
+            {
                 errors.Add(nameof(AddMessageDTO.PictureAttachment.FileId), "این فیلد اجباری است");
+            }
             else
             {
                 var isPictureExists = _repository.GetAll<FileCenter>()
-                    .Any(f=>f.Id== dto.PictureAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
+                    .Any(f => f.Id == dto.PictureAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
 
-                if(!isPictureExists)
+                if (!isPictureExists)
+                {
                     errors.Add(nameof(dto.PictureAttachment.FileId), "فایل تصویر یافت نشد");
+                }
             }
 
             if (pictureErrors.Any())
+            {
                 errors.Add(nameof(dto.PictureAttachment), pictureErrors);
+            }
         }
         else if (dto.AttachmentType == MessageAttachmentTypeEnum.Voice)
         {
             var voiceErrors = new Dictionary<string, string>();
             if (dto.VoiceAttachment?.FileId == null)
+            {
                 errors.Add(nameof(AddMessageDTO.VoiceAttachment.FileId), "این فیلد اجباری است");
+            }
             else
             {
                 var isPictureExists = _repository.GetAll<FileCenter>()
                     .Any(f => f.Id == dto.VoiceAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
 
                 if (!isPictureExists)
+                {
                     errors.Add(nameof(dto.VoiceAttachment.FileId), "فایل صوتی یافت نشد");
+                }
             }
 
             if (voiceErrors.Any())
+            {
                 errors.Add(nameof(dto.VoiceAttachment), voiceErrors);
+            }
         }
         else
         {
@@ -164,7 +251,10 @@ public class ConversationService : IConversationService
         }
 
         if (errors.Any())
+        {
             return JsonConvert.SerializeObject(errors);
+        }
+
         return null;
     }
 }
