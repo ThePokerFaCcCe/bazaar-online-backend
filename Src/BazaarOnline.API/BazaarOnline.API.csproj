@@ -31,4 +31,8 @@
     <ProjectReference Include="..\BazaarOnline.Application\BazaarOnline.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Hubs\" />
+  </ItemGroup>
+
 </Project>

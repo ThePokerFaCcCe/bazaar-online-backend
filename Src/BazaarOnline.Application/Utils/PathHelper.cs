@@ -12,6 +12,15 @@ namespace BazaarOnline.Application.Utils
 
         #endregion
 
+        #region Chats
+
+        private static readonly string ChatsBase = "chats/";
+        public static readonly string ChatImages = ChatsBase + "images/";
+        public static readonly string ChatThumbs = ChatsBase + "thumbnails/";
+        public static readonly string ChatVoice = ChatsBase + "voices/";
+
+        #endregion
+
         public static readonly string OtherFiles = "other";
     }
 }

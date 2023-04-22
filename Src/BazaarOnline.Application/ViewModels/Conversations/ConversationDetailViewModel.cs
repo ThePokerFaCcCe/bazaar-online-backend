@@ -12,24 +12,41 @@ public class ConversationDetailViewModel
 
 public class ConversationDetailDataViewModel
 {
-    public ConversationDetailDataUserViewModel User { get; set; }
-        = new ConversationDetailDataUserViewModel();
+    public ConversationDetailUserViewModel User { get; set; }
+        = new ConversationDetailUserViewModel();
 
-    public ConversationDetailDataAdvertisementViewModel Advertisement { get; set; }
-        = new ConversationDetailDataAdvertisementViewModel();
+    public ConversationDetailAdvertisementViewModel Advertisement { get; set; }
+        = new ConversationDetailAdvertisementViewModel();
 
     public MessageDetailViewModel? LastMessage { get; set; } = null;
 }
 
-public class ConversationDetailDataUserViewModel
+public class ConversationDetailUserViewModel
 {
     public string Id { get; set; } = string.Empty;
-    public string DisplayName { get; set; } = string.Empty;
+
+    public ConversationDetailUserDataViewModel Data { get; set; } =
+        new ConversationDetailUserDataViewModel();
 }
 
-public class ConversationDetailDataAdvertisementViewModel
+public class ConversationDetailUserDataViewModel
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public DateTime LastSeen { get; set; } = DateTime.MinValue;
+    public int AnswerHourStart { get; set; } = 0;
+    public int AnswerHourEnd { get; set; } = 23;
+}
+
+public class ConversationDetailAdvertisementViewModel
 {
     public int Id { get; set; } = 0;
+
+    public ConversationDetailAdvertisementDataViewModel Data { get; set; }
+        = new ConversationDetailAdvertisementDataViewModel();
+}
+
+public class ConversationDetailAdvertisementDataViewModel
+{
     public string Title { get; set; } = string.Empty;
     public AdvertisementPictureViewModel? Picture { get; set; } = null;
 }

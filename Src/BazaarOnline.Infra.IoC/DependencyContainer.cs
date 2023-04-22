@@ -1,6 +1,7 @@
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Interfaces.Auth;
 using BazaarOnline.Application.Interfaces.Categories;
+using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Interfaces.Features;
 using BazaarOnline.Application.Interfaces.Maps;
 using BazaarOnline.Application.Interfaces.UploadCenter;
@@ -8,6 +9,7 @@ using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.Services.Advertisements;
 using BazaarOnline.Application.Services.Auth;
 using BazaarOnline.Application.Services.Categories;
+using BazaarOnline.Application.Services.Conversations;
 using BazaarOnline.Application.Services.Features;
 using BazaarOnline.Application.Services.Maps;
 using BazaarOnline.Application.Services.UploadCenter;
@@ -62,6 +64,12 @@ namespace BazaarOnline.Infra.IoC
             #region UploadCenter
 
             services.AddScoped<IFileCenterService, FileCenterService>();
+
+            #endregion
+
+            #region Conversation
+
+            services.AddScoped<IConversationService, ConversationService>();
 
             #endregion
 

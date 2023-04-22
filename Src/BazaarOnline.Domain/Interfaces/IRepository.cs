@@ -5,8 +5,10 @@ namespace BazaarOnline.Domain.Interfaces
         IQueryable<TEntity> GetAll<TEntity>() where TEntity : class;
 
         TEntity? Get<TEntity>(int id) where TEntity : class;
-        
+
         TEntity? Get<TEntity>(string id) where TEntity : class;
+
+        TEntity? Get<TEntity>(Guid id) where TEntity : class;
 
         TEntity Add<TEntity>(TEntity entity) where TEntity : class;
 

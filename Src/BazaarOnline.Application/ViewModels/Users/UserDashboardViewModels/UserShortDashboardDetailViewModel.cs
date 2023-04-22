@@ -2,10 +2,14 @@ namespace BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels
 {
     public class UserShortDashboardDetailViewModel
     {
-        public string DisplayName { get; set; }
+        public string DisplayName { get; set; } = string.Empty;
 
-        public string Email { get; set; }
+        public int AnswerHourStart { get; set; }=0;
 
-        public string? PhoneNumber { get; set; }
+        public int AnswerHourEnd { get; set; } = 23;
+
+        public string Email { get; set; } = string.Empty;
+
+        public string? PhoneNumber { get; set; } = null;
     }
 }

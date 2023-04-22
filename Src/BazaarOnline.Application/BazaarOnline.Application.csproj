@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\BazaarOnline.Domain\BazaarOnline.Domain.csproj" />
@@ -9,14 +9,15 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="NVorbis" Version="0.10.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ConversationDTOs\" />
     <Folder Include="DTOs\UploadCenter\" />
     <Folder Include="Interfaces\Advertisements\" />
     <Folder Include="Interfaces\Features\" />
+    <Folder Include="Interfaces\Hubs\" />
     <Folder Include="Interfaces\UploadCenter\" />
     <Folder Include="Requesters\" />
     <Folder Include="Services\Features\" />

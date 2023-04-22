@@ -36,8 +36,13 @@ namespace BazaarOnline.Infra.Data.Repositories
         {
             return _context.Find<TEntity>(id);
         }
-        
+
         public TEntity? Get<TEntity>(string id) where TEntity : class
+        {
+            return _context.Find<TEntity>(id);
+        }
+
+        public TEntity? Get<TEntity>(Guid id) where TEntity : class
         {
             return _context.Find<TEntity>(id);
         }
