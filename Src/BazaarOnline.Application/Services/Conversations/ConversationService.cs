@@ -1,5 +1,6 @@
 ﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.Interfaces.Conversations;
+using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Conversations;
 using BazaarOnline.Domain.Entities.Conversations;
@@ -83,15 +84,14 @@ public class ConversationService : IConversationService
         _repository.Save();
         return new AddMessageResultDTO
         {
-
         };
     }
 
     public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
     {
         var messages = _repository.GetAll<Message>()
-            .Where(m=>m.ConversationId == conversationId)
-            .OrderByDescending(m=>m.Id);
+            .Where(m => m.ConversationId == conversationId)
+            .OrderByDescending(m => m.Id);
 
         return messages.Select(m => GetMessageViewModel(m, userId));
     }
@@ -100,14 +100,49 @@ public class ConversationService : IConversationService
     {
         if (message == null) return null;
 
-        return new MessageDetailViewModel
+        var model = new MessageDetailViewModel
         {
             Data = new MessageDetailDataViewModel
             {
                 IsSentBySelf = (message.SenderId == userId),
             }.FillFromObject(message),
         }.FillFromObject(message);
+
+        if (message.AttachmentType == MessageAttachmentTypeEnum.Location)
+        {
+            var data = JsonConvert.DeserializeObject<MessageLocationAttachmentViewModel>(message.AttachmentJson);
+            model.Data.AttachmentLocation = data;
+        }
+        else if (message.AttachmentType == MessageAttachmentTypeEnum.Picture)
+        {
+            var data = JsonConvert.DeserializeObject<MessagePictureAttachmentDTO>(message.AttachmentJson);
+            var file = _repository.Get<FileCenter>(data.FileId);
+            if (file != null)
+            {
+                model.Data.AttachmentFile = new MessageFileAttachmentViewModel
+                {
+                    FileName = file.FileName,
+                    Url = Path.Join(PathHelper.ChatImages, file.FileName),
+                };
+            }
+        }
+        else if (message.AttachmentType == MessageAttachmentTypeEnum.Voice)
+        {
+            var data = JsonConvert.DeserializeObject<MessageVoiceAttachmentDTO>(message.AttachmentJson);
+            var file = _repository.Get<FileCenter>(data.FileId);
+            if (file != null)
+            {
+                model.Data.AttachmentFile = new MessageFileAttachmentViewModel
+                {
+                    FileName = file.FileName,
+                    Url = Path.Join(PathHelper.ChatVoice, file.FileName),
+                };
+            }
+        }
+
+        return model;
     }
+
     public IEnumerable<ConversationDetailViewModel> GetConversations(string userId)
     {
         var conversations = _repository.GetAll<Conversation>()
@@ -126,22 +161,25 @@ public class ConversationService : IConversationService
             {
                 Data = new ConversationDetailDataViewModel
                 {
-                    Advertisement = new ConversationDetailDataAdvertisementViewModel
+                    Advertisement = new ConversationDetailAdvertisementViewModel
                     {
-                        Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
+                        Data = new ConversationDetailAdvertisementDataViewModel
                         {
-
-                        }.FillFromObject(c.Advertisement.Pictures.OrderBy(p => p.Id).FirstOrDefault(), false),
+                            Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
+                            {
+                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
+                        }.FillFromObject(c.Advertisement, false),
                     }.FillFromObject(c.Advertisement, false),
 
-                    User = new ConversationDetailDataUserViewModel
+                    User = new ConversationDetailUserViewModel
                     {
-
+                        Data = new ConversationDetailUserDataViewModel
+                        {
+                        }.FillFromObject(user, false),
                     }.FillFromObject(user, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.OrderByDescending(m => m.Id).FirstOrDefault(),userId),
+                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.Id), userId),
                 }
-
             }.FillFromObject(c, false);
         });
     }

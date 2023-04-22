@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\BazaarOnline.Domain\BazaarOnline.Domain.csproj" />
@@ -17,6 +17,7 @@
     <Folder Include="DTOs\UploadCenter\" />
     <Folder Include="Interfaces\Advertisements\" />
     <Folder Include="Interfaces\Features\" />
+    <Folder Include="Interfaces\Hubs\" />
     <Folder Include="Interfaces\UploadCenter\" />
     <Folder Include="Requesters\" />
     <Folder Include="Services\Features\" />

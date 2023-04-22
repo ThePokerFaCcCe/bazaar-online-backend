@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using BazaarOnline.API.Hubs;
+using BazaarOnline.Application.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DotNetEnv
 DotNetEnv.Env.Load();
+
+// SignalR
+builder.Services.AddSignalR();
 
 // CORS
 string NextJsOrigin = "NextJS";
@@ -117,9 +122,10 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 app.UseStaticFiles();
 app.UseCors(NextJsOrigin);
 
+app.UseMiddleware<SignalRAuthenticationFix>();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ChatHub>("/ws/chat");
 app.Run();

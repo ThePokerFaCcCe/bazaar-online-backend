@@ -16,7 +16,11 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         public bool IsSeen { get; set; }
 
+        public bool IsEdited { get; set; }
+
         public DateTime CreateDate { get; set; }
+
+        public DateTime UpdateDate { get; set; }
 
         public Guid? ReplyToId { get; set; }
 
