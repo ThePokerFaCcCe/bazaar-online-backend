@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
+﻿using BazaarOnline.Application.DTOs;
+using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.ViewModels.Conversations;
 
 namespace BazaarOnline.Application.Interfaces.Conversations;
@@ -11,4 +12,10 @@ public interface IConversationService
     IEnumerable<ConversationDetailViewModel> GetConversations(string userId);
 
     IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId);
+
+    MessageDetailViewModel GetMessage(Guid messageId, string userId);
+
+    string? GetSecondConversationUser(Guid conversationId, string userId);
+
+    OperationResultDTO SeenMessages(Guid conversationId, string userId);
 }

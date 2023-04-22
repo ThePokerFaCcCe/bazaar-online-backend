@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
+﻿using BazaarOnline.Application.DTOs;
+using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
@@ -84,6 +85,7 @@ public class ConversationService : IConversationService
         _repository.Save();
         return new AddMessageResultDTO
         {
+            MessageId = message.Id
         };
     }
 
@@ -94,6 +96,37 @@ public class ConversationService : IConversationService
             .OrderByDescending(m => m.Id);
 
         return messages.Select(m => GetMessageViewModel(m, userId));
+    }
+
+    public MessageDetailViewModel GetMessage(Guid messageId, string userId)
+    {
+        var message = _repository.Get<Message>(messageId);
+        return GetMessageViewModel(message, userId);
+    }
+
+    public string? GetSecondConversationUser(Guid conversationId, string userId)
+    {
+        var conversation = _repository.Get<Conversation>(conversationId);
+        if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+            return null;
+        return conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+    }
+
+    public OperationResultDTO SeenMessages(Guid conversationId, string userId)
+    {
+        var conversation = _repository.Get<Conversation>(conversationId);
+        if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+            return new OperationResultDTO { IsSuccess = false };
+
+        var senderId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+        var messages = _repository.GetAll<Message>()
+            .Where(m => m.ConversationId == conversationId && m.SenderId == senderId && m.IsSeen == false)
+            .ToList();
+
+        messages.ForEach(m => m.IsSeen = true);
+        _repository.UpdateRange(messages);
+        _repository.Save();
+        return new OperationResultDTO { IsSuccess = true };
     }
 
     private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)
