@@ -27,8 +27,14 @@ namespace BazaarOnline.Application.Services.Users
             var user = _repository.Get<User>(userId);
             if (user == null) return null;
 
-            var result = new UserShortDashboardDetailViewModel();
-            return result.FillFromObject(user);
+            var result = new UserShortDashboardDetailViewModel
+            {
+                Data=new UserShortDashboardDataDetailViewModel
+                {
+
+                }.FillFromObject(user),
+            }.FillFromObject(user);
+            return result;
         }
 
         public UserShortDashboardDetailViewModel? UpdateUserDashboardDetail(string userId,
