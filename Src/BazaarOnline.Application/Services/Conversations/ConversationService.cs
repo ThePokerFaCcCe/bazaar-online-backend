@@ -328,4 +328,10 @@ public class ConversationService : IConversationService
 
         return null;
     }
+
+    public bool IsConversationExists(Guid conversationId, string userId)
+    {
+        return _repository.GetAll<Conversation>()
+            .Any(c => c.Id == conversationId && !c.IsDeleted && (c.OwnerId == userId || c.CustomerId == userId));
+    }
 }
