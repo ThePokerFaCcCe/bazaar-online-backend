@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1eca7e1b-9a50-4674-b745-7810701fcb6f",
+		"_postman_id": "e9481258-0dea-4bd0-a655-c46078cdd399",
 		"name": "Bazaar Online REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -174,7 +174,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"email\": \"user@example.com\",\n    \"phoneNumber\": null,\n    \"displayName\": \"کاربر بازار\",\n    \"answerHourStart\": 0,\n    \"answerHourEnd\": 23\n}"
+							"body": "{\n    \"id\": \"357A43DC-09AB-4808-8910-83381873E2EE\",\n    \"data\": {\n        \"email\": \"user@example.com\",\n        \"phoneNumber\": null,\n        \"displayName\": \"Bazaar User\",\n        \"answerHourStart\": 5,\n        \"answerHourEnd\": 23\n    }\n}"
 						}
 					]
 				},
