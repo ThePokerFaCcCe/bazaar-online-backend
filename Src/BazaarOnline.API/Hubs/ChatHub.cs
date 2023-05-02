@@ -42,6 +42,7 @@ public class ChatHub : Hub<IChatHub>
                 InquiryId = inquiryId,
                 Data = validation,
                 IsSuccess = validation.IsSuccess,
+                OperationType = SocketOperationTypeEnum.SendMessage,
             };
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
@@ -63,6 +64,7 @@ public class ChatHub : Hub<IChatHub>
                 InquiryId = inquiryId,
                 ServerErrorMessage = "Internal server error!",
                 IsSuccess = false,
+                OperationType = SocketOperationTypeEnum.SendMessage,
             };
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
         }
@@ -73,7 +75,8 @@ public class ChatHub : Hub<IChatHub>
         var response = new SocketOperationResultDTO
         {
             InquiryId = inquiryId,
-            IsSuccess = false
+            IsSuccess = false,
+            OperationType = SocketOperationTypeEnum.SeenConversation,
         };
         try
         {
@@ -107,16 +110,21 @@ public class ChatHub : Hub<IChatHub>
         var response = new SocketOperationResultDTO
         {
             InquiryId = inquiryId,
-            IsSuccess = false
+            IsSuccess = false,
+            OperationType = SocketOperationTypeEnum.ChattingStatus,
         };
         try
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<ChattingStatusDTO>>(jsonData);
             if (data?.Data?.ConversationId == null || data.Data.Status == null || data.Data.Timeout == null)
                 throw new ArgumentNullException();
-
+            var chattingEvent = new SocketEventDTO
+            {
+                Data = data.Data,
+                EventType = SocketEventTypeEnum.Seen,
+            };
             var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-            await Clients.Group(receiverId).ReceiveEvent(jsonData);
+            await Clients.Group(receiverId).ReceiveEvent(Jsonify(chattingEvent));
             response.IsSuccess = true;
         }
         catch (Exception e)

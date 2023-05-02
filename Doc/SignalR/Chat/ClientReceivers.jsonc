@@ -1,0 +1,82 @@
+{
+    "ReceiveMessage": {
+        "usage": "ReceiveMessage(jsonData)",
+        "parameters": {
+            "jsonData": {
+                "Id": "00000000-0000-0000-0000-000000000000",
+                "Data": {
+                    "Text": "",
+                    "AttachmentLocation": {
+                        "Longitude": 0.123456,
+                        "Latitude": 0.123456
+                    },
+                    "AttachmentFile": {
+                        "FileName": "",
+                        "Url": ""
+                    },
+                    "AttachmentType": 0, // 0:NoAttachment, 1:Picture, 2:Voice, 3:Location 
+                    "AttachmentTypeName": "NoAttachment", // NoAttachment, Picture, Voice, Location 
+                    "ReplyToId": null,
+                    "CreateDate": "0001-01-01T00:00:00",
+                    "UpdateDate": "0001-01-01T00:00:00",
+                    "IsSentBySelf": false,
+                    "IsSeen": false,
+                    "IsEdited": false,
+                    "IsDeleted": false
+                }
+            }
+        }
+    },
+    "ReceiveEvent": {
+        "usage": "ReceiveEvent(jsonData)",
+        "parameters": {
+            "jsonData": {
+                "EventType": 0, // 1: Seen, 2: Chatting
+                "EventTypeName": "", // Seen, Chatting
+                "Data": {} // Data Object Depends On `EventType`
+                //---------------------------------------------------------
+                // If `EventType` == 1, then `Data` contains this object:
+                ,
+                "__DATA__1": {
+                    "ConversationId": "guid"
+                }
+                // If `EventType` == 2, then `Data` contains this object:
+                ,
+                "__DATA__2": {
+                    "ConversationId": "guid",
+                    "Status": 0, // 0: Nothing, 1: Typing, 2: RecordingVoice,
+                    "StatusName": "Nothing", // Nothing, Typing, RecordingVoice,
+                    "Timeout": 3 // Seconds,
+                }
+            }
+        }
+    },
+    "ReceiveOperationResult": {
+        "usage": "ReceiveOperationResult(jsonData)",
+        "parameters": {
+            "jsonData": {
+                "InquiryId": "",
+                "ServerErrorMessage": "",
+                "IsSuccess": false,
+                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus
+                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus
+                "Data": {} // Data Object Depends On `OperationType`
+                //---------------------------------------------------------
+                // If `OperationType` == 1, then `Data` contains this object:
+                ,
+                "__DATA__1": {
+                    "MessageId?": "",
+                    "ErrorMessage": "",
+                    "ErrorCode": 0,
+                    "IsSuccess": false
+                }
+                // If `OperationType` == 2, then `Data` contains this object:
+                ,
+                "__DATA__2": null
+                // If `OperationType` == 3, then `Data` contains this object:
+                ,
+                "__DATA__3": null
+            }
+        }
+    }
+}

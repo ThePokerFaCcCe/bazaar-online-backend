@@ -1,0 +1,72 @@
+{
+    "SendMessage": {
+        "usage": "SendMessage(inquiryId, jsonData)",
+        "self-responses": [
+            "ReceiveOperationResult",
+            "ReceiveMessage"
+        ],
+        "others-responses": [
+            "ReceiveMessage"
+        ],
+        "parameters": {
+            "inquiryId": "",
+            "jsonData": {
+                "InquiryId": "", // same as inquiryId in parameters
+                "Data": {
+                    "ConversationId": "guid",
+                    "ReplyToId?": "guid",
+                    "Text": "",
+                    "AttachmentType": 0, // 0:NoAttachment, 1:Picture, 2:Voice, 3:Location 
+                    "PictureAttachment?": {
+                        "FileId": 0
+                    },
+                    "VoiceAttachment?": {
+                        "FileId": 0
+                    },
+                    "LocationAttachment?": {
+                        "Longitude": 0.123456,
+                        "Latitude": 0.123456
+                    }
+                }
+            }
+        }
+    },
+    "SeenConversation": {
+        "usage": "SeenConversation(inquiryId, jsonData)",
+        "self-responses": [
+            "ReceiveOperationResult"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": "",
+            "jsonData": {
+                "InquiryId": "", // same as inquiryId in parameters
+                "Data": {
+                    "ConversationId": "guid",
+                }
+            }
+        }
+    },
+    "ChattingStatus": {
+        "usage": "ChattingStatus(inquiryId, jsonData)",
+        "self-responses": [
+            "ReceiveOperationResult"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": "",
+            "jsonData": {
+                "InquiryId": "", // same as inquiryId in parameters
+                "Data": {
+                    "ConversationId": "guid",
+                    "Status": 0, // 0: Nothing, 1: Typing, 2: RecordingVoice,
+                    "Timeout": 3 // Seconds
+                }
+            }
+        }
+    }
+}

@@ -4,9 +4,9 @@ public class AddMessageResultDTO
 {
     public Guid? MessageId { get; set; }
 
-    public string? ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; } = string.Empty;
 
-    public int? ErrorCode { get; set; }
+    public int ErrorCode { get; set; } = 0;
 
     public bool IsSuccess => MessageId != null;
 }
