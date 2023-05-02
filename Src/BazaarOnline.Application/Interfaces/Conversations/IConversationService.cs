@@ -13,6 +13,8 @@ public interface IConversationService
 
     IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId);
 
+    bool IsConversationExists(Guid conversationId, string userId);
+
     MessageDetailViewModel GetMessage(Guid messageId, string userId);
 
     string? GetSecondConversationUser(Guid conversationId, string userId);
