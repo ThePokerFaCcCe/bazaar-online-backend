@@ -52,6 +52,9 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired()
                 .HasDefaultValue(false);
 
+            builder.Property(c => c.ReplyToId)
+                .IsRequired(false);
+
             builder.Property(c => c.AttachmentType)
                 .HasConversion<string>()
                 .IsRequired()
