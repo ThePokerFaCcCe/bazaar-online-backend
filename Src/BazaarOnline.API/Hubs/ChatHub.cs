@@ -50,11 +50,11 @@ public class ChatHub : Hub<IChatHub>
             if (validation.IsSuccess)
             {
                 var createdMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
-                await Clients.Caller.ReceiveMessage(Jsonify(createdMessage));
+                await Clients.Caller.ReceiveMessage(inquiryId, Jsonify(createdMessage));
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
                 createdMessage.Data.IsSentBySelf = false;
-                await Clients.Group(receiverId).ReceiveMessage(Jsonify(createdMessage));
+                await Clients.Group(receiverId).ReceiveMessage(string.Empty, Jsonify(createdMessage));
             }
         }
         catch (Exception e)
