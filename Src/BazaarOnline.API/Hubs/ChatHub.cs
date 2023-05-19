@@ -4,6 +4,7 @@ using BazaarOnline.Application.Interfaces.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace BazaarOnline.API.Hubs;
 
@@ -18,7 +19,12 @@ public class ChatHub : Hub<IChatHub>
         _conversationService = conversationService;
     }
 
-    private string Jsonify(object data) => JsonConvert.SerializeObject(data);
+    private string Jsonify(object data) => JsonConvert.SerializeObject(
+        data,
+        new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        });
 
     public override async Task OnConnectedAsync()
     {

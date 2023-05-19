@@ -1,7 +1,8 @@
 {
     "ReceiveMessage": {
-        "usage": "ReceiveMessage(jsonData)",
+        "usage": "ReceiveMessage(inquiryId, jsonData)",
         "parameters": {
+            "inquiryId": "", // if message was sent by self user, this wil be the sent inquiryId to server
             "jsonData": {
                 "Id": "00000000-0000-0000-0000-000000000000",
                 "Data": {
