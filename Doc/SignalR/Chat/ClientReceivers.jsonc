@@ -17,6 +17,7 @@
                     "AttachmentType": 0, // 0:NoAttachment, 1:Picture, 2:Voice, 3:Location 
                     "AttachmentTypeName": "NoAttachment", // NoAttachment, Picture, Voice, Location 
                     "ReplyToId": null,
+                    "conversationId": "cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
                     "CreateDate": "0001-01-01T00:00:00",
                     "UpdateDate": "0001-01-01T00:00:00",
                     "IsSentBySelf": false,

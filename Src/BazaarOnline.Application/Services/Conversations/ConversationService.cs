@@ -95,7 +95,7 @@ public class ConversationService : IConversationService
             .Where(m => m.ConversationId == conversationId)
             .OrderByDescending(m => m.Id);
 
-        return messages.Select(m => GetMessageViewModel(m, userId));
+        return messages.ToList().Select(m => GetMessageViewModel(m, userId));
     }
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)

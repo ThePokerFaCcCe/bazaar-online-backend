@@ -25,6 +25,8 @@ public class MessageDetailDataViewModel
 
     public Guid? ReplyToId { get; set; } = null;
 
+    public Guid ConversationId { get; set; } = Guid.Empty;
+
     public DateTime CreateDate { get; set; } = DateTime.MinValue;
 
     public DateTime UpdateDate { get; set; } = DateTime.MinValue;
