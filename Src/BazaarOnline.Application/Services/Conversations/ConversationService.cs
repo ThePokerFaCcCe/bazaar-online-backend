@@ -92,10 +92,10 @@ public class ConversationService : IConversationService
     public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
     {
         var messages = _repository.GetAll<Message>()
-            .Where(m => m.ConversationId == conversationId)
-            .OrderByDescending(m => m.Id);
+            .Where(m => m.ConversationId == conversationId);
 
-        return messages.ToList().Select(m => GetMessageViewModel(m, userId));
+        return messages.ToList().Select(m => GetMessageViewModel(m, userId))
+            .OrderByDescending(m => m.Data.CreateDate);
     }
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)
@@ -214,7 +214,7 @@ public class ConversationService : IConversationService
                     LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.Id), userId),
                 }
             }.FillFromObject(c, false);
-        });
+        }).OrderByDescending(c => c.Data.LastMessage?.Data.CreateDate);
     }
 
     private string? ValidateMessage(AddMessageDTO dto)

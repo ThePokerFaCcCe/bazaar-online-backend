@@ -1,4 +1,5 @@
 ﻿using BazaarOnline.Application.DTOs;
+using BazaarOnline.Application.Generators;
 using BazaarOnline.Application.Interfaces.UploadCenter;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Validators;
@@ -81,8 +82,6 @@ public class FileCenterService : IFileCenterService
     }
 
 
-
-
     private OperationResultDTO ValidateImage(IFormFile file, int fileSizeKb)
     {
         var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
@@ -120,20 +119,14 @@ public class FileCenterService : IFileCenterService
 
     private OperationResultDTO ValidateVoice(IFormFile file, int fileSizeKb)
     {
-        var allowedExtensions = new[] { ".ogg" };
         var errors = new List<string>();
+        // TODO - FixLater
+        //if (!file.IsValidOggVoice())
+        //{
+        //    errors.Add("فایل انتخاب شده وویس نیست");
+        //}
 
-        if (!file.HasValidExtension(allowedExtensions))
-        {
-            errors.Add("فرمت فایل مجاز نیست. باید ogg باشد");
-        }
-
-        if (!file.IsValidOggVoice())
-        {
-            errors.Add("فایل انتخاب شده وویس نیست");
-        }
-
-        else if (!file.IsSizeSmallerThan(fileSizeKb))
+        if (!file.IsSizeSmallerThan(fileSizeKb))
         {
             errors.Add($"حجم فایل بزرگتر از {fileSizeKb} کیلوبایت است.");
         }
@@ -200,18 +193,20 @@ public class FileCenterService : IFileCenterService
     public FileCenter SaveFile(IFormFile file, FileCenterTypeEnum type)
     {
         string filePath = PathHelper.OtherFiles;
+        string? fileName = null;
 
         switch (type)
         {
             case FileCenterTypeEnum.ChatVoice:
                 filePath = PathHelper.ChatVoice;
+                fileName = $"{StringGenerator.GenerateUniqueCodeWithoutDash()}.ogg";
                 break;
 
             default:
                 throw new ArgumentOutOfRangeException(nameof(type));
         }
 
-        var savedFilePath = FileHelper.SaveFile(file, filePath);
+        var savedFilePath = FileHelper.SaveFile(file, filePath, fileName);
         var filename = Path.GetFileName(savedFilePath);
         try
         {
@@ -377,10 +372,7 @@ public class FileCenterService : IFileCenterService
         }
         catch (Exception e)
         {
-            createdFiles.ForEach(f =>
-            {
-                FileHelper.DeleteFile(Path.Combine(filePath, f.FileName));
-            });
+            createdFiles.ForEach(f => { FileHelper.DeleteFile(Path.Combine(filePath, f.FileName)); });
             throw;
         }
 
