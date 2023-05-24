@@ -31,7 +31,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         #region Relations
 
-        public Message ReplyTo { get; set; }
+        public Message? ReplyTo { get; set; }
         public IEnumerable<Message> Replies { get; set; }
         public User Sender { get; set; }
         public Conversation Conversation { get; set; }

@@ -92,6 +92,7 @@ public class ConversationService : IConversationService
     public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
     {
         var messages = _repository.GetAll<Message>()
+            .Include(m => m.ReplyTo)
             .Where(m => m.ConversationId == conversationId);
 
         return messages.ToList().Select(m => GetMessageViewModel(m, userId))
@@ -100,7 +101,9 @@ public class ConversationService : IConversationService
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)
     {
-        var message = _repository.Get<Message>(messageId);
+        var message = _repository.GetAll<Message>()
+            .Include(m => m.ReplyTo)
+            .SingleOrDefault(m => m.Id == messageId);
         return GetMessageViewModel(message, userId);
     }
 
@@ -140,6 +143,11 @@ public class ConversationService : IConversationService
                 IsSentBySelf = (message.SenderId == userId),
             }.FillFromObject(message),
         }.FillFromObject(message);
+
+        if (message.ReplyTo != null)
+        {
+            model.Data.ReplyTo = GetMessageViewModel(message.ReplyTo, userId);
+        }
 
         if (message.AttachmentType == MessageAttachmentTypeEnum.Location)
         {
