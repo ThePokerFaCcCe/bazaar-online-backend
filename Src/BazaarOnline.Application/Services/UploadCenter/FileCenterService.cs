@@ -341,17 +341,21 @@ public class FileCenterService : IFileCenterService
 
         foreach (var file in files)
         {
-            var savedFilePath = FileHelper.SaveFile(file, filePath);
-            var filename = Path.GetFileName(savedFilePath);
+            string? fileName = null;
             object? extra = null;
             if (type is FileCenterTypeEnum.ChatVoice)
             {
-                using var f = new VorbisReader(file.OpenReadStream(), false);
+                fileName = $"{StringGenerator.GenerateUniqueCodeWithoutDash()}.ogg";
+                //using var f = new VorbisReader(file.OpenReadStream(), false);
                 extra = new
                 {
-                    totalTime = (long)f.TotalTime.TotalSeconds,
+                    //totalTime = (long)f.TotalTime.TotalSeconds,
+                    totalTime = -1,
                 };
             }
+
+            var savedFilePath = FileHelper.SaveFile(file, filePath, fileName);
+            var filename = Path.GetFileName(savedFilePath);
 
             var fileCenter = new FileCenter
             {

@@ -310,10 +310,10 @@ public class ConversationService : IConversationService
             }
             else
             {
-                var isPictureExists = _repository.GetAll<FileCenter>()
-                    .Any(f => f.Id == dto.VoiceAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
+                var isVoiceExists = _repository.GetAll<FileCenter>()
+                    .Any(f => f.Id == dto.VoiceAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatVoice);
 
-                if (!isPictureExists)
+                if (!isVoiceExists)
                 {
                     errors.Add(nameof(dto.VoiceAttachment.FileId), "فایل صوتی یافت نشد");
                 }
