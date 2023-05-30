@@ -19,5 +19,6 @@ public interface IConversationService
 
     string? GetSecondConversationUser(Guid conversationId, string userId);
 
-    OperationResultDTO SeenMessages(Guid conversationId, string userId);
+    OperationResultDTO SeenConversation(Guid conversationId, string userId);
+    OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId);
 }

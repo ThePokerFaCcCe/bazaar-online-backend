@@ -4,6 +4,7 @@ namespace BazaarOnline.Application.DTOs.ConversationDTOs;
 
 public enum SocketEventTypeEnum
 {
-    [Display(Name = "Seen")] Seen = 1,
+    [Display(Name = "SeenConversation")] SeenConversation = 1,
     [Display(Name = "Chatting")] Chatting = 2,
+    [Display(Name = "SeenMessage")] SeenMessage = 3,
 }
