@@ -86,16 +86,55 @@ public class ChatHub : Hub<IChatHub>
         };
         try
         {
-            var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenMessageDTO>>(jsonData);
-            if (data?.Data?.ConversationId == null) throw new ArgumentNullException();
+            var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenConversationDTO>>(jsonData);
+            if (data?.Data?.ConversationId == null || data?.Data.ConversationId == Guid.Empty)
+                throw new ArgumentNullException("ConuversationId Is Empty");
 
-            var seenResult = _conversationService.SeenMessages(data.Data.ConversationId, UserId);
+            var seenResult = _conversationService.SeenConversation(data.Data.ConversationId, UserId);
             if (seenResult.IsSuccess)
             {
                 var seenEvent = new SocketEventDTO
                 {
                     Data = data,
-                    EventType = SocketEventTypeEnum.Seen,
+                    EventType = SocketEventTypeEnum.SeenConversation,
+                };
+
+                var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(seenEvent));
+                response.IsSuccess = true;
+            }
+        }
+        catch (Exception e)
+        {
+            response.ServerErrorMessage = "Internal Server Error";
+        }
+
+        await Clients.Caller.ReceiveOperationResult(Jsonify(response));
+    }
+
+    public async Task SeenMessage(string inquiryId, string jsonData)
+    {
+        var response = new SocketOperationResultDTO
+        {
+            InquiryId = inquiryId,
+            IsSuccess = false,
+            OperationType = SocketOperationTypeEnum.SeenMessage,
+        };
+        try
+        {
+            var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenMessageDTO>>(jsonData);
+            if (data?.Data?.ConversationId == null || data?.Data.ConversationId == Guid.Empty)
+                throw new ArgumentNullException("ConuversationId Is Empty");
+            if (data?.Data?.MessageId == null || data?.Data.MessageId == Guid.Empty)
+                throw new ArgumentNullException("MessageId Is Empty");
+
+            var seenResult = _conversationService.SeenConversation(data.Data.ConversationId, UserId);
+            if (seenResult.IsSuccess)
+            {
+                var seenEvent = new SocketEventDTO
+                {
+                    Data = data,
+                    EventType = SocketEventTypeEnum.SeenConversation,
                 };
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
@@ -127,7 +166,7 @@ public class ChatHub : Hub<IChatHub>
             var chattingEvent = new SocketEventDTO
             {
                 Data = data.Data,
-                EventType = SocketEventTypeEnum.Seen,
+                EventType = SocketEventTypeEnum.SeenConversation,
             };
             var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
             await Clients.Group(receiverId).ReceiveEvent(Jsonify(chattingEvent));

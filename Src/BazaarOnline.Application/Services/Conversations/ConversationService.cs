@@ -115,11 +115,11 @@ public class ConversationService : IConversationService
         return conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
     }
 
-    public OperationResultDTO SeenMessages(Guid conversationId, string userId)
+    public OperationResultDTO SeenConversation(Guid conversationId, string userId)
     {
         var conversation = _repository.Get<Conversation>(conversationId);
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
-            return new OperationResultDTO { IsSuccess = false };
+            return new OperationResultDTO { IsSuccess = false, Message = "Conversation Not Found" };
 
         var senderId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
         var messages = _repository.GetAll<Message>()
@@ -130,6 +130,34 @@ public class ConversationService : IConversationService
         _repository.UpdateRange(messages);
         _repository.Save();
         return new OperationResultDTO { IsSuccess = true };
+    }
+
+    public OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId)
+    {
+        var conversation = _repository.Get<Conversation>(conversationId);
+        if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+            return new OperationResultDTO { IsSuccess = false, Message = "Conversation Not Found" };
+
+        var senderId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+
+        var lastMessage = _repository.GetAll<Message>()
+            .OrderByDescending(m => m.CreateDate)
+            .FirstOrDefault(m => m.ConversationId == conversationId && m.SenderId == senderId && m.IsSeen == false);
+
+        if (lastMessage == null)
+            return new OperationResultDTO { IsSuccess = true, Message = "No new messages to seen" };
+
+        var messages = _repository.GetAll<Message>()
+            .OrderByDescending(m => m.CreateDate)
+            .Where(m => m.ConversationId == conversationId && m.SenderId == senderId &&
+                        m.IsSeen == false && m.CreateDate <= lastMessage.CreateDate)
+            .Take(30)
+            .ToList();
+
+        messages.ForEach(m => m.IsSeen = true);
+        _repository.UpdateRange(messages);
+        _repository.Save();
+        return new OperationResultDTO { IsSuccess = true, Message = $"{messages.Count} Messages SeenConversation" };
     }
 
     private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)

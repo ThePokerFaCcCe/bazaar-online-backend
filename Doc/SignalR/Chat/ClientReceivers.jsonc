@@ -33,8 +33,8 @@
         "usage": "ReceiveEvent(jsonData)",
         "parameters": {
             "jsonData": {
-                "EventType": 0, // 1: Seen, 2: Chatting
-                "EventTypeName": "", // Seen, Chatting
+                "EventType": 0, // 1: SeenConversation, 2: Chatting, 3: SeenMessage
+                "EventTypeName": "", // SeenConversation, Chatting, SeenMessage
                 "Data": {} // Data Object Depends On `EventType`
                 //---------------------------------------------------------
                 // If `EventType` == 1, then `Data` contains this object:
@@ -50,6 +50,13 @@
                     "StatusName": "Nothing", // Nothing, Typing, RecordingVoice,
                     "Timeout": 3 // Seconds,
                 }
+                // If `EventType` == 3, then `Data` contains this object:
+                ,
+                "__DATA__3": {
+                    "ConversationId": "guid",
+                    "MessageId": "guid",
+                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                }
             }
         }
     },
@@ -60,8 +67,8 @@
                 "InquiryId": "",
                 "ServerErrorMessage": "",
                 "IsSuccess": false,
-                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus
-                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus
+                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus,4: SeenMessage
+                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus, SeenMessage
                 "Data": {} // Data Object Depends On `OperationType`
                 //---------------------------------------------------------
                 // If `OperationType` == 1, then `Data` contains this object:
@@ -78,6 +85,9 @@
                 // If `OperationType` == 3, then `Data` contains this object:
                 ,
                 "__DATA__3": null
+                // If `OperationType` == 4, then `Data` contains this object:
+                ,
+                "__DATA__4": null
             }
         }
     }
