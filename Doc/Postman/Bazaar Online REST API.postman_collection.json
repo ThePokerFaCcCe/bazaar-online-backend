@@ -1018,6 +1018,67 @@
 					]
 				},
 				{
+					"name": "My Advertisement List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"advertisements",
+								"myself"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 May 2023 18:35:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 2,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 2,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T15:32:31.3066667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 11,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:27.3466667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 20,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:36.39\",\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 5,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 29,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:12.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 6,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 38,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:38.1833333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 7,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 47,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:22.8633333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 56,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:28.72\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 65,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:38:52.77\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 74,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:39:15.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 83,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:49:25.0366667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 12,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 92,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:55:19.9666667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
 					"name": "Advertisement Detail",
 					"request": {
 						"method": "GET",

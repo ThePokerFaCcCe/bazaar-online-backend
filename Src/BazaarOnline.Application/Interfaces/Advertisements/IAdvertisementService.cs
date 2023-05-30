@@ -16,6 +16,7 @@ public interface IAdvertisementService
 
     bool IsAdvertisementExists(int id);
     Advertisement? GetAdvertisement(int id);
+    IEnumerable<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId);
 
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
 
