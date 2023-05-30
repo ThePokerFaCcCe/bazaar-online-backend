@@ -71,6 +71,48 @@ public class AdvertisementService : IAdvertisementService
         return _repository.Get<Advertisement>(id);
     }
 
+    public IEnumerable<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId)
+    {
+        var advertisements = _repository.GetAll<Advertisement>()
+            .Include(a => a.City)
+            .Include(a => a.Pictures)
+            .ThenInclude(p => p.FileCenter)
+            .Include(a => a.AdvertisementFeatures)
+            .ThenInclude(af => af.CategoryFeature)
+            .ThenInclude(cf => cf.Feature)
+            .Where(a => a.UserId == userId);
+
+
+        return advertisements.ToList().Select(a =>
+        {
+            var firstPic = a.Pictures.MinBy(p => p.Id);
+            AdvertisementPictureViewModel? picture = null;
+            if (firstPic != null)
+                picture = new AdvertisementPictureViewModel().FillFromObject(firstPic.FileCenter);
+
+            return new AdvertisementSelfListDetailViewModel
+            {
+                Data = new AdvertisementSelfListDetailDataViewModel()
+                {
+                    Picture = picture,
+                    LocationText = a.City.Name,
+                    TimeText = a.UpdateDate.PassedFromNowString(),
+                    IsChatEnabled =
+                        a.ContactType is AdvertisementContactTypeEnum.ChatOnly or AdvertisementContactTypeEnum.Normal,
+                    Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
+                        .Select(af => new AdvertisementFeatureDetailViewModel
+                        {
+                            Id = af.Id,
+                            Name = af.CategoryFeature.Feature.Name,
+                            Value = af.Value,
+                            SortNumber = af.CategoryFeature.SortNumber,
+                            Position = af.CategoryFeature.Feature.Position,
+                        }),
+                }.FillFromObject(a)
+            }.FillFromObject(a);
+        });
+    }
+
     public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)
     {
         var advertisements = _repository.GetAll<Advertisement>()

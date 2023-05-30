@@ -45,6 +45,14 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return Ok(_advertisementService.GetAdvertisementList(filterDto));
         }
 
+        [HttpGet("myself")]
+        [Authorize]
+        public IActionResult GetAdvertisementList()
+        {
+            var userId = User.Identity?.Name;
+            return Ok(_advertisementService.GetSelfAdvertisementList(userId));
+        }
+
         [HttpGet("{id:int}")]
         public IActionResult GetAdvertisementDetail(int id)
         {
