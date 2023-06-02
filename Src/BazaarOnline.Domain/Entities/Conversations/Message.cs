@@ -20,7 +20,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public Guid? ReplyToId { get; set; }
 

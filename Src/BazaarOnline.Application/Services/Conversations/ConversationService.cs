@@ -93,10 +93,10 @@ public class ConversationService : IConversationService
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
-            .Where(m => m.ConversationId == conversationId);
+            .Where(m => m.ConversationId == conversationId)
+            .OrderBy(m => m.CreateDate);
 
-        return messages.ToList().Select(m => GetMessageViewModel(m, userId))
-            .OrderByDescending(m => m.Data.CreateDate);
+        return messages.ToList().Select(m => GetMessageViewModel(m, userId));
     }
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)
