@@ -134,7 +134,7 @@ public class ChatHub : Hub<IChatHub>
                 var seenEvent = new SocketEventDTO
                 {
                     Data = data,
-                    EventType = SocketEventTypeEnum.SeenConversation,
+                    EventType = SocketEventTypeEnum.SeenMessage,
                 };
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
@@ -166,7 +166,7 @@ public class ChatHub : Hub<IChatHub>
             var chattingEvent = new SocketEventDTO
             {
                 Data = data.Data,
-                EventType = SocketEventTypeEnum.SeenConversation,
+                EventType = SocketEventTypeEnum.Chatting,
             };
             var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
             await Clients.Group(receiverId).ReceiveEvent(Jsonify(chattingEvent));
