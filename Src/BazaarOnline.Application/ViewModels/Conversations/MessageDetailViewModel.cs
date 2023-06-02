@@ -32,7 +32,7 @@ public class MessageDetailDataViewModel
 
     public DateTime CreateDate { get; set; } = DateTime.MinValue;
 
-    public DateTime UpdateDate { get; set; } = DateTime.MinValue;
+    public DateTime? UpdateDate { get; set; }
 
     public bool IsSentBySelf { get; set; }
 

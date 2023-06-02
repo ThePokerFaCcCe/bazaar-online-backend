@@ -32,9 +32,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .HasDefaultValueSql("GETDATE()");
 
             builder.Property(c => c.UpdateDate)
-                .IsRequired()
-                .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("GETDATE()");
+                .IsRequired(false);
 
             builder.Property(c => c.Text)
                 .HasMaxLength(512)
