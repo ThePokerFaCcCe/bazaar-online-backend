@@ -247,7 +247,7 @@ public class ConversationService : IConversationService
                         }.FillFromObject(user, false),
                     }.FillFromObject(user, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.Id), userId),
+                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
                 }
             }.FillFromObject(c, false);
         }).OrderByDescending(c => c.Data.LastMessage?.Data.CreateDate);
