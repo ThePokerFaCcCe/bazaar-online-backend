@@ -708,6 +708,718 @@
 			"name": "Advertisement",
 			"item": [
 				{
+					"name": "Self Advertisements",
+					"item": [
+						{
+							"name": "My Advertisement List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 30 May 2023 18:35:27 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 2,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 2,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T15:32:31.3066667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 11,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:27.3466667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 20,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:36.39\",\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 5,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 29,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:12.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 6,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 38,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:38.1833333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 7,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 47,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:22.8633333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 56,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:28.72\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 65,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:38:52.77\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 74,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:39:15.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 83,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:49:25.0366667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 12,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 92,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:55:19.9666667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "My Advertisement Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself",
+										"1111"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1111"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 09 Jun 2023 11:20:22 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "My Advertisement Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself",
+										"1111"
+									]
+								},
+								"description": "All Data is required.\n\nold features will be deleted and new `Features` will be added."
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1111"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 09 Jun 2023 13:41:53 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "My Adv Update Pic",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pictures\":[13,14,15]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111/pictures",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself",
+										"1111",
+										"pictures"
+									]
+								},
+								"description": "Add new pics for advertisement"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"pictures\":[13,14,15]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111/pictures",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1111",
+												"pictures"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 09 Jun 2023 14:14:00 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"pictures\":[13,14,15]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111/pictures",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1111",
+												"pictures"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 09 Jun 2023 14:18:58 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-edad5310da5a22b2e5c5369b944f31eb-8a547640886464be-00\",\n    \"errors\": {\n        \"Pictures\": [\n            \"{\\\"13\\\":\\\"File not found\\\",\\\"15\\\":\\\"File not found\\\"}\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "My Adv Delete Pic",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pictures\":[13,15]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111/pictures",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself",
+										"1111",
+										"pictures"
+									]
+								},
+								"description": "Delete pics from advertisement"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"pictures\":[13,15]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111/pictures",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1111",
+												"pictures"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Fri, 09 Jun 2023 14:16:34 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Advertisement Actions",
+					"item": [
+						{
+							"name": "Advertisement Bookmark",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"bookmark"
+									]
+								},
+								"description": "*fields*\n\n`isBookmarked`: \"bool\"\n  - **Required**\n\n\n\n*Notes*\n\n  - **Login Required**"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"isBookmarked\":true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"11",
+												"bookmark"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 23 Mar 2023 12:09:15 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isBookmarked\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Add Advertisement Note",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"note"
+									]
+								},
+								"description": "*fields*\n\n`note`: \"string\"\n  - **Required**\n  - **Max length** is 255\n\n\n*Notes*\n\n  - **Login Required**"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"11",
+												"note"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 20 Mar 2023 11:26:23 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
+								},
+								{
+									"name": "Bad Note",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"note\":\"this is my note that is very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"11",
+												"note"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 20 Mar 2023 11:27:19 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-17ab9d1d3fdbd4c9b47f3ad4931ad4b8-882aad154d5f7f67-00\",\n    \"errors\": {\n        \"Note\": [\n            \"یادداشت باید حداکثر 255 کاراکتر باشد\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Rem Advertisement Note",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"11",
+										"note"
+									]
+								},
+								"description": "*Notes*\n\n  - **Login Required**"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"11",
+												"note"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 20 Mar 2023 11:26:23 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Create Advertisement",
 					"request": {
 						"method": "POST",
@@ -1018,80 +1730,19 @@
 					]
 				},
 				{
-					"name": "My Advertisement List",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"advertisements",
-								"myself"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements",
-										"myself"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 30 May 2023 18:35:27 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": 2,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 2,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T15:32:31.3066667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 11,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:27.3466667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 20,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-03-27T16:10:36.39\",\n            \"isChatEnabled\": false,\n            \"picture\": null,\n            \"timeText\": \"2 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"2 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 5,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 29,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:12.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 6,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 38,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:45:38.1833333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 7,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 47,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:22.8633333\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 56,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T17:47:28.72\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 65,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:38:52.77\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 74,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:39:15.28\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 83,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:49:25.0366667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    },\n    {\n        \"id\": 12,\n        \"data\": {\n            \"statusType\": 2,\n            \"statusReason\": null,\n            \"statusTypeName\": \"تاییدشده\",\n            \"title\": \"وانت نیسان aaaaتمیز\",\n            \"features\": [\n                {\n                    \"id\": 92,\n                    \"value\": \"264000\",\n                    \"sortNumber\": 2,\n                    \"name\": \"کارکرد\",\n                    \"position\": 1\n                }\n            ],\n            \"updateDate\": \"2023-04-07T18:55:19.9666667\",\n            \"isChatEnabled\": true,\n            \"picture\": null,\n            \"timeText\": \"1 ماه پیش\",\n            \"locationText\": \"قم\",\n            \"infoText\": \"1 ماه پیش در قم\"\n        }\n    }\n]"
-						}
-					]
-				},
-				{
 					"name": "Advertisement Detail",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/2",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/1111",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"advertisements",
-								"2"
+								"1111"
 							]
 						},
 						"description": "Get Advertisement Detail\n\n*Output*\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only"
@@ -1243,294 +1894,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"errorMessage\": \"اطلاعات تماس کاربر مخفی میباشد. از چت استفاده کنید\",\n    \"phoneNumber\": \"\",\n    \"email\": \"\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Advertisement Bookmark",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"isBookmarked\":true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"advertisements",
-								"11",
-								"bookmark"
-							]
-						},
-						"description": "*fields*\n\n`isBookmarked`: \"bool\"\n  - **Required**\n\n\n\n*Notes*\n\n  - **Login Required**"
-					},
-					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"isBookmarked\":true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/bookmark",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements",
-										"11",
-										"bookmark"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 12:09:15 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"isBookmarked\": true\n}"
-						}
-					]
-				},
-				{
-					"name": "Add Advertisement Note",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"advertisements",
-								"11",
-								"note"
-							]
-						},
-						"description": "*fields*\n\n`note`: \"string\"\n  - **Required**\n  - **Max length** is 255\n\n\n*Notes*\n\n  - **Login Required**"
-					},
-					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements",
-										"11",
-										"note"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 20 Mar 2023 11:26:23 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
-						},
-						{
-							"name": "Bad Note",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"note\":\"this is my note that is very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements",
-										"11",
-										"note"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/problem+json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 20 Mar 2023 11:27:19 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-17ab9d1d3fdbd4c9b47f3ad4931ad4b8-882aad154d5f7f67-00\",\n    \"errors\": {\n        \"Note\": [\n            \"یادداشت باید حداکثر 255 کاراکتر باشد\"\n        ]\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Rem Advertisement Note",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"advertisements",
-								"11",
-								"note"
-							]
-						},
-						"description": "*Notes*\n\n  - **Login Required**"
-					},
-					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"note\":\"this is my note\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements",
-										"11",
-										"note"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 20 Mar 2023 11:26:23 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\"\n}"
 						}
 					]
 				}

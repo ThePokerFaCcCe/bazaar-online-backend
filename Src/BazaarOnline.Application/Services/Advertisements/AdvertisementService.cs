@@ -61,6 +61,48 @@ public class AdvertisementService : IAdvertisementService
         return advertisement.Id;
     }
 
+    public OperationResultDTO UpdateAdvertisementPictures(int id, UpdateAdvertisementPictureDTO dto)
+    {
+        var advertisement = _repository.GetAll<Advertisement>()
+            .Include(a => a.Pictures)
+            .ThenInclude(a => a.FileCenter)
+            .SingleOrDefault(a => a.Id == id);
+
+        if (advertisement == null)
+            return new OperationResultDTO { Message = "آگهی یافت نشد", IsSuccess = false };
+
+        if (dto.Status is UpdateAdvertisementPictureStatus.InsertPictures)
+        {
+            var newPictures = dto.Pictures.Except(advertisement.Pictures.Select(ap => ap.FileCenterId));
+            var advertisementPictures = newPictures.Select(fileId => new AdvertisementPicture
+            {
+                Advertisement = advertisement,
+                FileCenterId = fileId,
+            });
+
+            _repository.AddRange(advertisementPictures);
+        }
+        else if (dto.Status is UpdateAdvertisementPictureStatus.DeletePictures)
+        {
+            var deletedPictures = advertisement.Pictures.Where(ap => dto.Pictures.Contains(ap.FileCenterId));
+            var deletedFiles = deletedPictures.Select(ap => ap.FileCenter).ToList();
+
+            _repository.RemoveRange(deletedPictures);
+            _repository.RemoveRange(deletedFiles);
+
+            deletedFiles.ForEach(f =>
+            {
+                FileHelper.DeleteFile(Path.Join(PathHelper.AdvertisementImages, f.FileName));
+                FileHelper.DeleteFile(Path.Join(PathHelper.AdvertisementThumbs, f.FileName));
+            });
+        }
+
+        advertisement.UpdateDate = DateTime.Now;
+        _repository.Update(advertisement);
+        _repository.Save();
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
     public bool IsAdvertisementExists(int id)
     {
         return _repository.GetAll<Advertisement>()
@@ -120,6 +162,43 @@ public class AdvertisementService : IAdvertisementService
         });
     }
 
+
+    public OperationResultDTO UpdateAdvertisement(int id, UpdateAdvertisementDTO dto)
+    {
+        var advertisement = _repository.GetAll<Advertisement>()
+            .Include(a => a.AdvertisementFeatures)
+            .SingleOrDefault(a => a.Id == id);
+
+        if (advertisement == null)
+            return new OperationResultDTO { Message = "آگهی یافت نشد", IsSuccess = false };
+
+        dto.TrimStrings();
+        if (dto.Latitude == null || dto.Longitude == null)
+        {
+            dto.Latitude = null;
+            dto.Longitude = null;
+            dto.ShowExactCoordinates = false;
+        }
+
+        advertisement.FillFromObject(dto);
+        advertisement.UpdateDate = DateTime.Now;
+        _repository.Update(advertisement);
+
+        var advertisementFeatures = dto.Features.Select(feature => new AdvertisementFeature
+        {
+            Value = feature.Value,
+            CategoryFeatureId = feature.Id,
+            Advertisement = advertisement,
+        });
+
+        _repository.RemoveRange(advertisement.AdvertisementFeatures);
+        _repository.AddRange(advertisementFeatures);
+
+        _repository.Save();
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
+
     public OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto)
     {
         dto.TrimStrings();
@@ -129,6 +208,7 @@ public class AdvertisementService : IAdvertisementService
             return new OperationResultDTO { Message = "آگهی یافت نشد", IsSuccess = false };
 
         advertisement.FillFromObject(dto);
+        advertisement.UpdateDate = DateTime.Now;
         _repository.Update(advertisement);
         _repository.Save();
 

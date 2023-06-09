@@ -12,6 +12,6 @@ public class AdvertisementSelfListDetailViewModel
 public class AdvertisementSelfListDetailDataViewModel : AdvertisementListDetailDataViewModel
 {
     public AdvertisementStatusTypeEnum StatusType { get; set; }
-    public string StatusTypeName => StatusType.GetDisplayName().Camelize();
+    public string StatusTypeName => StatusType.GetDisplayName();
     public string StatusReason { get; set; } = string.Empty;
 }

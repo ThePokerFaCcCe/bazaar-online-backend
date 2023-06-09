@@ -15,6 +15,10 @@ public interface IAdvertisementService
     /// <returns>Created ad Id on success or -1 on failure</returns>
     int CreateAdvertisement(CreateAdvertisementDTO dto, string userId);
 
+    OperationResultDTO UpdateAdvertisement(int id, UpdateAdvertisementDTO dto);
+
+    OperationResultDTO UpdateAdvertisementPictures(int id, UpdateAdvertisementPictureDTO dto);
+
     bool IsAdvertisementExists(int id);
     bool IsAdvertisementExists(int advertisementId, string userId);
     Advertisement? GetAdvertisement(int id);

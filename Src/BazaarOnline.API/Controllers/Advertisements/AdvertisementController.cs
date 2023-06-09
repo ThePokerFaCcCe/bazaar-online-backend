@@ -45,29 +45,6 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return Ok(_advertisementService.GetAdvertisementList(filterDto));
         }
 
-        [HttpGet("myself")]
-        [Authorize]
-        public IActionResult GetAdvertisementList()
-        {
-            var userId = User.Identity?.Name;
-            return Ok(_advertisementService.GetSelfAdvertisementList(userId));
-        }
-
-        [Authorize]
-        [HttpDelete("myself/{id:int}")]
-        public IActionResult DeleteSelfAdvertisement(int id)
-        {
-            var userId = User.Identity?.Name;
-            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
-            if (!isAdvertisementExists)
-                return NotFound();
-
-            var dto = new AdvertisementUpdateStatusDTO { StatusType = AdvertisementStatusTypeEnum.DeletedByUser };
-            var result = _advertisementService.UpdateAdvertisementStatus(id, dto);
-            return Ok(result);
-        }
-
-
         [HttpGet("{id:int}")]
         public IActionResult GetAdvertisementDetail(int id)
         {
@@ -170,6 +147,157 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return CreatedAtAction(nameof(GetAdvertisementDetail), new { Id = advertisementId }, null);
         }
 
+        #region MySelf
+
+        [HttpGet("myself")]
+        [Authorize]
+        public IActionResult GetAdvertisementList()
+        {
+            var userId = User.Identity?.Name;
+            return Ok(_advertisementService.GetSelfAdvertisementList(userId));
+        }
+
+        [Authorize]
+        [HttpDelete("myself/{id:int}")]
+        public IActionResult DeleteSelfAdvertisement(int id)
+        {
+            var userId = User.Identity?.Name;
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            var dto = new AdvertisementUpdateStatusDTO { StatusType = AdvertisementStatusTypeEnum.DeletedByUser };
+            var result = _advertisementService.UpdateAdvertisementStatus(id, dto);
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut("myself/{id:int}")]
+        public IActionResult UpdateSelfAdvertisement(int id, [FromBody] UpdateAdvertisementDTO dto)
+        {
+            var userId = User.Identity?.Name;
+            var advertisement = _advertisementService.GetAdvertisement(id);
+            if (advertisement == null || advertisement.UserId != userId)
+                return NotFound();
+
+            if (!ModelState.IsValid) return BadRequest(dto);
+
+            bool hasErrors = false;
+
+            if ((dto.Latitude == null && dto.Longitude != null) || (dto.Latitude != null && dto.Longitude == null))
+            {
+                if (dto.Latitude == null)
+                {
+                    ModelState.AddModelError(nameof(dto.Latitude), "این فیلد اجباری است");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(dto.Longitude), "این فیلد اجباری است");
+                }
+
+                hasErrors = true;
+            }
+            else if (dto.Latitude != null && dto.Longitude != null)
+            {
+                var locationValidation =
+                    _mapService.ValidateLocation(advertisement.ProvinceId, advertisement.CityId, (double)dto.Longitude,
+                        (double)dto.Latitude);
+                if (!locationValidation.IsValid)
+                {
+                    switch (locationValidation.Status)
+                    {
+                        case LocationValidationStatusEnum.ProvinceNotFound:
+                            //ModelState.AddModelError(nameof(dto.ProvinceId), locationValidation.Message);
+                            throw new ArgumentOutOfRangeException();
+                        case LocationValidationStatusEnum.CityNotFound:
+                            //ModelState.AddModelError(nameof(dto.CityId), locationValidation.Message);
+                            throw new ArgumentOutOfRangeException();
+                        case LocationValidationStatusEnum.CoordinatesNotInProvince:
+                            ModelState.AddModelError(nameof(dto.Latitude), locationValidation.Message);
+                            ModelState.AddModelError(nameof(dto.Longitude), locationValidation.Message);
+                            break;
+                        case LocationValidationStatusEnum.ServerError:
+                            return StatusCode(500, locationValidation);
+                    }
+
+                    hasErrors = true;
+                }
+
+                if (dto.ShowExactCoordinates == null)
+                {
+                    ModelState.AddModelError(nameof(dto.ShowExactCoordinates), "این فیلد اجباری است");
+                    hasErrors = true;
+                }
+            }
+
+            var featureValidation =
+                _featureHandlerService.ValidateAdvertisementFeatures(advertisement.CategoryId, dto.Features);
+            if (!featureValidation.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.Features), featureValidation.Message);
+                hasErrors = true;
+            }
+
+            if (hasErrors) return ValidationProblem(ModelState);
+
+            var result = _advertisementService.UpdateAdvertisement(id, dto);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost("myself/{id:int}/pictures")]
+        public IActionResult AddSelfAdvertisementPicture(int id, AdvertisementAddPicturesDTO dto)
+        {
+            var userId = User.Identity?.Name;
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            if (!ModelState.IsValid) return BadRequest(dto);
+
+            var pictureValidation =
+                _fileCenterService.ValidateFileTypes(dto.Pictures, FileCenterTypeEnum.AdvertisementPicture);
+            if (!pictureValidation.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.Pictures), pictureValidation.Message);
+                return ValidationProblem(ModelState);
+            }
+
+            var updateDto = new UpdateAdvertisementPictureDTO
+            {
+                Pictures = dto.Pictures,
+                Status = UpdateAdvertisementPictureStatus.InsertPictures
+            };
+            _advertisementService.UpdateAdvertisementPictures(id, updateDto);
+
+            return StatusCode(201);
+        }
+
+        [Authorize]
+        [HttpDelete("myself/{id:int}/pictures")]
+        public IActionResult DeleteSelfAdvertisementPicture(int id, AdvertisementDeletePicturesDTO dto)
+        {
+            var userId = User.Identity?.Name;
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            if (!ModelState.IsValid) return BadRequest(dto);
+
+            var updateDto = new UpdateAdvertisementPictureDTO
+            {
+                Pictures = dto.Pictures,
+                Status = UpdateAdvertisementPictureStatus.DeletePictures
+            };
+            _advertisementService.UpdateAdvertisementPictures(id, updateDto);
+
+            return StatusCode(204);
+        }
+
+        #endregion
+
+        #region Actions
+
         [Authorize]
         [HttpPost("{id:int}/bookmark")]
         public IActionResult AddAdvertisementBookmark(int id, [FromBody] AdvertisementBookmarkDTO dto)
@@ -258,5 +386,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 Message = "خطا در ثبت یادداشت"
             });
         }
+
+        #endregion
     }
 }
