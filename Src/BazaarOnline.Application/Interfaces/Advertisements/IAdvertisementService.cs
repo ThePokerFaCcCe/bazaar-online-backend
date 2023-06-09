@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.DTOs.AdvertisementDTOs;
+﻿using BazaarOnline.Application.DTOs;
+using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Domain.Entities.Advertisements;
 
@@ -14,9 +15,16 @@ public interface IAdvertisementService
     /// <returns>Created ad Id on success or -1 on failure</returns>
     int CreateAdvertisement(CreateAdvertisementDTO dto, string userId);
 
+    OperationResultDTO UpdateAdvertisement(int id, UpdateAdvertisementDTO dto);
+
+    OperationResultDTO UpdateAdvertisementPictures(int id, UpdateAdvertisementPictureDTO dto);
+
     bool IsAdvertisementExists(int id);
+    bool IsAdvertisementExists(int advertisementId, string userId);
     Advertisement? GetAdvertisement(int id);
     IEnumerable<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId);
+
+    OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto);
 
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
 
