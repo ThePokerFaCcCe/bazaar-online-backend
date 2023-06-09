@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.DTOs.AdvertisementDTOs;
+﻿using BazaarOnline.Application.DTOs;
+using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.Filters;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Utils;
@@ -66,6 +67,12 @@ public class AdvertisementService : IAdvertisementService
             .Any(a => a.Id == id);
     }
 
+    public bool IsAdvertisementExists(int advertisementId, string userId)
+    {
+        return _repository.GetAll<Advertisement>()
+            .Any(a => a.Id == advertisementId && a.UserId == userId);
+    }
+
     public Advertisement? GetAdvertisement(int id)
     {
         return _repository.Get<Advertisement>(id);
@@ -111,6 +118,21 @@ public class AdvertisementService : IAdvertisementService
                 }.FillFromObject(a)
             }.FillFromObject(a);
         });
+    }
+
+    public OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto)
+    {
+        dto.TrimStrings();
+
+        var advertisement = _repository.Get<Advertisement>(id);
+        if (advertisement == null)
+            return new OperationResultDTO { Message = "آگهی یافت نشد", IsSuccess = false };
+
+        advertisement.FillFromObject(dto);
+        _repository.Update(advertisement);
+        _repository.Save();
+
+        return new OperationResultDTO { IsSuccess = true };
     }
 
     public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)

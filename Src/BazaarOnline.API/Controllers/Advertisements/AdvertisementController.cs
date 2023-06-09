@@ -53,6 +53,21 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return Ok(_advertisementService.GetSelfAdvertisementList(userId));
         }
 
+        [Authorize]
+        [HttpDelete("myself/{id:int}")]
+        public IActionResult DeleteSelfAdvertisement(int id)
+        {
+            var userId = User.Identity?.Name;
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+            var dto = new AdvertisementUpdateStatusDTO { StatusType = AdvertisementStatusTypeEnum.DeletedByUser };
+            var result = _advertisementService.UpdateAdvertisementStatus(id, dto);
+            return Ok(result);
+        }
+
+
         [HttpGet("{id:int}")]
         public IActionResult GetAdvertisementDetail(int id)
         {
