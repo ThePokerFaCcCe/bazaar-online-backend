@@ -145,15 +145,18 @@ public class ChatHub : Hub<IChatHub>
 
             if (validation.IsSuccess)
             {
-                var editEvent = new SocketEventDTO
+                var deletedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
+                data.Data.DeletedMessage = deletedMessage;
+
+                var deleteEvent = new SocketEventDTO
                 {
                     Data = data,
                     EventType = SocketEventTypeEnum.DeleteMessage,
                 };
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
-                await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(deleteEvent));
+                await Clients.Group(UserId).ReceiveEvent(Jsonify(deleteEvent));
             }
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
