@@ -7,7 +7,7 @@ namespace BazaarOnline.Application.DTOs.ConversationDTOs
     {
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public Guid ConversationId { get; set; }
-        
+
         public Guid? ReplyToId { get; set; }
 
         [Display(Name = "متن پیام")]
@@ -18,9 +18,9 @@ namespace BazaarOnline.Application.DTOs.ConversationDTOs
         public MessageAttachmentTypeEnum AttachmentType { get; set; }
 
         public MessagePictureAttachmentDTO? PictureAttachment { get; set; }
-        
+
         public MessageVoiceAttachmentDTO? VoiceAttachment { get; set; }
-        
+
         public MessageLocationAttachmentDTO? LocationAttachment { get; set; }
     }
 }

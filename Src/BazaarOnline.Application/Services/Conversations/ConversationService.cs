@@ -47,14 +47,14 @@ public class ConversationService : IConversationService
         };
     }
 
-    public AddMessageResultDTO AddMessage(AddMessageDTO dto, string userId)
+    public MessageOperationResultDTO AddMessage(AddMessageDTO dto, string userId)
     {
         dto.TrimStrings();
 
         var validationErrors = ValidateMessage(dto);
         if (!string.IsNullOrEmpty(validationErrors))
         {
-            return new AddMessageResultDTO
+            return new MessageOperationResultDTO
             {
                 ErrorCode = 400,
                 ErrorMessage = validationErrors,
@@ -83,17 +83,102 @@ public class ConversationService : IConversationService
 
         _repository.Add(message);
         _repository.Save();
-        return new AddMessageResultDTO
+        return new MessageOperationResultDTO
         {
             MessageId = message.Id
         };
+    }
+
+    public MessageOperationResultDTO EditMessage(EditMessageDTO dto, string userId)
+    {
+        dto.TrimStrings();
+        var result = new MessageOperationResultDTO();
+
+        var errors = new Dictionary<string, object>();
+        if (dto.ConversationId == null)
+            errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
+        if (dto.MessageId == null)
+            errors.Add(nameof(dto.MessageId), "این فیلد اجباری است");
+        if (dto.Text != null && dto.Text.Length > 512)
+            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 512 کاراکتر باشد");
+
+        if (errors.Any())
+        {
+            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorCode = 400;
+            return result;
+        }
+
+        var message = _repository.GetAll<Message>()
+            .SingleOrDefault(m => !m.IsDeleted && m.ConversationId == dto.ConversationId
+                                               && m.Id == dto.MessageId && m.SenderId == userId);
+
+        if (message == null)
+        {
+            errors.Add(nameof(dto.MessageId), "پیام یافت نشد");
+        }
+        else if (message.AttachmentType != MessageAttachmentTypeEnum.NoAttachment)
+        {
+            errors.Add(nameof(dto.MessageId), "شما نمیتوانید پیامی غیر از متن را ویرایش کنید");
+        }
+
+        if (errors.Any())
+        {
+            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorCode = 400;
+            return result;
+        }
+
+        message.Text = dto.Text;
+        _repository.Update(message);
+        _repository.Save();
+
+        return result;
+    }
+
+    public MessageOperationResultDTO DeleteMessage(DeleteMessageDTO dto, string userId)
+    {
+        dto.TrimStrings();
+        var result = new MessageOperationResultDTO();
+
+        var errors = new Dictionary<string, object>();
+        if (dto.ConversationId == null)
+            errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
+        if (dto.MessageId == null)
+            errors.Add(nameof(dto.MessageId), "این فیلد اجباری است");
+
+        if (errors.Any())
+        {
+            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorCode = 400;
+            return result;
+        }
+
+        var message = _repository.GetAll<Message>()
+            .SingleOrDefault(m => !m.IsDeleted && m.ConversationId == dto.ConversationId
+                                               && m.Id == dto.MessageId && m.SenderId == userId);
+
+        if (message == null)
+        {
+            errors.Add(nameof(dto.MessageId), "پیام یافت نشد");
+            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorCode = 400;
+            return result;
+        }
+
+
+        message.IsDeleted = true;
+        _repository.Update(message);
+        _repository.Save();
+
+        return result;
     }
 
     public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
-            .Where(m => m.ConversationId == conversationId)
+            .Where(m => m.ConversationId == conversationId && !m.IsDeleted)
             .OrderBy(m => m.CreateDate);
 
         return messages.ToList().Select(m => GetMessageViewModel(m, userId));

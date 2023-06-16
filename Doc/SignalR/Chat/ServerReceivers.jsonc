@@ -69,6 +69,49 @@
             }
         }
     },
+    "DeleteMessage": {
+        "usage": "DeleteMessage(inquiryId, jsonData)",
+        "self-responses": [
+            "ReceiveOperationResult",
+            "ReceiveEvent"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": "",
+            "jsonData": {
+                "InquiryId": "", // same as inquiryId in parameters
+                "Data": {
+                    "ConversationId": "guid",
+                    "MessageId": "guid",
+                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                }
+            }
+        }
+    },
+    "EditMessage": {
+        "usage": "EditMessage(inquiryId, jsonData)",
+        "self-responses": [
+            "ReceiveOperationResult",
+            "ReceiveEvent"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": "",
+            "jsonData": {
+                "InquiryId": "", // same as inquiryId in parameters
+                "Data": {
+                    "ConversationId": "guid",
+                    "MessageId": "guid",
+                    "Text": "",
+                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                }
+            }
+        }
+    },
     "ChattingStatus": {
         "usage": "ChattingStatus(inquiryId, jsonData)",
         "self-responses": [

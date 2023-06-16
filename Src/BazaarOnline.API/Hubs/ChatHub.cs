@@ -76,6 +76,99 @@ public class ChatHub : Hub<IChatHub>
         }
     }
 
+    public async Task EditMessage(string inquiryId, string jsonData)
+    {
+        try
+        {
+            var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<EditMessageDTO>>(jsonData);
+            if (data?.Data == null) throw new ArgumentNullException();
+
+            var validation = _conversationService.EditMessage(data.Data, UserId);
+
+            var result = new SocketOperationResultDTO
+            {
+                InquiryId = inquiryId,
+                Data = validation,
+                IsSuccess = validation.IsSuccess,
+                OperationType = SocketOperationTypeEnum.EditMessage,
+            };
+
+
+            if (validation.IsSuccess)
+            {
+                var editEvent = new SocketEventDTO
+                {
+                    Data = data,
+                    EventType = SocketEventTypeEnum.EditMessage,
+                };
+
+                var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
+                await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+            }
+
+            await Clients.Caller.ReceiveOperationResult(Jsonify(result));
+        }
+        catch (Exception e)
+        {
+            var result = new SocketOperationResultDTO
+            {
+                InquiryId = inquiryId,
+                ServerErrorMessage = "Internal server error!",
+                IsSuccess = false,
+                OperationType = SocketOperationTypeEnum.SendMessage,
+            };
+            await Clients.Caller.ReceiveOperationResult(Jsonify(result));
+        }
+    }
+
+    public async Task DeleteMessage(string inquiryId, string jsonData)
+    {
+        try
+        {
+            var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<DeleteMessageDTO>>(jsonData);
+            if (data?.Data == null) throw new ArgumentNullException();
+
+            var validation = _conversationService.DeleteMessage(data.Data, UserId);
+
+            var result = new SocketOperationResultDTO
+            {
+                InquiryId = inquiryId,
+                Data = validation,
+                IsSuccess = validation.IsSuccess,
+                OperationType = SocketOperationTypeEnum.DeleteMessage,
+            };
+
+
+            if (validation.IsSuccess)
+            {
+                var editEvent = new SocketEventDTO
+                {
+                    Data = data,
+                    EventType = SocketEventTypeEnum.DeleteMessage,
+                };
+
+                var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
+                await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+            }
+
+            await Clients.Caller.ReceiveOperationResult(Jsonify(result));
+        }
+        catch (Exception e)
+        {
+            var result = new SocketOperationResultDTO
+            {
+                InquiryId = inquiryId,
+                ServerErrorMessage = "Internal server error!",
+                IsSuccess = false,
+                OperationType = SocketOperationTypeEnum.SendMessage,
+            };
+            await Clients.Caller.ReceiveOperationResult(Jsonify(result));
+        }
+    }
+
+
     public async Task SeenConversation(string inquiryId, string jsonData)
     {
         var response = new SocketOperationResultDTO
@@ -88,7 +181,7 @@ public class ChatHub : Hub<IChatHub>
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenConversationDTO>>(jsonData);
             if (data?.Data?.ConversationId == null || data?.Data.ConversationId == Guid.Empty)
-                throw new ArgumentNullException("ConuversationId Is Empty");
+                throw new ArgumentNullException("ConversationId Is Empty");
 
             var seenResult = _conversationService.SeenConversation(data.Data.ConversationId, UserId);
             if (seenResult.IsSuccess)
