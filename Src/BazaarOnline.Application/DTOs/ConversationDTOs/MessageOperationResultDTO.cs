@@ -1,6 +1,6 @@
 ﻿namespace BazaarOnline.Application.DTOs.ConversationDTOs;
 
-public class AddMessageResultDTO
+public class MessageOperationResultDTO
 {
     public Guid? MessageId { get; set; }
 

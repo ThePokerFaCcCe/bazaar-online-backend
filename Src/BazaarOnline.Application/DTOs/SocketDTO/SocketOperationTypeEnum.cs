@@ -8,4 +8,6 @@ public enum SocketOperationTypeEnum
     [Display(Name = "SeenConversation")] SeenConversation = 2,
     [Display(Name = "ChattingStatus")] ChattingStatus = 3,
     [Display(Name = "SeenMessage")] SeenMessage = 4,
+    [Display(Name = "EditMessage")] EditMessage = 5,
+    [Display(Name = "DeleteMessage")] DeleteMessage = 6,
 }
