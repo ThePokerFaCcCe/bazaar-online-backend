@@ -167,7 +167,7 @@ public class ConversationService : IConversationService
             return result;
         }
 
-
+        message.Text = "(این پیام حذف شده است)"; // ez pz :))
         message.IsDeleted = true;
         _repository.Update(message);
         _repository.Save();
@@ -180,7 +180,7 @@ public class ConversationService : IConversationService
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
-            .Where(m => m.ConversationId == conversationId && !m.IsDeleted)
+            .Where(m => m.ConversationId == conversationId)
             .OrderBy(m => m.CreateDate);
 
         return messages.ToList().Select(m => GetMessageViewModel(m, userId));

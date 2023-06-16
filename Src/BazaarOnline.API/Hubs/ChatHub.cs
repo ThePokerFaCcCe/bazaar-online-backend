@@ -96,6 +96,9 @@ public class ChatHub : Hub<IChatHub>
 
             if (validation.IsSuccess)
             {
+                var editedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
+                data.Data.EditedMessage = editedMessage;
+
                 var editEvent = new SocketEventDTO
                 {
                     Data = data,

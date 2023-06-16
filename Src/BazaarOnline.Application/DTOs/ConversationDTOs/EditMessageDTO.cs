@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BazaarOnline.Application.ViewModels.Conversations;
+using BazaarOnline.Domain.Entities.Conversations;
 
 namespace BazaarOnline.Application.DTOs.ConversationDTOs;
 
@@ -18,4 +20,9 @@ public class EditMessageDTO
     /// Index of message that edited - used for frontend and not important in backend
     /// </summary>
     public int? MessageIndexInquiry { get; set; }
+
+    /// <summary>
+    /// The Edited message object sent for ReceiveEvent signal
+    /// </summary>
+    public MessageDetailViewModel? EditedMessage { get; set; }
 }
