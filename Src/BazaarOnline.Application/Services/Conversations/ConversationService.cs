@@ -167,6 +167,38 @@ public class ConversationService : IConversationService
             return result;
         }
 
+        int? fileCenterId = null;
+        switch (message.AttachmentType)
+        {
+            case MessageAttachmentTypeEnum.Picture:
+                fileCenterId = JsonConvert.DeserializeObject<MessagePictureAttachmentDTO>(message.AttachmentJson)
+                    ?.FileId;
+                break;
+            case MessageAttachmentTypeEnum.Voice:
+                fileCenterId = JsonConvert.DeserializeObject<MessageVoiceAttachmentDTO>(message.AttachmentJson)?.FileId;
+                break;
+        }
+
+        if (fileCenterId != null)
+        {
+            var fileCenter = _repository.Get<FileCenter>((int)fileCenterId);
+            if (fileCenter != null)
+            {
+                switch (fileCenter.UsageType)
+                {
+                    case FileCenterTypeEnum.ChatPicture:
+                        FileHelper.DeleteFile(Path.Join(PathHelper.ChatImages, fileCenter.FileName));
+                        FileHelper.DeleteFile(Path.Join(PathHelper.ChatThumbs, fileCenter.FileName));
+                        break;
+                    case FileCenterTypeEnum.ChatVoice:
+                        FileHelper.DeleteFile(Path.Join(PathHelper.ChatVoice, fileCenter.FileName));
+                        break;
+                }
+
+                _repository.Remove(fileCenter);
+            }
+        }
+
         message.Text = "(این پیام حذف شده است)"; // ez pz :))
         message.AttachmentType = MessageAttachmentTypeEnum.NoAttachment;
         message.AttachmentJson = null;
