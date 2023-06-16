@@ -133,6 +133,7 @@ public class ConversationService : IConversationService
         _repository.Update(message);
         _repository.Save();
 
+        result.MessageId = message.Id;
         return result;
     }
 
@@ -171,6 +172,7 @@ public class ConversationService : IConversationService
         _repository.Update(message);
         _repository.Save();
 
+        result.MessageId = message.Id;
         return result;
     }
 
