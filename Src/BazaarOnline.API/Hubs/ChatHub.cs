@@ -127,7 +127,7 @@ public class ChatHub : Hub<IChatHub>
         try
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<DeleteMessageDTO>>(jsonData);
-            if (data?.Data == null) throw new ArgumentNullException();
+            //if (data?.Data == null) throw new ArgumentNullException();
 
             var validation = _conversationService.DeleteMessage(data.Data, UserId);
 
