@@ -168,6 +168,9 @@ public class ConversationService : IConversationService
         }
 
         message.Text = "(این پیام حذف شده است)"; // ez pz :))
+        message.AttachmentType = MessageAttachmentTypeEnum.NoAttachment;
+        message.AttachmentJson = null;
+
         message.IsDeleted = true;
         _repository.Update(message);
         _repository.Save();
