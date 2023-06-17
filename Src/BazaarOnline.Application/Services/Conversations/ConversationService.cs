@@ -130,6 +130,8 @@ public class ConversationService : IConversationService
         }
 
         message.Text = dto.Text;
+        message.UpdateDate = DateTime.Now;
+        message.IsEdited = true;
         _repository.Update(message);
         _repository.Save();
 
@@ -204,6 +206,7 @@ public class ConversationService : IConversationService
         message.AttachmentJson = null;
 
         message.IsDeleted = true;
+        message.UpdateDate = DateTime.Now;
         _repository.Update(message);
         _repository.Save();
 
