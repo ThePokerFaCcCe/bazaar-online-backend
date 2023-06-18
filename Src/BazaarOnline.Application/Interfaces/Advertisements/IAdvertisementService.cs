@@ -1,5 +1,6 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.AdvertisementDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Domain.Entities.Advertisements;
 
@@ -22,11 +23,14 @@ public interface IAdvertisementService
     bool IsAdvertisementExists(int id);
     bool IsAdvertisementExists(int advertisementId, string userId);
     Advertisement? GetAdvertisement(int id);
-    IEnumerable<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId);
+
+    PaginationResultDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
+        PaginationFilterDTO pagination);
 
     OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto);
 
-    IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto);
+    PaginationResultDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
+        PaginationFilterDTO pagination);
 
     AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false, string? userId = null);
 

@@ -1,8 +1,10 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.ConversationDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
+using BazaarOnline.Application.Utils.Extentions;
 using BazaarOnline.Application.ViewModels.Conversations;
 using BazaarOnline.Domain.Entities.Conversations;
 using BazaarOnline.Domain.Entities.UploadCenter;
@@ -214,14 +216,19 @@ public class ConversationService : IConversationService
         return result;
     }
 
-    public IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId)
+    public PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
+        PaginationFilterDTO pagination)
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
             .Where(m => m.ConversationId == conversationId)
             .OrderBy(m => m.CreateDate);
 
-        return messages.ToList().Select(m => GetMessageViewModel(m, userId));
+        return new PaginationResultDTO<MessageDetailViewModel>
+        {
+            AllCount = messages.Count(),
+            Content = messages.Paginate(pagination).AsEnumerable().Select(m => GetMessageViewModel(m, userId))
+        };
     }
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)
@@ -337,7 +344,8 @@ public class ConversationService : IConversationService
         return model;
     }
 
-    public IEnumerable<ConversationDetailViewModel> GetConversations(string userId)
+    public PaginationResultDTO<ConversationDetailViewModel> GetConversations(string userId,
+        PaginationFilterDTO pagination)
     {
         var conversations = _repository.GetAll<Conversation>()
             .Include(c => c.Owner)
@@ -345,37 +353,44 @@ public class ConversationService : IConversationService
             .Include(c => c.Messages)
             .Include(c => c.Advertisement)
             .ThenInclude(a => a.Pictures)
-            .Where(c => c.OwnerId == userId || c.CustomerId == userId);
+            .Where(c => c.OwnerId == userId || c.CustomerId == userId)
+            .ToList()
+            .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate).CreateDate);
 
-        return conversations.AsEnumerable().Select(c =>
+        return new PaginationResultDTO<ConversationDetailViewModel>
         {
-            var user = c.OwnerId != userId ? c.Owner : c.Customer;
+            AllCount = conversations.Count(),
 
-            return new ConversationDetailViewModel
+            Content = conversations.Paginate(pagination).Select(c =>
             {
-                Data = new ConversationDetailDataViewModel
+                var user = c.OwnerId != userId ? c.Owner : c.Customer;
+
+                return new ConversationDetailViewModel
                 {
-                    Advertisement = new ConversationDetailAdvertisementViewModel
+                    Data = new ConversationDetailDataViewModel
                     {
-                        Data = new ConversationDetailAdvertisementDataViewModel
+                        Advertisement = new ConversationDetailAdvertisementViewModel
                         {
-                            Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
+                            Data = new ConversationDetailAdvertisementDataViewModel
                             {
-                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
+                                Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
+                                {
+                                }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
+                            }.FillFromObject(c.Advertisement, false),
                         }.FillFromObject(c.Advertisement, false),
-                    }.FillFromObject(c.Advertisement, false),
 
-                    User = new ConversationDetailUserViewModel
-                    {
-                        Data = new ConversationDetailUserDataViewModel
+                        User = new ConversationDetailUserViewModel
                         {
+                            Data = new ConversationDetailUserDataViewModel
+                            {
+                            }.FillFromObject(user, false),
                         }.FillFromObject(user, false),
-                    }.FillFromObject(user, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
-                }
-            }.FillFromObject(c, false);
-        }).OrderByDescending(c => c.Data.LastMessage?.Data.CreateDate);
+                        LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
+                    }
+                }.FillFromObject(c, false);
+            })
+        };
     }
 
     private string? ValidateMessage(AddMessageDTO dto)

@@ -11,7 +11,7 @@ namespace BazaarOnline.Application.Utils.Extensions
         /// <param name="filler">Filler object that should be used for filling model</param>
         /// <param name="ignoreNulls">Don't fill properties with `null` values in filler</param>
         /// <returns>`model` that filled from `filler`</returns>
-        public static TModel? FillFromObject<TModel, TFiller>(this TModel model, TFiller filler,
+        public static TModel FillFromObject<TModel, TFiller>(this TModel model, TFiller filler,
             bool ignoreNulls = false)
         {
             if (model == null || filler == null)
