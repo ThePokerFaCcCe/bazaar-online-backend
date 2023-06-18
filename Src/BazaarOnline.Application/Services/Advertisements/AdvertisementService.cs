@@ -1,9 +1,11 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.AdvertisementDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.Filters;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
+using BazaarOnline.Application.Utils.Extentions;
 using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
@@ -120,7 +122,8 @@ public class AdvertisementService : IAdvertisementService
         return _repository.Get<Advertisement>(id);
     }
 
-    public IEnumerable<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId)
+    public PaginationResultDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
+        PaginationFilterDTO pagination)
     {
         var advertisements = _repository.GetAll<Advertisement>()
             .Include(a => a.City)
@@ -132,34 +135,40 @@ public class AdvertisementService : IAdvertisementService
             .Where(a => a.UserId == userId);
 
 
-        return advertisements.ToList().Select(a =>
+        return new PaginationResultDTO<AdvertisementSelfListDetailViewModel>
         {
-            var firstPic = a.Pictures.MinBy(p => p.Id);
-            AdvertisementPictureViewModel? picture = null;
-            if (firstPic != null)
-                picture = new AdvertisementPictureViewModel().FillFromObject(firstPic.FileCenter);
+            AllCount = advertisements.Count(),
 
-            return new AdvertisementSelfListDetailViewModel
+            Content = advertisements.Paginate(pagination).ToList().Select(a =>
             {
-                Data = new AdvertisementSelfListDetailDataViewModel()
+                var firstPic = a.Pictures.MinBy(p => p.Id);
+                AdvertisementPictureViewModel? picture = null;
+                if (firstPic != null)
+                    picture = new AdvertisementPictureViewModel().FillFromObject(firstPic.FileCenter);
+
+                return new AdvertisementSelfListDetailViewModel
                 {
-                    Picture = picture,
-                    LocationText = a.City.Name,
-                    TimeText = a.UpdateDate.PassedFromNowString(),
-                    IsChatEnabled =
-                        a.ContactType is AdvertisementContactTypeEnum.ChatOnly or AdvertisementContactTypeEnum.Normal,
-                    Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
-                        .Select(af => new AdvertisementFeatureDetailViewModel
-                        {
-                            Id = af.Id,
-                            Name = af.CategoryFeature.Feature.Name,
-                            Value = af.Value,
-                            SortNumber = af.CategoryFeature.SortNumber,
-                            Position = af.CategoryFeature.Feature.Position,
-                        }),
-                }.FillFromObject(a)
-            }.FillFromObject(a);
-        });
+                    Data = new AdvertisementSelfListDetailDataViewModel()
+                    {
+                        Picture = picture,
+                        LocationText = a.City.Name,
+                        TimeText = a.UpdateDate.PassedFromNowString(),
+                        IsChatEnabled =
+                            a.ContactType is AdvertisementContactTypeEnum.ChatOnly
+                                or AdvertisementContactTypeEnum.Normal,
+                        Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
+                            .Select(af => new AdvertisementFeatureDetailViewModel
+                            {
+                                Id = af.Id,
+                                Name = af.CategoryFeature.Feature.Name,
+                                Value = af.Value,
+                                SortNumber = af.CategoryFeature.SortNumber,
+                                Position = af.CategoryFeature.Feature.Position,
+                            }),
+                    }.FillFromObject(a)
+                }.FillFromObject(a);
+            })
+        };
     }
 
 
@@ -215,7 +224,8 @@ public class AdvertisementService : IAdvertisementService
         return new OperationResultDTO { IsSuccess = true };
     }
 
-    public IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto)
+    public PaginationResultDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
+        PaginationFilterDTO pagination)
     {
         var advertisements = _repository.GetAll<Advertisement>()
             .Include(a => a.City)
@@ -224,40 +234,48 @@ public class AdvertisementService : IAdvertisementService
             .Include(a => a.AdvertisementFeatures)
             .ThenInclude(af => af.CategoryFeature)
             .ThenInclude(cf => cf.Feature)
-            .Where(a => a.StatusType == AdvertisementStatusTypeEnum.Accepted);
+            .Where(a => a.StatusType == AdvertisementStatusTypeEnum.Accepted)
+            .Filter(filterDto);
 
-        advertisements = advertisements.Filter(filterDto);
         if (filterDto.HasPicture)
             advertisements = advertisements.Where(a => a.Pictures.Any());
 
-        return advertisements.ToList().Select(a =>
-        {
-            var firstPic = a.Pictures.MinBy(p => p.Id);
-            AdvertisementPictureViewModel? picture = null;
-            if (firstPic != null)
-                picture = new AdvertisementPictureViewModel().FillFromObject(firstPic.FileCenter);
+        advertisements = advertisements.OrderByDescending(a => a.CreateDate);
 
-            return new AdvertisementListDetailViewModel
+        return new PaginationResultDTO<AdvertisementListDetailViewModel>
+        {
+            AllCount = advertisements.Count(),
+
+            Content = advertisements.Paginate(pagination).ToList().Select(a =>
             {
-                Data = new AdvertisementListDetailDataViewModel
+                var firstPic = a.Pictures.MinBy(p => p.Id);
+                AdvertisementPictureViewModel? picture = null;
+                if (firstPic != null)
+                    picture = new AdvertisementPictureViewModel().FillFromObject(firstPic.FileCenter);
+
+                return new AdvertisementListDetailViewModel
                 {
-                    Picture = picture,
-                    LocationText = a.City.Name,
-                    TimeText = a.UpdateDate.PassedFromNowString(),
-                    IsChatEnabled =
-                        a.ContactType is AdvertisementContactTypeEnum.ChatOnly or AdvertisementContactTypeEnum.Normal,
-                    Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
-                        .Select(af => new AdvertisementFeatureDetailViewModel
-                        {
-                            Id = af.Id,
-                            Name = af.CategoryFeature.Feature.Name,
-                            Value = af.Value,
-                            SortNumber = af.CategoryFeature.SortNumber,
-                            Position = af.CategoryFeature.Feature.Position,
-                        }),
-                }.FillFromObject(a)
-            }.FillFromObject(a);
-        });
+                    Data = new AdvertisementListDetailDataViewModel
+                    {
+                        Picture = picture,
+                        LocationText = a.City.Name,
+                        TimeText = a.UpdateDate.PassedFromNowString(),
+                        IsChatEnabled =
+                            a.ContactType is AdvertisementContactTypeEnum.ChatOnly
+                                or AdvertisementContactTypeEnum.Normal,
+                        Features = a.AdvertisementFeatures.Where(af => af.CategoryFeature.IsShownInList)
+                            .Select(af => new AdvertisementFeatureDetailViewModel
+                            {
+                                Id = af.Id,
+                                Name = af.CategoryFeature.Feature.Name,
+                                Value = af.Value,
+                                SortNumber = af.CategoryFeature.SortNumber,
+                                Position = af.CategoryFeature.Feature.Position,
+                            }),
+                    }.FillFromObject(a)
+                }.FillFromObject(a);
+            })
+        };
     }
 
     public AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false,

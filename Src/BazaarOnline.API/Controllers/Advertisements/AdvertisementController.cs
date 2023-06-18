@@ -1,6 +1,7 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.DTOs.MapDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Interfaces.Categories;
 using BazaarOnline.Application.Interfaces.Features;
@@ -40,9 +41,10 @@ namespace BazaarOnline.API.Controllers.Advertisements
         }
 
         [HttpGet("")]
-        public IActionResult GetAdvertisementList([FromQuery] AdvertisemenFilterDTO filterDto)
+        public IActionResult GetAdvertisementList([FromQuery] AdvertisemenFilterDTO filterDto,
+            [FromQuery] PaginationFilterDTO pagination)
         {
-            return Ok(_advertisementService.GetAdvertisementList(filterDto));
+            return Ok(_advertisementService.GetAdvertisementList(filterDto, pagination));
         }
 
         [HttpGet("{id:int}")]
@@ -151,10 +153,10 @@ namespace BazaarOnline.API.Controllers.Advertisements
 
         [HttpGet("myself")]
         [Authorize]
-        public IActionResult GetAdvertisementList()
+        public IActionResult GetAdvertisementList([FromQuery] PaginationFilterDTO pagination)
         {
             var userId = User.Identity?.Name;
-            return Ok(_advertisementService.GetSelfAdvertisementList(userId));
+            return Ok(_advertisementService.GetSelfAdvertisementList(userId, pagination));
         }
 
         [Authorize]

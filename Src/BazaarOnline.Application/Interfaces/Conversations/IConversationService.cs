@@ -1,5 +1,6 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.ConversationDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.ViewModels.Conversations;
 
 namespace BazaarOnline.Application.Interfaces.Conversations;
@@ -14,9 +15,11 @@ public interface IConversationService
 
     MessageOperationResultDTO DeleteMessage(DeleteMessageDTO dto, string userId);
 
-    IEnumerable<ConversationDetailViewModel> GetConversations(string userId);
+    PaginationResultDTO<ConversationDetailViewModel> GetConversations(string userId,
+        PaginationFilterDTO pagination);
 
-    IEnumerable<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId);
+    PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
+        PaginationFilterDTO pagination);
 
     bool IsConversationExists(Guid conversationId, string userId);
 

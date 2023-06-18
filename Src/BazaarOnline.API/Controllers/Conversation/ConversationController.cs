@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.Interfaces.Conversations;
+﻿using BazaarOnline.Application.DTOs.PaginationDTO;
+using BazaarOnline.Application.Interfaces.Conversations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,15 +18,15 @@ namespace BazaarOnline.API.Controllers.Conversations
         }
 
         [HttpGet("")]
-        public IActionResult GetConversationsList()
+        public IActionResult GetConversationsList([FromQuery] PaginationFilterDTO pagination)
         {
             var userId = User.Identity.Name;
-            var conversations = _conversationService.GetConversations(userId);
+            var conversations = _conversationService.GetConversations(userId, pagination);
             return Ok(conversations);
         }
 
         [HttpGet("{id:guid}/messages")]
-        public IActionResult GetConversationMessagesList(Guid id)
+        public IActionResult GetConversationMessagesList(Guid id, [FromQuery] PaginationFilterDTO pagination)
         {
             var userId = User.Identity.Name;
             if (!_conversationService.IsConversationExists(id, userId))
@@ -33,10 +34,8 @@ namespace BazaarOnline.API.Controllers.Conversations
                 return NotFound();
             }
 
-            var messages = _conversationService.GetConversationMessages(id, userId);
+            var messages = _conversationService.GetConversationMessages(id, userId, pagination);
             return Ok(messages);
         }
-
-
     }
 }
