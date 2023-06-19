@@ -1,4 +1,4 @@
-using BazaarOnline.Application.DTOs.UserDashboardDTOs;
+﻿using BazaarOnline.Application.DTOs.UserDashboardDTOs;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.ViewModels.Users.UserDashboardViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +32,11 @@ namespace BazaarOnline.API.Controllers.Users
             UpdateUserDashboardDetailDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(dto);
+            if (dto.AnswerHourStart >= dto.AnswerHourEnd)
+            {
+                ModelState.AddModelError(nameof(dto.AnswerHourStart), "ساعت شروع باید کمتر از ساعت پایان باشد");
+                return ValidationProblem(ModelState);
+            }
 
             return Ok(_userDashboardService.UpdateUserDashboardDetail(User.Identity.Name, dto));
         }
