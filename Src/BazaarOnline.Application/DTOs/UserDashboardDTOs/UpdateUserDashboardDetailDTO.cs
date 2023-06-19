@@ -11,13 +11,11 @@ namespace BazaarOnline.Application.DTOs.UserDashboardDTOs
         public string DisplayName { get; set; }
 
         [DisplayName("ساعت ضروع پاسخ دهی")]
-        [Required(ErrorMessage = "این فیلد اجباری است")]
         [Range(0, 23, ErrorMessage = "باید عددی بین 0 تا 23 وارد کنید")]
-        public int AnswerHourStart { get; set; }
+        public int AnswerHourStart { get; set; } = 0;
 
         [DisplayName("ساعت پایان پاسخ دهی")]
-        [Required(ErrorMessage = "این فیلد اجباری است")]
         [Range(0, 23, ErrorMessage = "باید عددی بین 0 تا 23 وارد کنید")]
-        public int AnswerHourEnd { get; set; }
+        public int AnswerHourEnd { get; set; } = 23;
     }
 }
