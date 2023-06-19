@@ -6,6 +6,7 @@ using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.Utils.Extentions;
 using BazaarOnline.Application.ViewModels.Conversations;
+using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Conversations;
 using BazaarOnline.Domain.Entities.UploadCenter;
 using BazaarOnline.Domain.Interfaces;
@@ -25,16 +26,21 @@ public class ConversationService : IConversationService
 
     public AddConversationResultDTO AddConversation(AddConversationDTO dto, string userId)
     {
+        var advertisement = _repository.Get<Advertisement>(dto.AdvertisementId);
+        if (advertisement == null || advertisement.IsDeleted || advertisement.UserId == userId)
+            return new AddConversationResultDTO { ErrorCode = 404, ErrorMessage = "آگهی یافت نشد" };
+
         var conv = _repository.GetAll<Conversation>()
             .SingleOrDefault(c =>
-                c.CustomerId == userId && c.OwnerId == dto.UserId && c.AdvertisementId == dto.AdvertisementId);
+                c.CustomerId == userId && c.OwnerId == advertisement.UserId &&
+                c.AdvertisementId == dto.AdvertisementId);
 
         if (conv == null)
         {
             var model = new Conversation
             {
                 AdvertisementId = dto.AdvertisementId,
-                OwnerId = dto.UserId,
+                OwnerId = advertisement.UserId,
                 CustomerId = userId,
             };
             _repository.Add(model);
@@ -355,7 +361,7 @@ public class ConversationService : IConversationService
             .ThenInclude(a => a.Pictures)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
             .ToList()
-            .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate).CreateDate);
+            .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate)?.CreateDate ?? c.CreateDate);
 
         return new PaginationResultDTO<ConversationDetailViewModel>
         {
