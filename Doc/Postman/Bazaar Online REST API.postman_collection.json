@@ -716,7 +716,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself?Take=1&Offset=0",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself?Take=100&Offset=0",
 									"host": [
 										"{{BASE_URL}}"
 									],
@@ -728,7 +728,7 @@
 									"query": [
 										{
 											"key": "Take",
-											"value": "1",
+											"value": "100",
 											"description": "Pagination"
 										},
 										{
@@ -1636,7 +1636,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements?Take=1&Offset=1",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements?Take=10&Offset=1",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -1677,7 +1677,7 @@
 								},
 								{
 									"key": "Take",
-									"value": "1",
+									"value": "10",
 									"description": "Pagination"
 								},
 								{
@@ -2443,7 +2443,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/?Take=1&Offset=0",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/?Take=3&Offset=0",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -2455,7 +2455,7 @@
 							"query": [
 								{
 									"key": "Take",
-									"value": "1",
+									"value": "3",
 									"description": "Pagination"
 								},
 								{
@@ -2520,6 +2520,86 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"allCount\": 1,\n    \"content\": [\n        {\n            \"id\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n            \"data\": {\n                \"user\": {\n                    \"id\": \"Soltan-Gham\",\n                    \"data\": {\n                        \"displayName\": \"داس پدران\",\n                        \"answerHourStart\": 9,\n                        \"answerHourEnd\": 22,\n                        \"lastSeen\": \"0001-01-01T00:00:00\"\n                    }\n                },\n                \"advertisement\": {\n                    \"id\": 1111,\n                    \"data\": {\n                        \"title\": \"وانت نیسان aaaaتمیز\",\n                        \"picture\": {\n                            \"id\": 3,\n                            \"fileName\": \"\",\n                            \"imageUrl\": \"/advertiesements/images/\",\n                            \"thumbUrl\": \"/advertiesements/thumbnails/\"\n                        }\n                    }\n                },\n                \"lastMessage\": {\n                    \"id\": \"a500f56a-0eaf-4c47-af64-203da91bd79a\",\n                    \"data\": {\n                        \"text\": \"سلام\",\n                        \"attachmentType\": 0,\n                        \"isDeleted\": false,\n                        \"isSeen\": false,\n                        \"isEdited\": false,\n                        \"createDate\": \"2023-06-16T22:34:45.83\",\n                        \"updateDate\": null,\n                        \"replyToId\": null,\n                        \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                        \"replyTo\": null,\n                        \"attachmentLocation\": null,\n                        \"attachmentFile\": null,\n                        \"attachmentTypeName\": \"noAttachment\",\n                        \"isSentBySelf\": true\n                    }\n                }\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Covnersation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"advertisementId\":11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"conversations",
+								""
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"advertisementId\":11\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 19 Jun 2023 17:54:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"conversationId\": \"51a2f2f4-a217-4283-86b0-e9367f5972ba\",\n    \"errorMessage\": \"\",\n    \"errorCode\": 0,\n    \"isSuccess\": true\n}"
 						}
 					]
 				},

@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Application.DTOs.PaginationDTO;
+﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
+using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.Interfaces.Conversations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,16 @@ namespace BazaarOnline.API.Controllers.Conversations
         {
             var userId = User.Identity.Name;
             var conversations = _conversationService.GetConversations(userId, pagination);
+            return Ok(conversations);
+        }
+
+        [HttpPost("")]
+        public IActionResult CreateConversation([FromBody] AddConversationDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var userId = User.Identity.Name;
+            var conversations = _conversationService.AddConversation(dto, userId);
             return Ok(conversations);
         }
 
