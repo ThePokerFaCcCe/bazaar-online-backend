@@ -228,7 +228,7 @@ public class ConversationService : IConversationService
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
             .Where(m => m.ConversationId == conversationId)
-            .OrderBy(m => m.CreateDate);
+            .OrderByDescending(m => m.CreateDate);
 
         return new PaginationResultDTO<MessageDetailViewModel>
         {
