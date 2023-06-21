@@ -233,7 +233,7 @@ public class ConversationService : IConversationService
         return new PaginationResultDTO<MessageDetailViewModel>
         {
             AllCount = messages.Count(),
-            Content = messages.Paginate(pagination).AsEnumerable().Select(m => GetMessageViewModel(m, userId))
+            Content = messages.Paginate(pagination).AsEnumerable().Reverse().Select(m => GetMessageViewModel(m, userId))
         };
     }
 
