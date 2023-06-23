@@ -52,6 +52,12 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
             builder.HasMany(c => c.Messages)
                 .WithOne(m => m.Conversation)
                 .HasForeignKey(m => m.ConversationId);
+
+
+            builder.HasMany(c => c.DeletedConversations)
+                .WithOne(c => c.Conversation)
+                .HasForeignKey(c => c.ConversationId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         private void ConfigureIndexes(EntityTypeBuilder<Conversation> builder)

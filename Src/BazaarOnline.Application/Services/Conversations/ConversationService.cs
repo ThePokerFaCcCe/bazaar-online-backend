@@ -31,6 +31,7 @@ public class ConversationService : IConversationService
             return new AddConversationResultDTO { ErrorCode = 404, ErrorMessage = "آگهی یافت نشد" };
 
         var conv = _repository.GetAll<Conversation>()
+            .Include(c => c.DeletedConversations)
             .SingleOrDefault(c =>
                 c.CustomerId == userId && c.OwnerId == advertisement.UserId &&
                 c.AdvertisementId == dto.AdvertisementId);
@@ -48,11 +49,35 @@ public class ConversationService : IConversationService
 
             conv = model;
         }
+        else
+        {
+            var deletedConversation = conv.DeletedConversations.SingleOrDefault(dc => dc.UserId == userId);
+            if (deletedConversation != null)
+            {
+                _repository.Remove(deletedConversation);
+                _repository.Save();
+            }
+        }
 
         return new AddConversationResultDTO
         {
             ConversationId = conv.Id,
         };
+    }
+
+    public void DeleteConversation(Guid conversationId, string userId)
+    {
+        var exists = _repository.GetAll<DeletedConversation>()
+            .Any(c => c.ConversationId == conversationId && c.UserId == userId);
+        if (exists) return;
+
+        var deletedConversation = new DeletedConversation
+        {
+            ConversationId = conversationId,
+            UserId = userId,
+        };
+        _repository.Add(deletedConversation);
+        _repository.Save();
     }
 
     public MessageOperationResultDTO AddMessage(AddMessageDTO dto, string userId)
@@ -89,8 +114,14 @@ public class ConversationService : IConversationService
                 break;
         }
 
+
+        var deletedConversations = _repository.GetAll<DeletedConversation>()
+            .Where(dc => dc.ConversationId == dto.ConversationId);
+        _repository.Remove(deletedConversations);
+
         _repository.Add(message);
         _repository.Save();
+
         return new MessageOperationResultDTO
         {
             MessageId = message.Id
@@ -233,7 +264,9 @@ public class ConversationService : IConversationService
         return new PaginationResultDTO<MessageDetailViewModel>
         {
             AllCount = messages.Count(),
-            Content = messages.Paginate(pagination).AsEnumerable().Reverse().Select(m => GetMessageViewModel(m, userId))
+            Content = messages.Paginate(pagination).AsEnumerable()
+                .Reverse() // frontend developer request
+                .Select(m => GetMessageViewModel(m, userId))
         };
     }
 
@@ -360,6 +393,7 @@ public class ConversationService : IConversationService
             .Include(c => c.Advertisement)
             .ThenInclude(a => a.Pictures)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
+            .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
             .ToList()
             .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate)?.CreateDate ?? c.CreateDate);
 
@@ -514,6 +548,8 @@ public class ConversationService : IConversationService
     public bool IsConversationExists(Guid conversationId, string userId)
     {
         return _repository.GetAll<Conversation>()
-            .Any(c => c.Id == conversationId && !c.IsDeleted && (c.OwnerId == userId || c.CustomerId == userId));
+            .Any(c => c.Id == conversationId && !c.IsDeleted &&
+                      (c.OwnerId == userId || c.CustomerId == userId) &&
+                      !c.DeletedConversations.Any(dc => dc.UserId == userId));
     }
 }

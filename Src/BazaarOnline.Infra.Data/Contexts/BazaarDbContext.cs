@@ -1,5 +1,6 @@
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
+using BazaarOnline.Domain.Entities.Conversations;
 using BazaarOnline.Domain.Entities.Features;
 using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Entities.Users;
@@ -54,6 +55,14 @@ namespace BazaarOnline.Infra.Data.Contexts
         public DbSet<FeatureStringType> FeatureStringTypes { get; set; }
         public DbSet<FeatureIntegerType> FeatureIntegerTypes { get; set; }
         public DbSet<FeatureSelectType> FeatureSelectTypes { get; set; }
+
+        #endregion
+
+        #region Conversations
+
+        public DbSet<Conversation> Conversation { get; set; }
+        public DbSet<Message> Message { get; set; }
+        public DbSet<DeletedConversation> DeletedConversations { get; set; }
 
         #endregion
 

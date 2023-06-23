@@ -36,6 +36,14 @@ namespace BazaarOnline.API.Controllers.Conversations
             return Ok(conversations);
         }
 
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteConversation(Guid id)
+        {
+            var userId = User.Identity.Name;
+            _conversationService.DeleteConversation(id, userId);
+            return NoContent();
+        }
+
         [HttpGet("{id:guid}/messages")]
         public IActionResult GetConversationMessagesList(Guid id, [FromQuery] PaginationFilterDTO pagination)
         {
