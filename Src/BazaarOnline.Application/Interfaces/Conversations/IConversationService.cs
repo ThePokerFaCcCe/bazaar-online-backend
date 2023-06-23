@@ -8,6 +8,7 @@ namespace BazaarOnline.Application.Interfaces.Conversations;
 public interface IConversationService
 {
     AddConversationResultDTO AddConversation(AddConversationDTO dto, string userId);
+    void DeleteConversation(Guid conversationId, string userId);
 
     MessageOperationResultDTO AddMessage(AddMessageDTO dto, string userId);
 

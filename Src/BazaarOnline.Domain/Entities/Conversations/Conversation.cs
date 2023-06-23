@@ -25,6 +25,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
         public User Owner { get; set; }
 
         public IEnumerable<Message> Messages { get; set; }
+        public IEnumerable<DeletedConversation> DeletedConversations { get; set; }
 
         #endregion
     }
