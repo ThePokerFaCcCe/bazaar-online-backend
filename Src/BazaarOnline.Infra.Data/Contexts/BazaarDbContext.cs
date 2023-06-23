@@ -63,6 +63,7 @@ namespace BazaarOnline.Infra.Data.Contexts
         public DbSet<Conversation> Conversation { get; set; }
         public DbSet<Message> Message { get; set; }
         public DbSet<DeletedConversation> DeletedConversations { get; set; }
+        public DbSet<Blocklist> Blocklist { get; set; }
 
         #endregion
 

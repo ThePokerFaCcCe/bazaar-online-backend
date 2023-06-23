@@ -16,8 +16,7 @@ public interface IConversationService
 
     MessageOperationResultDTO DeleteMessage(DeleteMessageDTO dto, string userId);
 
-    PaginationResultDTO<ConversationDetailViewModel> GetConversations(string userId,
-        PaginationFilterDTO pagination);
+    IEnumerable<ConversationDetailViewModel> GetConversations(string userId);
 
     PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
         PaginationFilterDTO pagination);
@@ -30,4 +29,6 @@ public interface IConversationService
 
     OperationResultDTO SeenConversation(Guid conversationId, string userId);
     OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId);
+    OperationResultDTO BlockUser(BlockUserDTO dto, string blockerUserId);
+    OperationResultDTO UnblockUser(UnblockUserDTO dto, string blockerUserId);
 }
