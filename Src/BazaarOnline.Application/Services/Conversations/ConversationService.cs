@@ -9,6 +9,7 @@ using BazaarOnline.Application.ViewModels.Conversations;
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Conversations;
 using BazaarOnline.Domain.Entities.UploadCenter;
+using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -29,6 +30,10 @@ public class ConversationService : IConversationService
         var advertisement = _repository.Get<Advertisement>(dto.AdvertisementId);
         if (advertisement == null || advertisement.IsDeleted || advertisement.UserId == userId)
             return new AddConversationResultDTO { ErrorCode = 404, ErrorMessage = "آگهی یافت نشد" };
+
+        var blockStatus = ValidateBlock(userId, advertisement.UserId);
+        if (!blockStatus.IsValid)
+            return new AddConversationResultDTO { ErrorCode = 400, ErrorMessage = blockStatus.Message };
 
         var conv = _repository.GetAll<Conversation>()
             .Include(c => c.DeletedConversations)
@@ -84,7 +89,7 @@ public class ConversationService : IConversationService
     {
         dto.TrimStrings();
 
-        var validationErrors = ValidateMessage(dto);
+        var validationErrors = ValidateMessage(dto, userId);
         if (!string.IsNullOrEmpty(validationErrors))
         {
             return new MessageOperationResultDTO
@@ -331,6 +336,56 @@ public class ConversationService : IConversationService
         return new OperationResultDTO { IsSuccess = true, Message = $"{messages.Count} Messages SeenConversation" };
     }
 
+    public OperationResultDTO BlockUser(BlockUserDTO dto, string blockerUserId)
+    {
+        var userExists = _repository.GetAll<User>().Any(u => u.Id == dto.UserId);
+        if (!userExists)
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = "کاربر یافت نشد",
+            };
+
+        var exists = _repository.GetAll<Blocklist>()
+            .Any(b => b.BlockerId == blockerUserId && b.BlockedUserId == dto.UserId);
+        if (exists) return new OperationResultDTO { IsSuccess = true };
+
+        var block = new Blocklist
+        {
+            BlockedUserId = dto.UserId,
+            BlockerId = blockerUserId
+        };
+        _repository.Add(block);
+        _repository.Save();
+
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
+    public OperationResultDTO UnblockUser(UnblockUserDTO dto, string blockerUserId)
+    {
+        var userExists = _repository.GetAll<User>().Any(u => u.Id == dto.UserId);
+        if (!userExists)
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = "کاربر یافت نشد",
+            };
+
+        var block = _repository.GetAll<Blocklist>()
+            .SingleOrDefault(b => b.BlockerId == blockerUserId && b.BlockedUserId == dto.UserId);
+        if (block == null)
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = "کاربر بلاک نشده است"
+            };
+
+        _repository.Remove(block);
+        _repository.Save();
+
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
     private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)
     {
         if (message == null) return null;
@@ -383,8 +438,7 @@ public class ConversationService : IConversationService
         return model;
     }
 
-    public PaginationResultDTO<ConversationDetailViewModel> GetConversations(string userId,
-        PaginationFilterDTO pagination)
+    public IEnumerable<ConversationDetailViewModel> GetConversations(string userId)
     {
         var conversations = _repository.GetAll<Conversation>()
             .Include(c => c.Owner)
@@ -397,43 +451,70 @@ public class ConversationService : IConversationService
             .ToList()
             .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate)?.CreateDate ?? c.CreateDate);
 
-        return new PaginationResultDTO<ConversationDetailViewModel>
+        var otherUserIds = conversations.Select(c => c.OwnerId).Union(conversations.Select(c => c.CustomerId))
+            .Distinct().Where(u => u != userId);
+        var blocks = _repository.GetAll<Blocklist>()
+            .Where(b => (b.BlockedUserId == userId || b.BlockerId == userId)).ToList()
+            .Where(b => otherUserIds.Contains(b.BlockedUserId) || otherUserIds.Contains(b.BlockerId));
+
+        return conversations.Select(c =>
         {
-            AllCount = conversations.Count(),
+            var secondUser = c.OwnerId != userId ? c.Owner : c.Customer;
 
-            Content = conversations.Paginate(pagination).Select(c =>
+            return new ConversationDetailViewModel
             {
-                var user = c.OwnerId != userId ? c.Owner : c.Customer;
-
-                return new ConversationDetailViewModel
+                Data = new ConversationDetailDataViewModel
                 {
-                    Data = new ConversationDetailDataViewModel
+                    Advertisement = new ConversationDetailAdvertisementViewModel
                     {
-                        Advertisement = new ConversationDetailAdvertisementViewModel
+                        Data = new ConversationDetailAdvertisementDataViewModel
                         {
-                            Data = new ConversationDetailAdvertisementDataViewModel
+                            Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
                             {
-                                Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
-                                {
-                                }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
-                            }.FillFromObject(c.Advertisement, false),
+                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
                         }.FillFromObject(c.Advertisement, false),
+                    }.FillFromObject(c.Advertisement, false),
 
-                        User = new ConversationDetailUserViewModel
+                    User = new ConversationDetailUserViewModel
+                    {
+                        Data = new ConversationDetailUserDataViewModel
                         {
-                            Data = new ConversationDetailUserDataViewModel
-                            {
-                            }.FillFromObject(user, false),
-                        }.FillFromObject(user, false),
+                        }.FillFromObject(secondUser, false),
+                    }.FillFromObject(secondUser, false),
 
-                        LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
-                    }
-                }.FillFromObject(c, false);
-            })
-        };
+                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
+                    IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
+                    IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
+                }
+            }.FillFromObject(c, false);
+        });
     }
 
-    private string? ValidateMessage(AddMessageDTO dto)
+    private ValidationResultDTO ValidateBlock(string senderId, string receiverId)
+    {
+        var result = new ValidationResultDTO { IsValid = false };
+
+        var isBlocker = _repository.GetAll<Blocklist>()
+            .Any(b => b.BlockerId == senderId && b.BlockedUserId == receiverId);
+        if (isBlocker)
+        {
+            result.Message = "شما این کاربر را بلاک کرده اید";
+            return result;
+        }
+
+        var isBlockedByUser = _repository.GetAll<Blocklist>()
+            .Any(b => b.BlockerId == receiverId && b.BlockedUserId == senderId);
+        if (isBlockedByUser)
+        {
+            result.Message = "این کاربر شما را بلاک کرده است";
+            return result;
+        }
+
+        result.IsValid = true;
+        return result;
+    }
+
+    private string? ValidateMessage(AddMessageDTO dto, string userId)
     {
         var errors = new Dictionary<string, object>();
 
@@ -441,7 +522,23 @@ public class ConversationService : IConversationService
         {
             errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
         }
+        else
+        {
+            var conversation = _repository.GetAll<Conversation>()
+                .SingleOrDefault(c => c.Id == dto.ConversationId && (c.CustomerId == userId || c.OwnerId == userId));
+            if (conversation == null)
+            {
+                errors.Add(nameof(dto.ConversationId), "چت یافت نشد");
+                goto Next;
+            }
 
+            var secondUserId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+            var blockStatus = ValidateBlock(userId, secondUserId);
+            if (!blockStatus.IsValid)
+                errors.Add(nameof(dto.ConversationId), blockStatus.Message);
+        }
+
+        Next:
         if (dto.AttachmentType == null)
         {
             errors.Add(nameof(dto.AttachmentType), "این فیلد اجباری است");

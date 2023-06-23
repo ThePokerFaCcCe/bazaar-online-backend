@@ -19,10 +19,10 @@ namespace BazaarOnline.API.Controllers.Conversations
         }
 
         [HttpGet("")]
-        public IActionResult GetConversationsList([FromQuery] PaginationFilterDTO pagination)
+        public IActionResult GetConversationsList()
         {
             var userId = User.Identity.Name;
-            var conversations = _conversationService.GetConversations(userId, pagination);
+            var conversations = _conversationService.GetConversations(userId);
             return Ok(conversations);
         }
 
@@ -32,9 +32,42 @@ namespace BazaarOnline.API.Controllers.Conversations
             if (!ModelState.IsValid) return BadRequest();
 
             var userId = User.Identity.Name;
-            var conversations = _conversationService.AddConversation(dto, userId);
-            return Ok(conversations);
+            var conversationResult = _conversationService.AddConversation(dto, userId);
+            return Ok(conversationResult);
         }
+
+        [HttpPost("{id:guid}/block")]
+        public IActionResult BlockUser(Guid id)
+        {
+            var userId = User.Identity.Name;
+            var secondUser = _conversationService.GetSecondConversationUser(id, userId);
+            if (string.IsNullOrEmpty(secondUser))
+            {
+                return NotFound();
+            }
+
+            var conversationResult = _conversationService.BlockUser(new BlockUserDTO { UserId = secondUser }, userId);
+            return Ok(conversationResult);
+            //return conversationResult.IsSuccess ? Ok(conversationResult) : BadRequest(conversationResult);
+        }
+
+
+        [HttpPost("{id:guid}/unblock")]
+        public IActionResult UnblockUser(Guid id)
+        {
+            var userId = User.Identity.Name;
+            var secondUser = _conversationService.GetSecondConversationUser(id, userId);
+            if (string.IsNullOrEmpty(secondUser))
+            {
+                return NotFound();
+            }
+
+            var conversationResult =
+                _conversationService.UnblockUser(new UnblockUserDTO { UserId = secondUser }, userId);
+            return Ok(conversationResult);
+            //return conversationResult.IsSuccess ? Ok(conversationResult) : BadRequest(conversationResult);
+        }
+
 
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteConversation(Guid id)

@@ -12,6 +12,9 @@ public class ConversationDetailViewModel
 
 public class ConversationDetailDataViewModel
 {
+    public bool IsBlockedUserBySelf { get; set; } = false;
+    public bool IsBlockedByUser { get; set; } = false;
+
     public ConversationDetailUserViewModel User { get; set; }
         = new ConversationDetailUserViewModel();
 
