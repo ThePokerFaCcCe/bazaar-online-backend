@@ -2443,7 +2443,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/?Take=3&Offset=0",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -2451,18 +2451,6 @@
 								"{{API_VERSION}}",
 								"conversations",
 								""
-							],
-							"query": [
-								{
-									"key": "Take",
-									"value": "3",
-									"description": "Pagination"
-								},
-								{
-									"key": "Offset",
-									"value": "0",
-									"description": "Pagination"
-								}
 							]
 						},
 						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
@@ -2474,7 +2462,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/?Take=1&Offset=0",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/",
 									"host": [
 										"{{BASE_URL}}"
 									],
@@ -2482,18 +2470,6 @@
 										"{{API_VERSION}}",
 										"conversations",
 										""
-									],
-									"query": [
-										{
-											"key": "Take",
-											"value": "1",
-											"description": "Pagination"
-										},
-										{
-											"key": "Offset",
-											"value": "0",
-											"description": "Pagination"
-										}
 									]
 								}
 							},
@@ -2507,7 +2483,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 18 Jun 2023 13:47:24 GMT"
+									"value": "Fri, 23 Jun 2023 20:36:10 GMT"
 								},
 								{
 									"key": "Server",
@@ -2519,7 +2495,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"allCount\": 1,\n    \"content\": [\n        {\n            \"id\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n            \"data\": {\n                \"user\": {\n                    \"id\": \"Soltan-Gham\",\n                    \"data\": {\n                        \"displayName\": \"داس پدران\",\n                        \"answerHourStart\": 9,\n                        \"answerHourEnd\": 22,\n                        \"lastSeen\": \"0001-01-01T00:00:00\"\n                    }\n                },\n                \"advertisement\": {\n                    \"id\": 1111,\n                    \"data\": {\n                        \"title\": \"وانت نیسان aaaaتمیز\",\n                        \"picture\": {\n                            \"id\": 3,\n                            \"fileName\": \"\",\n                            \"imageUrl\": \"/advertiesements/images/\",\n                            \"thumbUrl\": \"/advertiesements/thumbnails/\"\n                        }\n                    }\n                },\n                \"lastMessage\": {\n                    \"id\": \"a500f56a-0eaf-4c47-af64-203da91bd79a\",\n                    \"data\": {\n                        \"text\": \"سلام\",\n                        \"attachmentType\": 0,\n                        \"isDeleted\": false,\n                        \"isSeen\": false,\n                        \"isEdited\": false,\n                        \"createDate\": \"2023-06-16T22:34:45.83\",\n                        \"updateDate\": null,\n                        \"replyToId\": null,\n                        \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                        \"replyTo\": null,\n                        \"attachmentLocation\": null,\n                        \"attachmentFile\": null,\n                        \"attachmentTypeName\": \"noAttachment\",\n                        \"isSentBySelf\": true\n                    }\n                }\n            }\n        }\n    ]\n}"
+							"body": "[\n    {\n        \"id\": \"51a2f2f4-a217-4283-86b0-e9367f5972ba\",\n        \"data\": {\n            \"isBlockedUserBySelf\": false,\n            \"isBlockedByUser\": false,\n            \"user\": {\n                \"id\": \"892E134E-E862-4179-ABFA-163FF10AFA87\",\n                \"data\": {\n                    \"displayName\": \"کاربر بازار\",\n                    \"answerHourStart\": 0,\n                    \"answerHourEnd\": 23,\n                    \"lastSeen\": \"0001-01-01T00:00:00\"\n                }\n            },\n            \"advertisement\": {\n                \"id\": 11,\n                \"data\": {\n                    \"title\": \"وانت نیسان aaaaتمیز\",\n                    \"picture\": null\n                }\n            },\n            \"lastMessage\": null\n        }\n    },\n    {\n        \"id\": \"5e73be09-2aac-422d-b625-daf9de19d8fb\",\n        \"data\": {\n            \"isBlockedUserBySelf\": false,\n            \"isBlockedByUser\": false,\n            \"user\": {\n                \"id\": \"892E134E-E862-4179-ABFA-163FF10AFA87\",\n                \"data\": {\n                    \"displayName\": \"کاربر بازار\",\n                    \"answerHourStart\": 0,\n                    \"answerHourEnd\": 23,\n                    \"lastSeen\": \"0001-01-01T00:00:00\"\n                }\n            },\n            \"advertisement\": {\n                \"id\": 12,\n                \"data\": {\n                    \"title\": \"وانت نیسان aaaaتمیز\",\n                    \"picture\": null\n                }\n            },\n            \"lastMessage\": null\n        }\n    },\n    {\n        \"id\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n        \"data\": {\n            \"isBlockedUserBySelf\": false,\n            \"isBlockedByUser\": false,\n            \"user\": {\n                \"id\": \"Soltan-Gham\",\n                \"data\": {\n                    \"displayName\": \"داس پدران\",\n                    \"answerHourStart\": 9,\n                    \"answerHourEnd\": 22,\n                    \"lastSeen\": \"0001-01-01T00:00:00\"\n                }\n            },\n            \"advertisement\": {\n                \"id\": 1111,\n                \"data\": {\n                    \"title\": \"وانت نیسان aaaaتمیز\",\n                    \"picture\": {\n                        \"id\": 3,\n                        \"fileName\": \"\",\n                        \"imageUrl\": \"/advertiesements/images/\",\n                        \"thumbUrl\": \"/advertiesements/thumbnails/\"\n                    }\n                }\n            },\n            \"lastMessage\": {\n                \"id\": \"a500f56a-0eaf-4c47-af64-203da91bd79a\",\n                \"data\": {\n                    \"text\": \"سلام\",\n                    \"attachmentType\": 0,\n                    \"isDeleted\": false,\n                    \"isSeen\": false,\n                    \"isEdited\": false,\n                    \"createDate\": \"2023-06-16T22:34:45.83\",\n                    \"updateDate\": null,\n                    \"replyToId\": null,\n                    \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                    \"replyTo\": null,\n                    \"attachmentLocation\": null,\n                    \"attachmentFile\": null,\n                    \"attachmentTypeName\": \"noAttachment\",\n                    \"isSentBySelf\": true\n                }\n            }\n        }\n    }\n]"
 						}
 					]
 				},
@@ -2530,7 +2506,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"advertisementId\":11\r\n}",
+							"raw": "{\r\n    \"advertisementId\":1111\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2600,36 +2576,15 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"conversationId\": \"51a2f2f4-a217-4283-86b0-e9367f5972ba\",\n    \"errorMessage\": \"\",\n    \"errorCode\": 0,\n    \"isSuccess\": true\n}"
-						}
-					]
-				},
-				{
-					"name": "Delete Covnersation",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/51a2f2f4-a217-4283-86b0-e9367f5972ba",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"conversations",
-								"51a2f2f4-a217-4283-86b0-e9367f5972ba"
-							]
 						},
-						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
-					},
-					"response": [
 						{
-							"name": "Success",
+							"name": "Blocked",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"advertisementId\":11\r\n}",
+									"raw": "{\r\n    \"advertisementId\":1111\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2658,7 +2613,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 19 Jun 2023 17:54:23 GMT"
+									"value": "Fri, 23 Jun 2023 20:42:33 GMT"
 								},
 								{
 									"key": "Server",
@@ -2670,7 +2625,107 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"conversationId\": \"51a2f2f4-a217-4283-86b0-e9367f5972ba\",\n    \"errorMessage\": \"\",\n    \"errorCode\": 0,\n    \"isSuccess\": true\n}"
+							"body": "{\n    \"conversationId\": null,\n    \"errorMessage\": \"این کاربر شما را بلاک کرده است\",\n    \"errorCode\": 400,\n    \"isSuccess\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Covnersation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/51a2f2f4-a217-4283-86b0-e9367f5972ba",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"conversations",
+								"51a2f2f4-a217-4283-86b0-e9367f5972ba"
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Covnersation Bulk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conversationIds\":[\r\n        \"51a2f2f4-a327-4283-86b0-e9367f5972ba\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/bulk",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"conversations",
+								"bulk"
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": [
+						{
+							"name": "Error",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conversationIds\":[\r\n        \"51a2f2f4-a327-4283-86b0-e9367f5972ba\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/bulk",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"bulk"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Jun 2023 09:24:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-594d50c399c3aadef9a16ac1abdf4573-83ebcee28a66d714-00\",\n    \"errors\": {\n        \"ConversationIds\": [\n            \"{\\\"51a2f2f4-a327-4283-86b0-e9367f5972ba\\\":\\\"یافت نشد\\\"}\"\n        ]\n    }\n}"
 						}
 					]
 				},
@@ -2758,6 +2813,213 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"allCount\": 5,\n    \"content\": [\n        {\n            \"id\": \"6ed36990-9a6a-4b1f-8e6a-7a2614235046\",\n            \"data\": {\n                \"text\": \"آدرستون کجاست؟\",\n                \"attachmentType\": 0,\n                \"isDeleted\": true,\n                \"isSeen\": false,\n                \"isEdited\": false,\n                \"createDate\": \"2023-06-16T22:28:22.89\",\n                \"updateDate\": null,\n                \"replyToId\": null,\n                \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                \"replyTo\": null,\n                \"attachmentLocation\": null,\n                \"attachmentFile\": null,\n                \"attachmentTypeName\": \"noAttachment\",\n                \"isSentBySelf\": true\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Block",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde/block",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"conversations",
+								"cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+								"block"
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bdae/block",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"cdc71f73-8048-4019-8fb9-a1d75a4e8bdae",
+										"block"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 23 Jun 2023 20:38:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Bad  conversation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75aa4e8bde/block",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"cdc71f73-8048-4019-8fb9-a1d75aa4e8bde",
+										"block"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 23 Jun 2023 20:39:26 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Unblock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde/unblock",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"conversations",
+								"cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+								"unblock"
+							]
+						},
+						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde/unblock",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+										"unblock"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 23 Jun 2023 20:45:59 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"message\": \"\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "isn't blocked",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde/unblock",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+										"unblock"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 23 Jun 2023 20:46:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": false,\n    \"message\": \"کاربر بلاک نشده است\",\n    \"data\": null\n}"
 						}
 					]
 				}

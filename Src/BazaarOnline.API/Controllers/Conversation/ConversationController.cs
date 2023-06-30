@@ -69,6 +69,22 @@ namespace BazaarOnline.API.Controllers.Conversations
         }
 
 
+        [HttpDelete("bulk")]
+        public IActionResult BulkDeleteConversation(BulkDeleteConversationDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var userId = User.Identity.Name;
+            var result = _conversationService.BulkDeleteConversations(dto.ConversationIds, userId);
+            if (!result.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.ConversationIds), result.Message);
+                return ValidationProblem(ModelState);
+            }
+
+            return NoContent();
+        }
+
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteConversation(Guid id)
         {

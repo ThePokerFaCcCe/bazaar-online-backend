@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace BazaarOnline.Application.Utils.Extensions
 {
     public static class ModelHelper
@@ -85,6 +87,17 @@ namespace BazaarOnline.Application.Utils.Extensions
                         p.SetValue(model, value);
                     }
                 );
+        }
+
+        /// <summary>
+        /// Serialize object to JSON String using Newtonsoft
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static string Stringify<T>(this T model) where T : class
+        {
+            return JsonConvert.SerializeObject(model);
         }
     }
 }

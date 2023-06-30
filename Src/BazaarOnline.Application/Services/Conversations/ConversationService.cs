@@ -122,7 +122,7 @@ public class ConversationService : IConversationService
 
         var deletedConversations = _repository.GetAll<DeletedConversation>()
             .Where(dc => dc.ConversationId == dto.ConversationId);
-        _repository.Remove(deletedConversations);
+        _repository.RemoveRange(deletedConversations);
 
         _repository.Add(message);
         _repository.Save();
@@ -383,6 +383,33 @@ public class ConversationService : IConversationService
         _repository.Remove(block);
         _repository.Save();
 
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
+    public OperationResultDTO BulkDeleteConversations(IEnumerable<Guid> conversationIds, string userId)
+    {
+        var conversations = _repository.GetAll<Conversation>()
+            .Where(c => conversationIds.Contains(c.Id) && (c.CustomerId == userId || c.OwnerId == userId))
+            .ToList();
+
+        var foundConversationIds = conversations.Select(c => c.Id);
+
+        var notFoundConversationIds = conversationIds.Except(foundConversationIds).ToList();
+        if (notFoundConversationIds.Any())
+        {
+            var errors = new Dictionary<Guid, string>();
+            notFoundConversationIds.ForEach(conv => errors[conv] = "یافت نشد");
+
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = errors.Stringify(),
+            };
+        }
+
+        conversations.ForEach(c => c.IsDeleted = true);
+        _repository.RemoveRange(conversations);
+        _repository.Save();
         return new OperationResultDTO { IsSuccess = true };
     }
 
