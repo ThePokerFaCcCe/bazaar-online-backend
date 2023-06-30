@@ -68,7 +68,7 @@ public class ChatHub : Hub<IChatHub>
             var result = new SocketOperationResultDTO
             {
                 InquiryId = inquiryId,
-                ServerErrorMessage = "Internal server error!",
+                ServerErrorMessage = "Internal server error!" + e.Message,
                 IsSuccess = false,
                 OperationType = SocketOperationTypeEnum.SendMessage,
             };
@@ -117,7 +117,7 @@ public class ChatHub : Hub<IChatHub>
             var result = new SocketOperationResultDTO
             {
                 InquiryId = inquiryId,
-                ServerErrorMessage = "Internal server error!",
+                ServerErrorMessage = "Internal server error!" + e.Message,
                 IsSuccess = false,
                 OperationType = SocketOperationTypeEnum.SendMessage,
             };
@@ -166,7 +166,7 @@ public class ChatHub : Hub<IChatHub>
             var result = new SocketOperationResultDTO
             {
                 InquiryId = inquiryId,
-                ServerErrorMessage = "Internal server error!",
+                ServerErrorMessage = "Internal server error!" + e.Message,
                 IsSuccess = false,
                 OperationType = SocketOperationTypeEnum.SendMessage,
             };
@@ -205,7 +205,7 @@ public class ChatHub : Hub<IChatHub>
         }
         catch (Exception e)
         {
-            response.ServerErrorMessage = "Internal Server Error";
+            response.ServerErrorMessage = "Internal server error!" + e.Message;
         }
 
         await Clients.Caller.ReceiveOperationResult(Jsonify(response));
@@ -243,7 +243,7 @@ public class ChatHub : Hub<IChatHub>
         }
         catch (Exception e)
         {
-            response.ServerErrorMessage = "Internal Server Error";
+            response.ServerErrorMessage = "Internal server error!" + e.Message;
         }
 
         await Clients.Caller.ReceiveOperationResult(Jsonify(response));
@@ -273,7 +273,7 @@ public class ChatHub : Hub<IChatHub>
         }
         catch (Exception e)
         {
-            response.ServerErrorMessage = "Internal Server Error";
+            response.ServerErrorMessage = "Internal server error!" + e.Message;
         }
 
         await Clients.Caller.ReceiveOperationResult(Jsonify(response));
