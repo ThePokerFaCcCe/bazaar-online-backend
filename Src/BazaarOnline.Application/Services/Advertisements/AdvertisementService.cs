@@ -240,6 +240,34 @@ public class AdvertisementService : IAdvertisementService
         if (filterDto.HasPicture)
             advertisements = advertisements.Where(a => a.Pictures.Any());
 
+        if (filterDto.Category != null)
+        {
+            var categoriesList = _repository.GetAll<Category>()
+                .Include(c => c.ChildCategories)
+                .ToList();
+
+            var filterCategoryIdList = new List<int?>() { filterDto.Category };
+
+            Action<Category> addChildrenAction = null;
+            addChildrenAction = c =>
+            {
+                if (c.ParentCategory != null && filterCategoryIdList.Contains(c.ParentCategoryId))
+                {
+                    filterCategoryIdList.Add(c.Id);
+                    c.ChildCategories.ToList().ForEach(c => addChildrenAction(c));
+
+                }
+            };
+            categoriesList.ForEach(c => addChildrenAction(c));
+
+            foreach (var category in categoriesList.Where(c => !filterCategoryIdList.Contains(c.Id)))
+            {
+                advertisements = advertisements.Where(a => a.CategoryId != category.Id);
+            }
+
+
+        }
+
         advertisements = advertisements.OrderByDescending(a => a.CreateDate);
 
         return new PaginationResultDTO<AdvertisementListDetailViewModel>
