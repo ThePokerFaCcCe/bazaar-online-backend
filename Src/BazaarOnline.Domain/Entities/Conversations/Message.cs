@@ -33,6 +33,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         public Message? ReplyTo { get; set; }
         public IEnumerable<Message> Replies { get; set; }
+        public IEnumerable<DeletedMessage> DeletedMessages { get; set; }
         public User Sender { get; set; }
         public Conversation Conversation { get; set; }
 
