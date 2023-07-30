@@ -82,7 +82,28 @@ public class ConversationService : IConversationService
             UserId = userId,
         };
         _repository.Add(deletedConversation);
+
+        var deletedMessages = _CreateDeleteConversationMessageList(conversationId, userId);
+
+        _repository.AddRange(deletedMessages);
+
         _repository.Save();
+    }
+
+    private IQueryable<DeletedMessage> _CreateDeleteConversationMessageList(Guid conversationId, string userId)
+    {
+        var messageIds = _repository.GetAll<Message>()
+            .Include(m => m.DeletedMessages)
+            .Where(m => m.ConversationId == conversationId && !m.DeletedMessages.Any(d => d.UserId == userId))
+            .Select(m => m.Id);
+
+        var deletedMessages = messageIds.Select(messageId => new DeletedMessage
+        {
+            ConversationId = conversationId,
+            UserId = userId,
+            MessageId = messageId
+        });
+        return deletedMessages;
     }
 
     public MessageOperationResultDTO AddMessage(AddMessageDTO dto, string userId)
@@ -263,7 +284,8 @@ public class ConversationService : IConversationService
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
-            .Where(m => m.ConversationId == conversationId)
+            .Include(m => m.DeletedMessages)
+            .Where(m => m.ConversationId == conversationId && !m.DeletedMessages.Any(d => d.UserId == userId))
             .OrderByDescending(m => m.CreateDate);
 
         return new PaginationResultDTO<MessageDetailViewModel>
@@ -407,8 +429,15 @@ public class ConversationService : IConversationService
             };
         }
 
-        conversations.ForEach(c => c.IsDeleted = true);
-        _repository.RemoveRange(conversations);
+        conversations.ForEach(c =>
+        {
+            c.IsDeleted = true;
+            _repository.AddRange(
+                _CreateDeleteConversationMessageList(c.Id, userId)
+                );
+        });
+        _repository.UpdateRange(conversations);
+
         _repository.Save();
         return new OperationResultDTO { IsSuccess = true };
     }
@@ -565,7 +594,7 @@ public class ConversationService : IConversationService
                 errors.Add(nameof(dto.ConversationId), blockStatus.Message);
         }
 
-        Next:
+    Next:
         if (dto.AttachmentType == null)
         {
             errors.Add(nameof(dto.AttachmentType), "این فیلد اجباری است");

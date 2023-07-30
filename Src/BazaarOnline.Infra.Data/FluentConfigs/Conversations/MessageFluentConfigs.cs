@@ -71,6 +71,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .HasForeignKey(c => c.ConversationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(c => c.DeletedMessages)         
+                .WithOne(d => d.Message)
+                .HasForeignKey(d => d.MessageId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasOne(c => c.ReplyTo)
                 .WithMany(c => c.Replies)
                 .HasForeignKey(c => c.ReplyToId)

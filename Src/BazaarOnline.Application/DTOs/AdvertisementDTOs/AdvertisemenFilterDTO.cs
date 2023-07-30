@@ -8,7 +8,7 @@ public class AdvertisemenFilterDTO
     [Filter(FilterTypeEnum.ModelContainsThis)]
     public string? Title { get; set; }
 
-    [Filter(FilterTypeEnum.Equals, ModelPropertyName = nameof(Advertisement.CategoryId))]
+    //[Filter(FilterTypeEnum.Equals, ModelPropertyName = nameof(Advertisement.CategoryId))]
     public int? Category { get; set; }
 
     [Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.CityId))]
