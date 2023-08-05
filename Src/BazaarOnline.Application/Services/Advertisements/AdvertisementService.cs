@@ -312,6 +312,7 @@ public class AdvertisementService : IAdvertisementService
         var advertisement = _repository.GetAll<Advertisement>()
             .Include(a => a.Province)
             .Include(a => a.City)
+            .Include(a => a.User)
             .Include(a => a.Pictures)
             .ThenInclude(p => p.FileCenter)
             .Include(a => a.AdvertisementFeatures)
@@ -384,6 +385,11 @@ public class AdvertisementService : IAdvertisementService
                 IsBookmarked = isBookmarked,
                 Province = new AdvertisementProvinceDetailViewModel().FillFromObject(advertisement.Province),
                 City = new AdvertisementCityDetailViewModel().FillFromObject(advertisement.City),
+                Owner = new AdvertisementUserViewModel
+                {
+                    IsSelfAdvertisement = userId==advertisement.UserId,
+                }.FillFromObject(advertisement.User),
+                
                 CategoryPath = advertisementCategoryPath,
                 Location = location,
 
