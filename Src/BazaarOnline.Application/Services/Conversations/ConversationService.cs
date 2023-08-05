@@ -67,6 +67,7 @@ public class ConversationService : IConversationService
         return new AddConversationResultDTO
         {
             ConversationId = conv.Id,
+            ReceiverUserId = advertisement.UserId,
         };
     }
 
@@ -311,6 +312,20 @@ public class ConversationService : IConversationService
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
             return null;
         return conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+    }
+
+    public IEnumerable<ConversationUserIdViewModel> GetUserIdsHaveConversationWithUser(string userId)
+    {
+        var conversations = _repository.GetAll<Conversation>()
+            .Where(c => c.CustomerId == userId || c.OwnerId == userId)
+            .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == (c.CustomerId != userId ? c.CustomerId : c.OwnerId)))
+            .Select(c => new {c.Id, c.CustomerId, c.OwnerId });
+
+        return conversations.ToList().Select(c =>new ConversationUserIdViewModel
+        {
+            UserId = c.CustomerId != userId ? c.CustomerId : c.OwnerId,
+            ConversationId = c.Id,
+        });
     }
 
     public OperationResultDTO SeenConversation(Guid conversationId, string userId)

@@ -9,4 +9,6 @@ public enum SocketEventTypeEnum
     [Display(Name = "SeenMessage")] SeenMessage = 3,
     [Display(Name = "EditMessage")] EditMessage = 4,
     [Display(Name = "DeleteMessage")] DeleteMessage = 5,
+    [Display(Name = "UserOnline")] UserOnline = 6,
+    [Display(Name = "NewConversation")] NewConversation = 7,
 }

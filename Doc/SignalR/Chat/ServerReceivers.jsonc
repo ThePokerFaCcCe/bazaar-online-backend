@@ -112,6 +112,18 @@
             }
         }
     },
+    "ImOnline": {
+        "usage": "ImOnline(inquiryId)",
+        "self-responses": [
+            "ReceiveOperationResult"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": ""
+        }
+    },
     "ChattingStatus": {
         "usage": "ChattingStatus(inquiryId, jsonData)",
         "self-responses": [

@@ -51,5 +51,13 @@ namespace BazaarOnline.Application.Services.Users
                 _repository.Save();
             }
         }
+
+        public void UpdateUserLastSeenToNow(string userId)
+        {
+            var user = _repository.Get<User>(userId);
+            user.LastSeen = DateTime.Now;
+            _repository.Update(user);
+            _repository.Save();
+        }
     }
 }

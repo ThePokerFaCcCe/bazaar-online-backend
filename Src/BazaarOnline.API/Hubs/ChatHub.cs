@@ -1,6 +1,7 @@
 ﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Interfaces.Hubs;
+using BazaarOnline.Application.Interfaces.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -12,11 +13,13 @@ namespace BazaarOnline.API.Hubs;
 public class ChatHub : Hub<IChatHub>
 {
     private readonly IConversationService _conversationService;
+    private readonly IUserService _userService;
     private string UserId => Context.User.Identity.Name;
 
-    public ChatHub(IConversationService conversationService)
+    public ChatHub(IConversationService conversationService, IUserService userService)
     {
         _conversationService = conversationService;
+        _userService = userService;
     }
 
     private string Jsonify(object data) => JsonConvert.SerializeObject(
@@ -174,7 +177,6 @@ public class ChatHub : Hub<IChatHub>
         }
     }
 
-
     public async Task SeenConversation(string inquiryId, string jsonData)
     {
         var response = new SocketOperationResultDTO
@@ -249,6 +251,42 @@ public class ChatHub : Hub<IChatHub>
         await Clients.Caller.ReceiveOperationResult(Jsonify(response));
     }
 
+    public async Task ImOnline(string inquiryId)
+    {
+        var response = new SocketOperationResultDTO
+        {
+            InquiryId = inquiryId,
+            IsSuccess = false,
+            OperationType = SocketOperationTypeEnum.ImOnline,
+        };
+        try
+        {
+
+            _userService.UpdateUserLastSeenToNow(UserId);
+            if (true) // maybe user service will be refactored in future
+            {
+
+                var receivers = _conversationService.GetUserIdsHaveConversationWithUser(UserId).ToList();
+                receivers.ForEach((receiver) =>
+                {
+                    var seenEvent = new SocketEventDTO
+                    {
+                        EventType = SocketEventTypeEnum.UserOnline,
+                        Data = receiver
+                    };
+                    Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent)).RunSynchronously();
+                });
+
+                response.IsSuccess = true;
+            }
+        }
+        catch (Exception e)
+        {
+            response.ServerErrorMessage = "Internal server error!" + e.Message;
+        }
+
+        await Clients.Caller.ReceiveOperationResult(Jsonify(response));
+    }
     public async Task ChattingStatus(string inquiryId, string jsonData)
     {
         var response = new SocketOperationResultDTO

@@ -33,7 +33,7 @@ public class FeatureHandlerService : IFeatureHandlerService
         do
         {
             categoryIds.Add((int)searchId);
-            searchId = categories.Single(c => c.Id == searchId).ParentCategoryId;
+            searchId = categories.SingleOrDefault(c => c.Id == searchId)?.ParentCategoryId;
         } while (searchId != null);
 
 

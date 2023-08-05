@@ -25,11 +25,13 @@ namespace BazaarOnline.Application.Utils.Extensions
             fillerType.GetProperties().ToList().ForEach(
                 p =>
                 {
+                    if(!p.CanRead) return;
+
                     var value = p.GetValue(filler);
                     if (!ignoreNulls || value != null)
                     {
                         var prop = modelType.GetProperty(p.Name);
-                        if (prop != null && prop.PropertyType == p.PropertyType &&
+                        if (prop != null && prop.PropertyType == p.PropertyType && prop.CanWrite &&
                             (prop.PropertyType.IsValueType || prop?.PropertyType == typeof(string)))
                             prop?.SetValue(model, value);
                     }

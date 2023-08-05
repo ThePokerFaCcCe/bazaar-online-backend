@@ -26,8 +26,9 @@ public interface IConversationService
     MessageDetailViewModel GetMessage(Guid messageId, string userId);
 
     string? GetSecondConversationUser(Guid conversationId, string userId);
+    IEnumerable<ConversationUserIdViewModel> GetUserIdsHaveConversationWithUser(string userId);
 
-    OperationResultDTO SeenConversation(Guid conversationId, string userId);
+    OperationResultDTO SeenConversation(Guid conversationId,string userId);
     OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId);
     OperationResultDTO BlockUser(BlockUserDTO dto, string blockerUserId);
     OperationResultDTO UnblockUser(UnblockUserDTO dto, string blockerUserId);
