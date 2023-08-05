@@ -357,8 +357,12 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 });
 
             var userId = advertisement.UserId;
+            
             var result = _userAdvertisementService.GetUserContactDetail(userId);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+
+            return StatusCode(403, result);
         }
 
         [Authorize]

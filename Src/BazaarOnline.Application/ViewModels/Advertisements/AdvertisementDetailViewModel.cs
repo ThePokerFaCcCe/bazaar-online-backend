@@ -41,6 +41,9 @@ public class AdvertisementDetailDataViewModel
 
     public string TimeText => UpdateDate.PassedFromNowString();
 
+    public AdvertisementUserViewModel Owner { get; set; } =
+        new AdvertisementUserViewModel();
+
     public IEnumerable<AdvertisementPictureViewModel> Pictures { get; set; } =
         Enumerable.Empty<AdvertisementPictureViewModel>();
 
