@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ce517b54-d7e0-406d-9889-2617cce6baf3",
+		"_postman_id": "ab4efef2-a3e9-4f8a-8607-b99ead759e09",
 		"name": "Bazaar Online REST API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23655655"
 	},
 	"item": [
 		{
@@ -1016,7 +1017,7 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "Error",
@@ -1144,7 +1145,7 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								}
 							]
 						}
@@ -2506,7 +2507,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"advertisementId\":1111\r\n}",
+							"raw": "{\r\n    \"advertisementId\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2534,7 +2535,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"advertisementId\":11\r\n}",
+									"raw": "{\r\n    \"advertisementId\":1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2563,7 +2564,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 19 Jun 2023 17:54:23 GMT"
+									"value": "Sat, 05 Aug 2023 21:04:25 GMT"
 								},
 								{
 									"key": "Server",
@@ -2575,7 +2576,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"conversationId\": \"51a2f2f4-a217-4283-86b0-e9367f5972ba\",\n    \"errorMessage\": \"\",\n    \"errorCode\": 0,\n    \"isSuccess\": true\n}"
+							"body": "{\n    \"conversationId\": \"5d5479b9-94f1-4da9-9128-b73e437c3315\",\n    \"receiverUserId\": \"D025EA0A-FD15-4191-ABB8-11B5FFFD28FC\",\n    \"errorMessage\": \"\",\n    \"errorCode\": 0,\n    \"isSuccess\": true\n}"
 						},
 						{
 							"name": "Blocked",
@@ -2914,7 +2915,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},

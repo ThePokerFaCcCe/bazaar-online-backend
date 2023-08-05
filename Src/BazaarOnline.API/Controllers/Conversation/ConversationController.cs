@@ -1,8 +1,11 @@
-﻿using BazaarOnline.Application.DTOs.ConversationDTOs;
+﻿using BazaarOnline.API.Hubs;
+using BazaarOnline.Application.DTOs.ConversationDTOs;
 using BazaarOnline.Application.DTOs.PaginationDTO;
 using BazaarOnline.Application.Interfaces.Conversations;
+using BazaarOnline.Application.Utils.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BazaarOnline.API.Controllers.Conversations
 {
@@ -12,10 +15,11 @@ namespace BazaarOnline.API.Controllers.Conversations
     public class ConversationController : ControllerBase
     {
         private readonly IConversationService _conversationService;
-
-        public ConversationController(IConversationService conversationService)
+        private readonly IHubContext<ChatHub> _chatHubContext;
+        public ConversationController(IConversationService conversationService, IHubContext<ChatHub> chatHubContext)
         {
             _conversationService = conversationService;
+            _chatHubContext = chatHubContext;
         }
 
         [HttpGet("")]
@@ -33,6 +37,18 @@ namespace BazaarOnline.API.Controllers.Conversations
 
             var userId = User.Identity.Name;
             var conversationResult = _conversationService.AddConversation(dto, userId);
+            if (conversationResult.IsSuccess)
+            {
+                var eventData = new AddConversationResultDTO().FillFromObject(conversationResult);
+                eventData.ReceiverUserId = userId;
+                var addConvEvent = new SocketEventDTO
+                {
+                    EventType = SocketEventTypeEnum.NewConversation,
+                    Data = eventData
+                };
+                _chatHubContext.Clients.Group(conversationResult.ReceiverUserId)
+                    .SendCoreAsync("ReceiveEvent", new object?[] { addConvEvent.Stringify() });
+            }
             return Ok(conversationResult);
         }
 

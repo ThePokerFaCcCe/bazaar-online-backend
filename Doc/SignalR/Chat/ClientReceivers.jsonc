@@ -33,8 +33,8 @@
         "usage": "ReceiveEvent(jsonData)",
         "parameters": {
             "jsonData": {
-                "EventType": 0, // 1: SeenConversation, 2: Chatting, 3: SeenMessage, 4: EditMessage, 5: DeleteMessage
-                "EventTypeName": "", // SeenConversation, Chatting, SeenMessage, EditMessage, DeleteMessage
+                "EventType": 0, // 1: SeenConversation, 2: Chatting, 3: SeenMessage, 4: EditMessage, 5: DeleteMessage, 6: UserOnline, 7: NewConversation
+                "EventTypeName": "", // SeenConversation, Chatting, SeenMessage, EditMessage, DeleteMessage, UserOnline, NewConversation
                 "Data": {} // Data Object Depends On `EventType`
                 //---------------------------------------------------------
                 // If `EventType` == 1, then `Data` contains this object:
@@ -72,6 +72,19 @@
                     "MessageId": "guid",
                     "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
                 }
+                // If `EventType` == 6, then `Data` contains this object:
+                ,
+                "__DATA__6": {
+                    "ConversationId": "guid",
+                    "UserId":"" // logged in user Id
+                }
+                // If `EventType` == 7, then `Data` contains this object:
+                ,
+                "__DATA__7": {
+                    "ConversationId": "guid",
+                    "ReceiverUserId":"" // second user's Id
+                    // other fields are not important
+                }
             }
         }
     },
@@ -82,8 +95,8 @@
                 "InquiryId": "",
                 "ServerErrorMessage": "",
                 "IsSuccess": false,
-                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus,4: SeenMessage, 5: EditMessage, 6: DeleteMessage
-                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus, SeenMessage, EditMessage, DeleteMessage
+                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus,4: SeenMessage, 5: EditMessage, 6: DeleteMessage, 7: ImOnline
+                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus, SeenMessage, EditMessage, DeleteMessage, ImOnline
                 "Data": {} // Data Object Depends On `OperationType`
                 //---------------------------------------------------------
                 // If `OperationType` == 1, then `Data` contains this object:
@@ -119,6 +132,9 @@
                     "ErrorCode": 0,
                     "IsSuccess": false
                 }
+                // If `OperationType` == 7, then `Data` contains this object:
+                ,
+                "__DATA__7": null
             }
         }
     }

@@ -1,4 +1,4 @@
-using BazaarOnline.Domain.Entities.Users;
+ï»¿using BazaarOnline.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -35,7 +35,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
             builder.Property(u => u.DisplayName)
                 .IsRequired()
                 .HasMaxLength(60)
-                .HasDefaultValue("˜ÇÑÈÑ ÈÇÒÇÑ");
+                .HasDefaultValue("Ú©Ø§Ø±Ø¨Ø± Ø¨Ø§Ø²Ø§Ø±");
             
             builder.Property(u => u.AnswerHourStart)
                 .IsRequired()
@@ -46,6 +46,10 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .HasDefaultValue(23);
 
             builder.Property(u => u.CreateDate)
+                .IsRequired()
+                .HasDefaultValueSql("getdate()");
+
+            builder.Property(u => u.LastSeen)
                 .IsRequired()
                 .HasDefaultValueSql("getdate()");
 

@@ -20,6 +20,8 @@ namespace BazaarOnline.Domain.Entities.Users
 
         #region Chat
 
+        public DateTime LastSeen { get; set; }
+
         public string DisplayName { get; set; }
 
         public int AnswerHourStart { get; set; }
