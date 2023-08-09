@@ -31,24 +31,24 @@ namespace BazaarOnline.API.Controllers.Conversations
         }
 
         [HttpPost("")]
-        public IActionResult CreateConversation([FromBody] AddConversationDTO dto)
+        public async Task<IActionResult> CreateConversation([FromBody] AddConversationDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest();
 
             var userId = User.Identity.Name;
+
             var conversationResult = _conversationService.AddConversation(dto, userId);
-            if (conversationResult.IsSuccess)
+            if (!conversationResult.IsSuccess) return StatusCode(400, conversationResult);
+
+            var eventData = new AddConversationResultDTO().FillFromObject(conversationResult);
+            eventData.ReceiverUserId = userId;
+            var addConvEvent = new SocketEventDTO
             {
-                var eventData = new AddConversationResultDTO().FillFromObject(conversationResult);
-                eventData.ReceiverUserId = userId;
-                var addConvEvent = new SocketEventDTO
-                {
-                    EventType = SocketEventTypeEnum.NewConversation,
-                    Data = eventData
-                };
-                _chatHubContext.Clients.Group(conversationResult.ReceiverUserId)
-                    .SendCoreAsync("ReceiveEvent", new object?[] { addConvEvent.Stringify() });
-            }
+                EventType = SocketEventTypeEnum.NewConversation,
+                Data = eventData
+            };
+            await _chatHubContext.Clients.Group(conversationResult.ReceiverUserId)
+                .SendCoreAsync("ReceiveEvent", new object?[] { addConvEvent.Stringify() });
             return Ok(conversationResult);
         }
 
@@ -68,21 +68,49 @@ namespace BazaarOnline.API.Controllers.Conversations
         }
 
 
-        [HttpPost("{id:guid}/unblock")]
-        public IActionResult UnblockUser(Guid id)
+        [HttpGet("blocklist")]
+        public IActionResult BlocklistUser()
         {
             var userId = User.Identity.Name;
-            var secondUser = _conversationService.GetSecondConversationUser(id, userId);
-            if (string.IsNullOrEmpty(secondUser))
+
+            var conversationResult = _conversationService.GetUserBlocklist(userId);
+            return Ok(conversationResult);
+        }
+
+
+        [HttpPost("unblock")]
+        public IActionResult UnblockUser([FromBody] UnblockUserRequestDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var userId = User.Identity.Name;
+            string blockUser = string.Empty;
+
+            switch (dto.UnblockType)
+            {
+                case UnblockUserRequestTypeEnum.ByConversationId:
+                    blockUser = _conversationService.GetSecondConversationUser(dto.Id, userId);
+                    break;
+                case UnblockUserRequestTypeEnum.ByUserId:
+                    blockUser = dto.Id.ToString();
+                    break;
+            }
+
+            if (string.IsNullOrEmpty(blockUser))
             {
                 return NotFound();
             }
 
             var conversationResult =
-                _conversationService.UnblockUser(new UnblockUserDTO { UserId = secondUser }, userId);
+                _conversationService.UnblockUser(new UnblockUserDTO { UserId = blockUser }, userId);
+            if (!conversationResult.IsSuccess)
+            {
+                return BadRequest(conversationResult);
+            }
             return Ok(conversationResult);
             //return conversationResult.IsSuccess ? Ok(conversationResult) : BadRequest(conversationResult);
         }
+
 
 
         [HttpDelete("bulk")]

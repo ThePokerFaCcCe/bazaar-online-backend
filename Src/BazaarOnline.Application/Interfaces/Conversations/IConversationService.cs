@@ -33,4 +33,6 @@ public interface IConversationService
     OperationResultDTO BlockUser(BlockUserDTO dto, string blockerUserId);
     OperationResultDTO UnblockUser(UnblockUserDTO dto, string blockerUserId);
     OperationResultDTO BulkDeleteConversations(IEnumerable<Guid> conversationIds, string userId);
+
+    IEnumerable<BlocklistViewModel> GetUserBlocklist(string userId);
 }
