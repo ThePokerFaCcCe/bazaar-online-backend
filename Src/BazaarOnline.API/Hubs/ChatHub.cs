@@ -267,15 +267,15 @@ public class ChatHub : Hub<IChatHub>
             {
 
                 var receivers = _conversationService.GetUserIdsHaveConversationWithUser(UserId).ToList();
-                receivers.ForEach((receiver) =>
+                foreach (var receiver in receivers)
                 {
                     var seenEvent = new SocketEventDTO
                     {
                         EventType = SocketEventTypeEnum.UserOnline,
                         Data = receiver
                     };
-                    Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent)).RunSynchronously();
-                });
+                    await Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent));
+                }
 
                 response.IsSuccess = true;
             }

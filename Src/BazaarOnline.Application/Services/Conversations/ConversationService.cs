@@ -91,6 +91,64 @@ public class ConversationService : IConversationService
         _repository.Save();
     }
 
+
+    public OperationResultDTO BulkDeleteConversations(IEnumerable<Guid> conversationIds, string userId)
+    {
+        var conversations = _repository.GetAll<Conversation>()
+            .Where(c => conversationIds.Contains(c.Id) && (c.CustomerId == userId || c.OwnerId == userId))
+            .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == (c.CustomerId != userId ? c.CustomerId : c.OwnerId)))
+            .ToList();
+
+        var foundConversationIds = conversations.Select(c => c.Id);
+
+        var notFoundConversationIds = conversationIds.Except(foundConversationIds).ToList();
+        if (notFoundConversationIds.Any())
+        {
+            var errors = new Dictionary<Guid, string>();
+            notFoundConversationIds.ForEach(conv => errors[conv] = "یافت نشد");
+
+            return new OperationResultDTO
+            {
+                IsSuccess = false,
+                Message = errors.Stringify(),
+            };
+        }
+
+        conversations.ForEach(c =>
+        {
+            var deletedConversation = new DeletedConversation
+            {
+                ConversationId = c.Id,
+                UserId = userId,
+            };
+            _repository.Add(deletedConversation);
+
+            var deletedMessages = _CreateDeleteConversationMessageList(c.Id, userId);
+            _repository.AddRange(deletedMessages);
+
+        });
+
+        _repository.Save();
+        return new OperationResultDTO { IsSuccess = true };
+    }
+
+    public IEnumerable<BlocklistViewModel> GetUserBlocklist(string userId)
+    {
+        return _repository.GetAll<Blocklist>()
+            .Include(b => b.BlockedUser)
+            .Where(b => b.BlockerId == userId)
+            .Select(b => new BlocklistViewModel
+            {
+                Id = b.BlockedUser.Id,
+                Data = new BlocklistDataViewModel
+                {
+                    BlockDate = b.CreateDate,
+                    DisplayName = b.BlockedUser.DisplayName,
+                }
+            });
+    }
+
+
     private IQueryable<DeletedMessage> _CreateDeleteConversationMessageList(Guid conversationId, string userId)
     {
         var messageIds = _repository.GetAll<Message>()
@@ -423,40 +481,6 @@ public class ConversationService : IConversationService
         return new OperationResultDTO { IsSuccess = true };
     }
 
-    public OperationResultDTO BulkDeleteConversations(IEnumerable<Guid> conversationIds, string userId)
-    {
-        var conversations = _repository.GetAll<Conversation>()
-            .Where(c => conversationIds.Contains(c.Id) && (c.CustomerId == userId || c.OwnerId == userId))
-            .ToList();
-
-        var foundConversationIds = conversations.Select(c => c.Id);
-
-        var notFoundConversationIds = conversationIds.Except(foundConversationIds).ToList();
-        if (notFoundConversationIds.Any())
-        {
-            var errors = new Dictionary<Guid, string>();
-            notFoundConversationIds.ForEach(conv => errors[conv] = "یافت نشد");
-
-            return new OperationResultDTO
-            {
-                IsSuccess = false,
-                Message = errors.Stringify(),
-            };
-        }
-
-        conversations.ForEach(c =>
-        {
-            c.IsDeleted = true;
-            _repository.AddRange(
-                _CreateDeleteConversationMessageList(c.Id, userId)
-                );
-        });
-        _repository.UpdateRange(conversations);
-
-        _repository.Save();
-        return new OperationResultDTO { IsSuccess = true };
-    }
-
     private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)
     {
         if (message == null) return null;
@@ -542,7 +566,7 @@ public class ConversationService : IConversationService
                         {
                             Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
                             {
-                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id), false),
+                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
                         }.FillFromObject(c.Advertisement, false),
                     }.FillFromObject(c.Advertisement, false),
 
@@ -596,6 +620,7 @@ public class ConversationService : IConversationService
         else
         {
             var conversation = _repository.GetAll<Conversation>()
+                .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
                 .SingleOrDefault(c => c.Id == dto.ConversationId && (c.CustomerId == userId || c.OwnerId == userId));
             if (conversation == null)
             {
