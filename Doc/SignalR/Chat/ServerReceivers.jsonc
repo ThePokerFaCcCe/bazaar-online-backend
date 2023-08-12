@@ -124,6 +124,18 @@
             "inquiryId": ""
         }
     },
+    "ImOffline": {
+        "usage": "ImOffline(inquiryId)",
+        "self-responses": [
+            "ReceiveOperationResult"
+        ],
+        "others-responses": [
+            "ReceiveEvent"
+        ],
+        "parameters": {
+            "inquiryId": ""
+        }
+    },
     "ChattingStatus": {
         "usage": "ChattingStatus(inquiryId, jsonData)",
         "self-responses": [

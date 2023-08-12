@@ -577,7 +577,7 @@ public class ConversationService : IConversationService
                         }.FillFromObject(secondUser, false),
                     }.FillFromObject(secondUser, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.MaxBy(m => m.CreateDate), userId),
+                    LastMessage = GetMessageViewModel(c.Messages.Where(m=> !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
                 }

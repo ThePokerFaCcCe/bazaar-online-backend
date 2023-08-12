@@ -33,8 +33,8 @@
         "usage": "ReceiveEvent(jsonData)",
         "parameters": {
             "jsonData": {
-                "EventType": 0, // 1: SeenConversation, 2: Chatting, 3: SeenMessage, 4: EditMessage, 5: DeleteMessage, 6: UserOnline, 7: NewConversation
-                "EventTypeName": "", // SeenConversation, Chatting, SeenMessage, EditMessage, DeleteMessage, UserOnline, NewConversation
+                "EventType": 0, // 1: SeenConversation, 2: Chatting, 3: SeenMessage, 4: EditMessage, 5: DeleteMessage, 6: UserOnline, 7: NewConversation, 6: UserOffline
+                "EventTypeName": "", // SeenConversation, Chatting, SeenMessage, EditMessage, DeleteMessage, UserOnline, NewConversation, UserOffline
                 "Data": {} // Data Object Depends On `EventType`
                 //---------------------------------------------------------
                 // If `EventType` == 1, then `Data` contains this object:
@@ -76,7 +76,8 @@
                 ,
                 "__DATA__6": {
                     "ConversationId": "guid",
-                    "UserId":"" // logged in user Id
+                    "UserId":"", // online user id
+                    "LastSeen":"" // user's new last seen
                 }
                 // If `EventType` == 7, then `Data` contains this object:
                 ,
@@ -84,6 +85,13 @@
                     "ConversationId": "guid",
                     "ReceiverUserId":"" // second user's Id
                     // other fields are not important
+                }
+                // If `EventType` == 8, then `Data` contains this object:
+                ,
+                "__DATA__8": {
+                    "ConversationId": "guid",
+                    "UserId":"", // offline user id
+                    "LastSeen":"" // user's new last seen
                 }
             }
         }
@@ -95,8 +103,8 @@
                 "InquiryId": "",
                 "ServerErrorMessage": "",
                 "IsSuccess": false,
-                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus,4: SeenMessage, 5: EditMessage, 6: DeleteMessage, 7: ImOnline
-                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus, SeenMessage, EditMessage, DeleteMessage, ImOnline
+                "OperationType": 0, // 1: SendMessage,2: SeenConversation,3: ChattingStatus,4: SeenMessage, 5: EditMessage, 6: DeleteMessage, 7: ImOnline, 8: ImOffline
+                "OperationTypeName": "", // SendMessage, SeenConversation, ChattingStatus, SeenMessage, EditMessage, DeleteMessage, ImOnline, ImOffline
                 "Data": {} // Data Object Depends On `OperationType`
                 //---------------------------------------------------------
                 // If `OperationType` == 1, then `Data` contains this object:
@@ -135,6 +143,10 @@
                 // If `OperationType` == 7, then `Data` contains this object:
                 ,
                 "__DATA__7": null
+                }
+                // If `OperationType` == 8  , then `Data` contains this object:
+                ,
+                "__DATA__8  ": null
             }
         }
     }

@@ -11,4 +11,5 @@ public enum SocketOperationTypeEnum
     [Display(Name = "EditMessage")] EditMessage = 5,
     [Display(Name = "DeleteMessage")] DeleteMessage = 6,
     [Display(Name = "ImOnline")] ImOnline = 7,
+    [Display(Name = "ImOffline")] ImOffline = 8,
 }

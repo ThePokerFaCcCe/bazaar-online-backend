@@ -52,12 +52,18 @@ namespace BazaarOnline.Application.Services.Users
             }
         }
 
-        public void UpdateUserLastSeenToNow(string userId)
+        public UpdateUserLastSeenResultDTO UpdateUserLastSeenToNow(string userId)
         {
             var user = _repository.Get<User>(userId);
             user.LastSeen = DateTime.Now;
             _repository.Update(user);
             _repository.Save();
+
+            return new UpdateUserLastSeenResultDTO
+            {
+                UserId = userId,
+                LastSeen = user.LastSeen,
+            };
         }
     }
 }

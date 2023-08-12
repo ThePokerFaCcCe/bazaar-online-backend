@@ -28,7 +28,7 @@ namespace BazaarOnline.Application.Interfaces.Users
         /// <param name="user"></param>
         void ActivateUser(User user);
 
-        void UpdateUserLastSeenToNow(string userId);
+        UpdateUserLastSeenResultDTO UpdateUserLastSeenToNow(string userId);
 
         #endregion
     }
