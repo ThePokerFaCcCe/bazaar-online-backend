@@ -5,6 +5,7 @@ using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.Utils.Extentions;
+using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Application.ViewModels.Conversations;
 using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Conversations;
@@ -541,6 +542,7 @@ public class ConversationService : IConversationService
             .Include(c => c.Messages)
             .Include(c => c.Advertisement)
             .ThenInclude(a => a.Pictures)
+            .ThenInclude(p=>p.FileCenter)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
             .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
             .ToList()
@@ -564,9 +566,7 @@ public class ConversationService : IConversationService
                     {
                         Data = new ConversationDetailAdvertisementDataViewModel
                         {
-                            Picture = new ViewModels.Advertisements.AdvertisementPictureViewModel
-                            {
-                            }.FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
+                            Picture = new AdvertisementPictureViewModel().FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter,false),
                         }.FillFromObject(c.Advertisement, false),
                     }.FillFromObject(c.Advertisement, false),
 
