@@ -11,4 +11,5 @@ public enum SocketEventTypeEnum
     [Display(Name = "DeleteMessage")] DeleteMessage = 5,
     [Display(Name = "UserOnline")] UserOnline = 6,
     [Display(Name = "NewConversation")] NewConversation = 7,
+    [Display(Name = "UserOffline")] UserOffline = 8,
 }

@@ -262,7 +262,7 @@ public class ChatHub : Hub<IChatHub>
         try
         {
 
-            _userService.UpdateUserLastSeenToNow(UserId);
+            var lastSeenResult= _userService.UpdateUserLastSeenToNow(UserId);
             if (true) // maybe user service will be refactored in future
             {
 
@@ -272,7 +272,12 @@ public class ChatHub : Hub<IChatHub>
                     var seenEvent = new SocketEventDTO
                     {
                         EventType = SocketEventTypeEnum.UserOnline,
-                        Data = receiver
+                        Data = new SocketUserLastSeenEventDataDTO
+                        {
+                            ConversationId = receiver.ConversationId,
+                            UserId = lastSeenResult.UserId,
+                            LastSeen = lastSeenResult.LastSeen,
+                        }
                     };
                     await Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent));
                 }
@@ -287,6 +292,49 @@ public class ChatHub : Hub<IChatHub>
 
         await Clients.Caller.ReceiveOperationResult(Jsonify(response));
     }
+
+    public async Task ImOffline(string inquiryId)
+    {
+        var response = new SocketOperationResultDTO
+        {
+            InquiryId = inquiryId,
+            IsSuccess = false,
+            OperationType = SocketOperationTypeEnum.ImOffline,
+        };
+        try
+        {
+
+            var lastSeenResult = _userService.UpdateUserLastSeenToNow(UserId);
+            if (true) // maybe user service will be refactored in future
+            {
+
+                var receivers = _conversationService.GetUserIdsHaveConversationWithUser(UserId).ToList();
+                foreach (var receiver in receivers)
+                {
+                    var seenEvent = new SocketEventDTO
+                    {
+                        EventType = SocketEventTypeEnum.UserOffline,
+                        Data = new SocketUserLastSeenEventDataDTO
+                        {
+                            ConversationId = receiver.ConversationId,
+                            UserId = lastSeenResult.UserId,
+                            LastSeen = lastSeenResult.LastSeen,
+                        }
+                    };
+                    await Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent));
+                }
+
+                response.IsSuccess = true;
+            }
+        }
+        catch (Exception e)
+        {
+            response.ServerErrorMessage = "Internal server error!" + e.Message;
+        }
+
+        await Clients.Caller.ReceiveOperationResult(Jsonify(response));
+    }
+
     public async Task ChattingStatus(string inquiryId, string jsonData)
     {
         var response = new SocketOperationResultDTO
