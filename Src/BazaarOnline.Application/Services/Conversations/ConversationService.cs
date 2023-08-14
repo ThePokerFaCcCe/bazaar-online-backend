@@ -357,6 +357,12 @@ public class ConversationService : IConversationService
         };
     }
 
+    public bool IsUserDeletedConversation(Guid conversationId, string userId)
+    {
+        return _repository.GetAll<DeletedConversation>()
+            .Any(d => d.ConversationId == conversationId && d.UserId == userId);
+    }
+
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)
     {
         var message = _repository.GetAll<Message>()
@@ -402,7 +408,7 @@ public class ConversationService : IConversationService
         _repository.UpdateRange(messages);
         _repository.Save();
         return new OperationResultDTO { IsSuccess = true };
-    }
+    } 
 
     public OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId)
     {
@@ -540,10 +546,12 @@ public class ConversationService : IConversationService
             .Include(c => c.Owner)
             .Include(c => c.Customer)
             .Include(c => c.Messages)
+            .ThenInclude(m=>m.DeletedMessages)
             .Include(c => c.Advertisement)
             .ThenInclude(a => a.Pictures)
             .ThenInclude(p=>p.FileCenter)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
+            .Where(c=>c.Messages.Any())
             .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
             .ToList()
             .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate)?.CreateDate ?? c.CreateDate);
@@ -744,5 +752,11 @@ public class ConversationService : IConversationService
             .Any(c => c.Id == conversationId && !c.IsDeleted &&
                       (c.OwnerId == userId || c.CustomerId == userId) &&
                       !c.DeletedConversations.Any(dc => dc.UserId == userId));
+    }
+
+    public bool HasConversationAnyMessages(Guid conversationId, string userId)
+    {
+        return _repository.GetAll<Message>()
+            .Any(m => m.ConversationId == conversationId);
     }
 }

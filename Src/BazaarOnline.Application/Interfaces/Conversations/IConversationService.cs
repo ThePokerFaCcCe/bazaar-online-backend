@@ -22,6 +22,9 @@ public interface IConversationService
         PaginationFilterDTO pagination);
 
     bool IsConversationExists(Guid conversationId, string userId);
+    bool HasConversationAnyMessages(Guid conversationId, string userId);
+    bool IsUserDeletedConversation(Guid conversationId, string userId);
+
 
     MessageDetailViewModel GetMessage(Guid messageId, string userId);
 

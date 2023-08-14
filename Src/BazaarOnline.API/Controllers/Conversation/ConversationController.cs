@@ -40,15 +40,7 @@ namespace BazaarOnline.API.Controllers.Conversations
             var conversationResult = _conversationService.AddConversation(dto, userId);
             if (!conversationResult.IsSuccess) return StatusCode(400, conversationResult);
 
-            var eventData = new AddConversationResultDTO().FillFromObject(conversationResult);
-            eventData.ReceiverUserId = userId;
-            var addConvEvent = new SocketEventDTO
-            {
-                EventType = SocketEventTypeEnum.NewConversation,
-                Data = eventData
-            };
-            await _chatHubContext.Clients.Group(conversationResult.ReceiverUserId)
-                .SendCoreAsync("ReceiveEvent", new object?[] { addConvEvent.Stringify() });
+            
             return Ok(conversationResult);
         }
 

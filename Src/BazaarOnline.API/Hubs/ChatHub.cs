@@ -44,6 +44,11 @@ public class ChatHub : Hub<IChatHub>
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<AddMessageDTO>>(jsonData);
             if (data?.Data == null) throw new ArgumentNullException();
 
+            bool isConversationDeleted =
+                _conversationService.IsUserDeletedConversation(data.Data.ConversationId, UserId);
+            bool isConversationHasAnyMessages =
+                _conversationService.HasConversationAnyMessages(data.Data.ConversationId, UserId);
+
             var validation = _conversationService.AddMessage(data.Data, UserId);
 
             var result = new SocketOperationResultDTO
@@ -62,6 +67,22 @@ public class ChatHub : Hub<IChatHub>
                 await Clients.Caller.ReceiveMessage(inquiryId, Jsonify(createdMessage));
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
+
+                if (isConversationDeleted || !isConversationHasAnyMessages)
+                {
+                    var addConvEvent = new SocketEventDTO
+                    {
+                        EventType = SocketEventTypeEnum.NewConversation,
+                        Data = new AddConversationResultDTO
+                        {
+                            ConversationId = data.Data.ConversationId,
+                            ReceiverUserId = UserId,
+                        }
+                    };
+
+                    await Clients.Group(receiverId).ReceiveEvent(Jsonify(addConvEvent));
+                }
+
                 createdMessage.Data.IsSentBySelf = false;
                 await Clients.Group(receiverId).ReceiveMessage(string.Empty, Jsonify(createdMessage));
             }
