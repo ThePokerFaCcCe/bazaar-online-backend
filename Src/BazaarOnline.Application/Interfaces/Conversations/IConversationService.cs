@@ -17,6 +17,7 @@ public interface IConversationService
     MessageOperationResultDTO DeleteMessage(DeleteMessageDTO dto, string userId);
 
     IEnumerable<ConversationDetailViewModel> GetConversations(string userId);
+    ConversationDetailViewModel? GetConversationDetail(Guid conversationId, string userId);
 
     PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
         PaginationFilterDTO pagination);

@@ -30,6 +30,18 @@ namespace BazaarOnline.API.Controllers.Conversations
             return Ok(conversations);
         }
 
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetConversationDetail(Guid id)
+        {
+            var userId = User.Identity.Name;
+            var conversation = _conversationService.GetConversationDetail(id, userId);
+            if (conversation==null)
+                return NotFound();
+
+            return Ok(conversation);
+        }
+
         [HttpPost("")]
         public async Task<IActionResult> CreateConversation([FromBody] AddConversationDTO dto)
         {

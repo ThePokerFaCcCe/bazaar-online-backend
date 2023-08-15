@@ -339,6 +339,58 @@ public class ConversationService : IConversationService
         return result;
     }
 
+    public ConversationDetailViewModel? GetConversationDetail(Guid conversationId, string userId)
+    {
+        var conversation = _repository.GetAll<Conversation>()
+            .Include(c => c.Owner)
+            .Include(c => c.Customer)
+            .Include(c => c.Messages)
+            .ThenInclude(m => m.DeletedMessages)
+            .Include(c => c.Advertisement)
+            .ThenInclude(a => a.Pictures)
+            .ThenInclude(p => p.FileCenter)
+            .Where(c => c.Id == conversationId)
+            .Where(c => c.OwnerId == userId || c.CustomerId == userId)
+            .Where(c => c.Messages.Any())
+            .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
+            .SingleOrDefault();
+
+        if (conversation == null) return null;
+
+        var otherUserIds = new List<string> { conversation.CustomerId, conversation.OwnerId }
+            .Distinct().Where(u => u != userId);
+        var blocks = _repository.GetAll<Blocklist>()
+            .Where(b => (b.BlockedUserId == userId || b.BlockerId == userId)).ToList()
+            .Where(b => otherUserIds.Contains(b.BlockedUserId) || otherUserIds.Contains(b.BlockerId));
+
+        var secondUser = conversation.OwnerId != userId ? conversation.Owner : conversation.Customer;
+
+        return new ConversationDetailViewModel
+        {
+            Data = new ConversationDetailDataViewModel
+            {
+                Advertisement = new ConversationDetailAdvertisementViewModel
+                {
+                    Data = new ConversationDetailAdvertisementDataViewModel
+                    {
+                        Picture = new AdvertisementPictureViewModel().FillFromObject(conversation.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
+                    }.FillFromObject(conversation.Advertisement, false),
+                }.FillFromObject(conversation.Advertisement, false),
+
+                User = new ConversationDetailUserViewModel
+                {
+                    Data = new ConversationDetailUserDataViewModel
+                    {
+                    }.FillFromObject(secondUser, false),
+                }.FillFromObject(secondUser, false),
+
+                LastMessage = GetMessageViewModel(conversation.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
+                IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
+                IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
+            }
+        }.FillFromObject(conversation, false);
+    }
+
     public PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
         PaginationFilterDTO pagination)
     {
@@ -384,9 +436,9 @@ public class ConversationService : IConversationService
         var conversations = _repository.GetAll<Conversation>()
             .Where(c => c.CustomerId == userId || c.OwnerId == userId)
             .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == (c.CustomerId != userId ? c.CustomerId : c.OwnerId)))
-            .Select(c => new {c.Id, c.CustomerId, c.OwnerId });
+            .Select(c => new { c.Id, c.CustomerId, c.OwnerId });
 
-        return conversations.ToList().Select(c =>new ConversationUserIdViewModel
+        return conversations.ToList().Select(c => new ConversationUserIdViewModel
         {
             UserId = c.CustomerId != userId ? c.CustomerId : c.OwnerId,
             ConversationId = c.Id,
@@ -408,7 +460,7 @@ public class ConversationService : IConversationService
         _repository.UpdateRange(messages);
         _repository.Save();
         return new OperationResultDTO { IsSuccess = true };
-    } 
+    }
 
     public OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId)
     {
@@ -546,12 +598,12 @@ public class ConversationService : IConversationService
             .Include(c => c.Owner)
             .Include(c => c.Customer)
             .Include(c => c.Messages)
-            .ThenInclude(m=>m.DeletedMessages)
+            .ThenInclude(m => m.DeletedMessages)
             .Include(c => c.Advertisement)
             .ThenInclude(a => a.Pictures)
-            .ThenInclude(p=>p.FileCenter)
+            .ThenInclude(p => p.FileCenter)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
-            .Where(c=>c.Messages.Any())
+            .Where(c => c.Messages.Any())
             .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
             .ToList()
             .OrderByDescending(c => c.Messages.MaxBy(m => m.CreateDate)?.CreateDate ?? c.CreateDate);
@@ -574,7 +626,7 @@ public class ConversationService : IConversationService
                     {
                         Data = new ConversationDetailAdvertisementDataViewModel
                         {
-                            Picture = new AdvertisementPictureViewModel().FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter,false),
+                            Picture = new AdvertisementPictureViewModel().FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
                         }.FillFromObject(c.Advertisement, false),
                     }.FillFromObject(c.Advertisement, false),
 
@@ -585,7 +637,7 @@ public class ConversationService : IConversationService
                         }.FillFromObject(secondUser, false),
                     }.FillFromObject(secondUser, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.Where(m=> !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
+                    LastMessage = GetMessageViewModel(c.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
                 }
