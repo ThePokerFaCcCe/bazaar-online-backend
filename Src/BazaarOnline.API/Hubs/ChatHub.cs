@@ -33,9 +33,69 @@ public class ChatHub : Hub<IChatHub>
     {
         await base.OnConnectedAsync();
 
-        var groupName = UserId;
-        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await Groups.AddToGroupAsync(Context.ConnectionId, UserId);
+
+        try
+        {
+            var lastSeenResult = _userService.UpdateUserLastSeenToNow(UserId);
+            if (true) // maybe user service will be refactored in future
+            {
+                var receivers = _conversationService.GetUserIdsHaveConversationWithUser(UserId).ToList();
+                foreach (var receiver in receivers)
+                {
+                    var seenEvent = new SocketEventDTO
+                    {
+                        EventType = SocketEventTypeEnum.UserOnline,
+                        Data = new SocketUserLastSeenEventDataDTO
+                        {
+                            ConversationId = receiver.ConversationId,
+                            UserId = lastSeenResult.UserId,
+                            LastSeen = lastSeenResult.LastSeen,
+                        }
+                    };
+                    await Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent));
+                }
+            }
+        }
+        catch (Exception e)
+        {
+        }
     }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        try
+        {
+            var lastSeenResult = _userService.UpdateUserLastSeenToNow(UserId);
+            if (true) // maybe user service will be refactored in future
+            {
+
+                var receivers = _conversationService.GetUserIdsHaveConversationWithUser(UserId).ToList();
+                foreach (var receiver in receivers)
+                {
+                    var seenEvent = new SocketEventDTO
+                    {
+                        EventType = SocketEventTypeEnum.UserOffline,
+                        Data = new SocketUserLastSeenEventDataDTO
+                        {
+                            ConversationId = receiver.ConversationId,
+                            UserId = lastSeenResult.UserId,
+                            LastSeen = lastSeenResult.LastSeen,
+                        }
+                    };
+                    await Clients.Group(receiver.UserId).ReceiveEvent(Jsonify(seenEvent));
+                }
+
+            }
+        }
+        catch (Exception e)
+        {
+        }
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, UserId);
+
+        await base.OnDisconnectedAsync(exception);
+    }
+
 
     public async Task SendMessage(string inquiryId, string jsonData)
     {
@@ -283,7 +343,7 @@ public class ChatHub : Hub<IChatHub>
         try
         {
 
-            var lastSeenResult= _userService.UpdateUserLastSeenToNow(UserId);
+            var lastSeenResult = _userService.UpdateUserLastSeenToNow(UserId);
             if (true) // maybe user service will be refactored in future
             {
 
