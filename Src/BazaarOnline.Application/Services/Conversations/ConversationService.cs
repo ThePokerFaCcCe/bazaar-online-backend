@@ -351,7 +351,6 @@ public class ConversationService : IConversationService
             .ThenInclude(p => p.FileCenter)
             .Where(c => c.Id == conversationId)
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
-            .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == userId))
             .SingleOrDefault();
 
         if (conversation == null) return null;
