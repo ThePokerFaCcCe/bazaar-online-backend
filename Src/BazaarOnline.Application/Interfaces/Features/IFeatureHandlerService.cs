@@ -15,6 +15,13 @@ public interface IFeatureHandlerService
     /// <returns></returns>
     IEnumerable<CategoryFeaturesListDetailViewModel> GetFeaturesList(int categoryId);
 
+    /// <summary>
+    /// return all features of advertisement's category and their value(if has value)
+    /// </summary>
+    /// <param name="advertisementId"></param>
+    /// <returns></returns>
+    IEnumerable<CategoryFeaturesListDetailViewModel> GetAdvertisementFeaturesList(int advertisementId);
+
     #endregion
 
     #region AdvertisementFeatures

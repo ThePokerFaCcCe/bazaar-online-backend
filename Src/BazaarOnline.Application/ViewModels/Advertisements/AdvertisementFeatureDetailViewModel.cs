@@ -1,4 +1,5 @@
-﻿using BazaarOnline.Domain.Entities.Features;
+﻿using BazaarOnline.Application.ViewModels.Categories.CategoryFeatures;
+using BazaarOnline.Domain.Entities.Features;
 
 namespace BazaarOnline.Application.ViewModels.Advertisements;
 
@@ -13,4 +14,5 @@ public class AdvertisementFeatureDetailViewModel
     public string Name { get; set; }
 
     public FeaturePositionEnum Position { get; set; }
+
 }

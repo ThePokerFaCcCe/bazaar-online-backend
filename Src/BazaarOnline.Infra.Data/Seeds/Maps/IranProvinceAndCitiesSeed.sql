@@ -1608,6 +1608,27 @@ INSERT INTO [dbo].[Cities] (id,name,provinceId,amarcode) VALUES
 
 SET IDENTITY_INSERT [dbo].[Cities] OFF;
 
+delete FROM [BazaarOnline_Database].[dbo].[Cities]
+where name like '%0%'
+	or name like '%1%'
+	or name like '%2%'
+	or name like '%3%'
+	or name like '%4%'
+	or name like '%5%'
+	or name like '%6%'
+	or name like '%7%'
+	or name like '%8%'
+	or name like '%9%'
+
+delete FROM [BazaarOnline_Database].[dbo].[Cities]
+where id in (
+		select min(id) FROM [BazaarOnline_Database].[dbo].[Cities]
+		group by trim(name),provinceid
+		having count(*)>1
+)
+
+
+
 PRINT 'Cities Inserted.'
 
 PRINT 'DONE.'

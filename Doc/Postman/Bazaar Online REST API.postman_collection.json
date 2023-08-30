@@ -1148,6 +1148,72 @@
 									"body": ""
 								}
 							]
+						},
+						{
+							"name": "Advertisement Features Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1/features",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements",
+										"myself",
+										"1",
+										"features"
+									]
+								},
+								"description": "Get Advertisement Detail\n\n*Output*\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1/features",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"advertisements",
+												"myself",
+												"1",
+												"features"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 30 Aug 2023 19:24:10 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"data\": {\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": \"سال شمسی ...\",\n            \"isRequired\": true,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-dce0ce8a80994ee592da5a336e774ea7\",\n            \"value\": \"1350\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 2,\n        \"data\": {\n            \"name\": \"کارکرد\",\n            \"description\": \"مسافت طی شده توسط خودرو \",\n            \"type\": 2,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": \"کیلومتر ...\",\n            \"isRequired\": true,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-672a2ca13d0f4869810446d57a9adf53\",\n            \"value\": \"264000\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": \"خاکستری\",\n            \"isRequired\": true,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-3b46e261e4ec419cbc21193dd4da484a\",\n            \"value\": \"قهوه ای\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-c4e14194d0d2470f8c15d226299b78a2\",\n            \"value\": \"زامیاد\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"سایپا\",\n                \"پژو\",\n                \"سمند\",\n                \"زامیاد\"\n            ]\n        }\n    },\n    {\n        \"id\": 5,\n        \"data\": {\n            \"name\": \"نوع سوخت\",\n            \"description\": \"نوع مصرف سوخت خودرو\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-74df33443d87493db36a5533d19d5032\",\n            \"value\": \"برقی\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"بنزینی\",\n                \"دوگانه شرکتی\",\n                \"دوگانه شخصی\",\n                \"برقی\"\n            ]\n        }\n    },\n    {\n        \"id\": 6,\n        \"data\": {\n            \"name\": \"وضعیت بدنه\",\n            \"description\": \"وضعیت سلامت بدنه\",\n            \"type\": 1,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": \"سالم - دارای خط - تمام رنگ ...\",\n            \"isRequired\": false,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-b0f7468ad9d9499eb1650338e0f17094\",\n            \"value\": \"\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 7,\n        \"data\": {\n            \"name\": \"گیربکس\",\n            \"description\": \"نوع گیربکس\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-2e268719ddd242fca5473dd3a07665a7\",\n            \"value\": \"اتوماتیک\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"اتوماتیک\",\n                \"دستی\"\n            ]\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"name\": \"شیشه دودی\",\n            \"description\": \"برچسب شیشه دودی دارد\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-ecaad21f74834838ac9418529b6ea48c\",\n            \"value\": \"دارد\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"name\": \"بدنه اسپرت\",\n            \"description\": \"بدنه اسپرت دارد\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-0df27c089df546309f1c56c3bb2161be\",\n            \"value\": \"ندارد\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"name\": \"روکش صندلی\",\n            \"description\": \"روکش صندلی دارد\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-f5d39ec1cf064f0e94c9c52ea43b2ebd\",\n            \"value\": \"دارد\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"name\": \"چراغ خطر شیشه عقب\",\n            \"description\": \"چراغ خطر شیشه عقب دارد\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": false,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-d52ac2f45677474793ccecc327148de2\",\n            \"value\": \"\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 12,\n        \"data\": {\n            \"name\": \"چراغ عقب اسپرت\",\n            \"description\": \"چراغ عقب اسپرت دارد\",\n            \"type\": 3,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"placeholder\": null,\n            \"isRequired\": false,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-b6cb756ab6454d0dbcf094fd182c544c\",\n            \"value\": \"\",\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    }\n]"
+								}
+							]
 						}
 					]
 				},

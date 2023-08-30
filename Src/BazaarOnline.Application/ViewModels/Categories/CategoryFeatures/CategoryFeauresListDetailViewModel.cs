@@ -29,7 +29,7 @@ public class CategoryFeaturesListFeatureDetailViewModel
     public string UniqueKey => $"{TypeName}-{StringGenerator.GenerateUniqueCodeWithoutDash()}";
 
     //front developer request
-    public string? Value { get; set; } = null;
+    public string Value { get; set; } = string.Empty;
 
     #region StringValidation
 

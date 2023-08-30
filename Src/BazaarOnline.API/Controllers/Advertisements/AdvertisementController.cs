@@ -64,6 +64,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return Ok(advertisement);
         }
 
+
         [Authorize]
         [HttpPost("")]
         public IActionResult CreateAdvertisement([FromBody] CreateAdvertisementDTO dto)
@@ -296,6 +297,20 @@ namespace BazaarOnline.API.Controllers.Advertisements
             return StatusCode(204);
         }
 
+        [Authorize]
+        [HttpGet("myself/{id:int}/features")]
+        public IActionResult GetAdvertisementFeatureDetail(int id)
+        {
+            var userId = User.Identity?.Name;
+
+            var isAdvertisementExists = _advertisementService.IsAdvertisementExists(id, userId);
+            if (!isAdvertisementExists)
+                return NotFound();
+
+
+
+            return Ok(_featureHandlerService.GetAdvertisementFeaturesList(id));
+        }
         #endregion
 
         #region Actions
@@ -357,7 +372,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 });
 
             var userId = advertisement.UserId;
-            
+
             var result = _userAdvertisementService.GetUserContactDetail(userId);
             if (result.Success)
                 return Ok(result);

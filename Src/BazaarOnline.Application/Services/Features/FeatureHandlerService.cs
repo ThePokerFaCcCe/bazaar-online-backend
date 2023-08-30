@@ -4,6 +4,7 @@ using BazaarOnline.Application.Interfaces.Features;
 using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Categories.CategoryFeatures;
 using BazaarOnline.Application.ViewModels.Features;
+using BazaarOnline.Domain.Entities.Advertisements;
 using BazaarOnline.Domain.Entities.Categories;
 using BazaarOnline.Domain.Entities.Features;
 using BazaarOnline.Domain.Interfaces;
@@ -60,6 +61,42 @@ public class FeatureHandlerService : IFeatureHandlerService
                     Data = new CategoryFeaturesListFeatureDetailViewModel().FillFromObject(cf.Feature, false),
                 }.FillFromObject(cf);
                 model.Data.IsRequired = cf.IsRequired;
+
+                object? typeObjectViewModel = cf.Feature.Type switch
+                {
+                    FeatureTypeEnum.Integer => new FeatureIntegerTypeViewModel().FillFromObject(cf.Feature.TypeObject),
+                    FeatureTypeEnum.Select => new FeatureSelectTypeViewModel().FillFromObject(cf.Feature.TypeObject),
+                    FeatureTypeEnum.String => new FeatureStringTypeViewModel().FillFromObject(cf.Feature.TypeObject),
+                    _ => null
+                };
+                model.Data.FillFromObject(typeObjectViewModel);
+
+                return model;
+            }
+        );
+    }
+
+    public IEnumerable<CategoryFeaturesListDetailViewModel> GetAdvertisementFeaturesList(int advertisementId)
+    {
+        var advertisement = _repository.GetAll<Advertisement>()
+            .Include(a => a.AdvertisementFeatures)
+            .SingleOrDefault(a => a.Id == advertisementId);
+        if (advertisement == null) return Enumerable.Empty<CategoryFeaturesListDetailViewModel>();
+
+        var categoryFeatures = GetCategoryAndParentsFeatures(advertisement.CategoryId);
+
+        return categoryFeatures.ToList().Select(cf =>
+            {
+                var model = new CategoryFeaturesListDetailViewModel
+                {
+                    Data = new CategoryFeaturesListFeatureDetailViewModel().FillFromObject(cf.Feature, false),
+                }.FillFromObject(cf);
+                model.Data.IsRequired = cf.IsRequired;
+
+                var featureValue =
+                    advertisement.AdvertisementFeatures.SingleOrDefault(af => af.CategoryFeatureId == cf.Id);
+
+                model.Data.Value = featureValue?.Value ?? string.Empty;
 
                 object? typeObjectViewModel = cf.Feature.Type switch
                 {
