@@ -866,7 +866,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Pictures\":[1],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -874,7 +874,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1",
 									"host": [
 										"{{BASE_URL}}"
 									],
@@ -882,7 +882,7 @@
 										"{{API_VERSION}}",
 										"advertisements",
 										"myself",
-										"1111"
+										"1"
 									]
 								},
 								"description": "All Data is required.\n\nold features will be deleted and new `Features` will be added."
@@ -895,7 +895,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"Pictures\":[1],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -903,7 +903,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1111",
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/myself/1",
 											"host": [
 												"{{BASE_URL}}"
 											],
@@ -911,7 +911,7 @@
 												"{{API_VERSION}}",
 												"advertisements",
 												"myself",
-												"1111"
+												"1"
 											]
 										}
 									},
@@ -925,7 +925,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 09 Jun 2023 13:41:53 GMT"
+											"value": "Sat, 02 Sep 2023 12:52:14 GMT"
 										},
 										{
 											"key": "Server",
@@ -1167,7 +1167,7 @@
 										"features"
 									]
 								},
-								"description": "Get Advertisement Detail\n\n*Output*\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only"
+								"description": "Get All Category Features With Their Values in Advertisement"
 							},
 							"response": [
 								{
@@ -2174,14 +2174,14 @@
 							"formdata": [
 								{
 									"key": "Type",
-									"value": "3",
+									"value": "1",
 									"description": "1: Advertisement Picture\n2: Chat Picture\n3: Chat Voice",
 									"type": "default"
 								},
 								{
 									"key": "Files",
 									"type": "file",
-									"src": "/D:/some.ogg"
+									"src": "/D:/Other/Captures/Need for Speed™ Heat 01_04_1402 16_44_11 .png"
 								}
 							]
 						},

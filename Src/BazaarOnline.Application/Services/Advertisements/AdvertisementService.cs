@@ -176,6 +176,7 @@ public class AdvertisementService : IAdvertisementService
     {
         var advertisement = _repository.GetAll<Advertisement>()
             .Include(a => a.AdvertisementFeatures)
+            .Include(a => a.Pictures)
             .SingleOrDefault(a => a.Id == id);
 
         if (advertisement == null)
@@ -203,7 +204,17 @@ public class AdvertisementService : IAdvertisementService
         _repository.RemoveRange(advertisement.AdvertisementFeatures);
         _repository.AddRange(advertisementFeatures);
 
+        var advertisementPictures = dto.Pictures.Select(fileCenterId => new AdvertisementPicture
+        {
+            Advertisement = advertisement,
+            FileCenterId = fileCenterId,
+        });
+
+        _repository.RemoveRange(advertisement.Pictures);
+        _repository.AddRange(advertisementPictures);
+
         _repository.Save();
+        
         return new OperationResultDTO { IsSuccess = true };
     }
 

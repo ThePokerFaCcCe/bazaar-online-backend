@@ -187,6 +187,14 @@ namespace BazaarOnline.API.Controllers.Advertisements
 
             bool hasErrors = false;
 
+            var pictureValidation =
+                _fileCenterService.ValidateFileTypes(dto.Pictures, FileCenterTypeEnum.AdvertisementPicture);
+            if (!pictureValidation.IsSuccess)
+            {
+                ModelState.AddModelError(nameof(dto.Pictures), pictureValidation.Message);
+                hasErrors = true;
+            }
+
             if ((dto.Latitude == null && dto.Longitude != null) || (dto.Latitude != null && dto.Longitude == null))
             {
                 if (dto.Latitude == null)

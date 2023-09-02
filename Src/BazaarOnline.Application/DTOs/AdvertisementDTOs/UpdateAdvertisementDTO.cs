@@ -1,5 +1,6 @@
 ﻿using BazaarOnline.Domain.Entities.Advertisements;
 using System.ComponentModel.DataAnnotations;
+using BazaarOnline.Application.Validators.Attributes;
 
 namespace BazaarOnline.Application.DTOs.AdvertisementDTOs;
 
@@ -29,6 +30,10 @@ public class UpdateAdvertisementDTO
     [Display(Name = "نوع تماس")]
     [Required(ErrorMessage = "این فیلد اجباری است")]
     public AdvertisementContactTypeEnum ContactType { get; set; }
+
+    [ValidateImage]
+    public List<int>? Pictures { get; set; }
+        = new List<int>();
 
     public List<CreateAdvertisementFeatureDTO> Features { get; set; }
         = new List<CreateAdvertisementFeatureDTO>();
