@@ -49,7 +49,7 @@ public class AdvertisementService : IAdvertisementService
             FileCenterId = fileId,
         });
 
-        var advertisementFeatures = dto.Features.Select(feature => new AdvertisementFeature
+        var advertisementFeatures = dto.Features.Where(f=>f.Value!=null).Select(feature => new AdvertisementFeature
         {
             Value = feature.Value,
             CategoryFeatureId = feature.Id,

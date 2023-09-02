@@ -137,6 +137,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 }
             }
 
+            dto.Features.RemoveAll(f => f.Value == null);
             var featureValidation = _featureHandlerService.ValidateAdvertisementFeatures(dto.CategoryId, dto.Features);
             if (!featureValidation.IsSuccess)
             {
