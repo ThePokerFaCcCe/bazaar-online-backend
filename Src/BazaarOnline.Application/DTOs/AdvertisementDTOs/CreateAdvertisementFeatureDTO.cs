@@ -10,6 +10,5 @@ public class CreateAdvertisementFeatureDTO
     [Required(ErrorMessage = "این فیلد اجباری است")]
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "این فیلد اجباری است")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
 }

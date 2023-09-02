@@ -147,7 +147,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
             if (hasErrors) return ValidationProblem(ModelState);
 
             var advertisementId = _advertisementService.CreateAdvertisement(dto, User.Identity.Name);
-            return CreatedAtAction(nameof(GetAdvertisementDetail), new { Id = advertisementId }, null);
+            return CreatedAtAction(nameof(GetAdvertisementDetail), new { Id = advertisementId }, new { Id = advertisementId });
         }
 
         #region MySelf

@@ -116,6 +116,7 @@ public class FeatureHandlerService : IFeatureHandlerService
         IEnumerable<CreateAdvertisementFeatureDTO> features)
     {
         // TODO - Refactor
+        features = features.Where(f => f.Value != null); // Remove Null values
         var categoryFeatures = GetCategoryAndParentsFeatures(categoryId).ToList();
 
         if (!categoryFeatures.Any())

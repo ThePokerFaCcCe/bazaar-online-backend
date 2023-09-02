@@ -583,11 +583,11 @@
 								"features"
 							]
 						},
-						"description": "Return list of features that needed for creating advertisement in category\n\n\n\n*query params*\n\n\n`categoryId`: int\n  - **Required**\n\n\n*Notes*\n\n  - Until now, we have 3 types, 1:text, 2:number, 3:select. in every type, some fields will be filled.\n    - 1:text : `minLength`,`maxLength`,`regex`\n    - 2:number : `minimum`,`maximum`\n    - 3:select : `optionsList`"
+						"description": "Return list of features that needed for creating advertisement in category\n\n_query params_\n\n`categoryId`: int\n\n- **Required**\n    \n\n_Notes_\n\n- Until now, we have 3 types, 1:text, 2:number, 3:select. in every type, some fields will be filled.\n    - 1:text : `minLength`,`maxLength`,`regex`\n    - 2:number : `minimum`,`maximum`\n    - 3:select : `optionsList`"
 					},
 					"response": [
 						{
-							"name": "Example",
+							"name": "Success",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -614,7 +614,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 09 Feb 2023 21:08:54 GMT"
+									"value": "Sat, 02 Sep 2023 13:33:56 GMT"
 								},
 								{
 									"key": "Server",
@@ -626,7 +626,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-dd3025bf426743488ecb6c1c76960f70\",\n            \"value\": null,\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"minimum\": 1300,\n            \"maximum\": 1401,\n            \"optionsList\": null,\n            \"placeholder\": \"سال شمسی ...\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-drjdxjdjf488ecb6c1c76960f70\",\n            \"value\": null,\n            \"minLength\": 2,\n            \"maxLength\": 10,\n            \"regex\": \"[a-z]*\",\n            \"minimum\": null,\n            \"maximum\": null,\n            \"optionsList\": null,\n            \"placeholder\": \"خاکستری\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"isRequired\": true,\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"number-dd3025bf426743488y6u7eiuwwu\",\n            \"value\": null,\n            \"minLength\": null,\n            \"maxLength\": null,\n            \"regex\": null,\n            \"minimum\": null,\n            \"maximum\": null,\n            \"optionsList\": [\n                \"سایپا\",\n                \"پژو\",\n                \"سمند\",\n                \"زامیاد\"\n            ],\n            \"placeholder\": null\n        }\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"data\": {\n            \"name\": \"مدل\",\n            \"description\": \"سال تولید خودرو\",\n            \"type\": 2,\n            \"minimum\": 1300,\n            \"maximum\": 1401,\n            \"placeholder\": \"سال شمسی ...\",\n            \"isRequired\": true,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-8aa9bc309dca4acfb7d8fa6f92a8a561\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 2,\n        \"data\": {\n            \"name\": \"کارکرد\",\n            \"description\": \"مسافت طی شده توسط خودرو \",\n            \"type\": 2,\n            \"minimum\": 0,\n            \"maximum\": 2000000,\n            \"placeholder\": \"کیلومتر ...\",\n            \"isRequired\": true,\n            \"typeName\": \"number\",\n            \"uniqueKey\": \"number-5a6c6e0be6bf49c08af218f1304491c8\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 3,\n        \"data\": {\n            \"name\": \"رنگ\",\n            \"description\": \"رنگ خودرو\",\n            \"type\": 1,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": \"خاکستری\",\n            \"isRequired\": true,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-388c9492bfaf4ef1a22cf9a6b99fe341\",\n            \"value\": \"\",\n            \"minLength\": 2,\n            \"maxLength\": 10,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 4,\n        \"data\": {\n            \"name\": \"برند\",\n            \"description\": \"شرکت سازنده خودرو\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-476d3005a11b4afda000ed32e349f2da\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"سایپا\",\n                \"پژو\",\n                \"سمند\",\n                \"زامیاد\"\n            ]\n        }\n    },\n    {\n        \"id\": 5,\n        \"data\": {\n            \"name\": \"نوع سوخت\",\n            \"description\": \"نوع مصرف سوخت خودرو\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-7d121206d93e4817878d61c02eb69d2c\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"بنزینی\",\n                \"دوگانه شرکتی\",\n                \"دوگانه شخصی\",\n                \"برقی\"\n            ]\n        }\n    },\n    {\n        \"id\": 6,\n        \"data\": {\n            \"name\": \"وضعیت بدنه\",\n            \"description\": \"وضعیت سلامت بدنه\",\n            \"type\": 1,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": \"سالم - دارای خط - تمام رنگ ...\",\n            \"isRequired\": false,\n            \"typeName\": \"text\",\n            \"uniqueKey\": \"text-ee7cac69e80f4538b14511acbe58b697\",\n            \"value\": \"\",\n            \"minLength\": 4,\n            \"maxLength\": 20,\n            \"regex\": null,\n            \"optionsList\": null\n        }\n    },\n    {\n        \"id\": 7,\n        \"data\": {\n            \"name\": \"گیربکس\",\n            \"description\": \"نوع گیربکس\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-26cbdcb148634c08b71760d8a236cd2c\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"اتوماتیک\",\n                \"دستی\"\n            ]\n        }\n    },\n    {\n        \"id\": 8,\n        \"data\": {\n            \"name\": \"شیشه دودی\",\n            \"description\": \"برچسب شیشه دودی دارد\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-a8d1c0c6d9104da585a1cfdcdc236e91\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 9,\n        \"data\": {\n            \"name\": \"بدنه اسپرت\",\n            \"description\": \"بدنه اسپرت دارد\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-97dbc08e98c3486eb8e49fc9ef95b1a0\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 10,\n        \"data\": {\n            \"name\": \"روکش صندلی\",\n            \"description\": \"روکش صندلی دارد\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": true,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-7390630d91e24bda98feb5c76f4f8c48\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 11,\n        \"data\": {\n            \"name\": \"چراغ خطر شیشه عقب\",\n            \"description\": \"چراغ خطر شیشه عقب دارد\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": false,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-b6152aef847d446b84cc280b563d2745\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    },\n    {\n        \"id\": 12,\n        \"data\": {\n            \"name\": \"چراغ عقب اسپرت\",\n            \"description\": \"چراغ عقب اسپرت دارد\",\n            \"type\": 3,\n            \"minimum\": 0,\n            \"maximum\": 0,\n            \"placeholder\": null,\n            \"isRequired\": false,\n            \"typeName\": \"select\",\n            \"uniqueKey\": \"select-b6d5df6388b347d089ee6f0548b1ec70\",\n            \"value\": \"\",\n            \"minLength\": 0,\n            \"maxLength\": 0,\n            \"regex\": null,\n            \"optionsList\": [\n                \"دارد\",\n                \"ندارد\"\n            ]\n        }\n    }\n]"
 						}
 					]
 				}
@@ -1534,62 +1534,9 @@
 								"advertisements"
 							]
 						},
-						"description": "Create Advertisement\n\n*fields*\n\n\n- `Pictures`: List int\n  - *List of image ids that uploaded to* `Upload Image` *request.*\n  - Error message is a json string object.\ntemplate:`{\"image_id\":\"error msg\"}`\nexample: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n\n- `Features`: List\n  - Error message is a json string object.\ntemplate:`{\"feature_id\":\"error msg\"}`\nexample: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n\n- `ContactType`: Enum\n  - `1`: Normal\n  - `2`: Chat Only\n  - `3`: Call Only\n\n- `Latitude` ,  `Longitude`: Double\n  - Not Required\n  - if coordinates exists, both of them should be passed. otherwise error code 400 will be returned.\n\n*Notes*\n\n  - **Login Required**"
+						"description": "Create Advertisement\n\n_fields_\n\n- `Pictures`: List int\n    - _List of image ids that uploaded to_ `Upload Image` _request._\n    - Error message is a json string object.  \n        template:`{\"image_id\":\"error msg\"}`  \n        example: `[{\"1\":\"Error\",\"6\":\"Error\"}\"]`\n- `Features`: List\n    - Error message is a json string object.  \n        template:`{\"feature_id\":\"error msg\"}`  \n        example: `[{\"2\":\"Error\",\"7\":\"Error\"}\"]`\n- `ContactType`: Enum\n    - `1`: Normal\n    - `2`: Chat Only\n    - `3`: Call Only\n- `Latitude` , `Longitude`: Double\n    - Not Required\n    - if coordinates exists, both of them should be passed. otherwise error code 400 will be returned.\n\n_Notes_\n\n- **Login Required**"
 					},
 					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"Title\": \"وانت نیسان تمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 19,\r\n    \"CityId\": 1081,\r\n    \"Pictures\":[1],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"advertisements"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Sat, 25 Feb 2023 05:23:48 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Location",
-									"value": "https://google.com"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": 3\n}"
-						},
 						{
 							"name": "Bad Features",
 							"originalRequest": {
@@ -1694,6 +1641,59 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-3b334d9f8b54681330f933e44120d595-b7564fa8272fe41b-00\",\n    \"errors\": {\n        \"Pictures\": [\n            \"{\\\"3\\\":\\\"File not found\\\",\\\"2\\\":\\\"File not found\\\"}\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 19,\r\n    \"CityId\": 1081,\r\n    \"Pictures\":[],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"advertisements"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 02 Sep 2023 13:37:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Location",
+									"value": "https://localhost:7223/api/v1/advertisements/1113"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1113\n}"
 						}
 					]
 				},

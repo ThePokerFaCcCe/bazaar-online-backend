@@ -23,20 +23,20 @@ public class Feature
             switch (Type)
             {
                 case FeatureTypeEnum.Integer:
-                    return IntegerType;
+                    return IntegerType as FeatureIntegerType;
 
                 case FeatureTypeEnum.Select:
-                    return SelectType;
+                    return SelectType as FeatureSelectType;
 
                 case FeatureTypeEnum.String:
-                    return StringType;
+                    return StringType as FeatureStringType;
 
                 default:
                     return null;
             }
         }
     }
-
+    
     public int? StringTypeId { get; set; }
 
     public int? IntegerTypeId { get; set; }

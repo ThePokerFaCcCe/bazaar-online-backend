@@ -33,30 +33,30 @@ public class CategoryFeaturesListFeatureDetailViewModel
 
     #region StringValidation
 
-    public int? MinLength { get; set; }
+    public int MinLength { get; set; }
 
-    public int? MaxLength { get; set; }
+    public int MaxLength { get; set; }
 
-    public string? Regex { get; set; }
+    public string Regex { get; set; }
 
     #endregion
 
     #region IntegerValidation
 
-    public long? Minimum { get; set; }
+    public long Minimum { get; set; }
 
-    public long? Maximum { get; set; }
+    public long Maximum { get; set; }
 
     #endregion
 
     #region SelectValidation
 
-    public string? Options
+    public string Options
     {
         set => OptionsList = value?.Split('\u002C' /* , */);
     }
 
-    public IEnumerable<string>? OptionsList { get; set; }
+    public IEnumerable<string> OptionsList { get; set; }
 
     #endregion
 
