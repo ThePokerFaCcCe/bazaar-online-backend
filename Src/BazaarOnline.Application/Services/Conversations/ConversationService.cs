@@ -384,7 +384,7 @@ public class ConversationService : IConversationService
                 }.FillFromObject(secondUser, false),
 
                 Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
-                AllMessagesCount = messages.Count(),
+                AllCount = messages.Count(),
                 IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                 IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
             }
@@ -653,7 +653,7 @@ public class ConversationService : IConversationService
                     }.FillFromObject(secondUser, false),
 
                     Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
-                    AllMessagesCount = messages.Count(),
+                    AllCount = messages.Count(),
                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
                 }
