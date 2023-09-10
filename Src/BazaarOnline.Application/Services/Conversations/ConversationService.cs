@@ -383,7 +383,7 @@ public class ConversationService : IConversationService
                     }.FillFromObject(secondUser, false),
                 }.FillFromObject(secondUser, false),
 
-                LastMessages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
+                Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
                 IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                 IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
             }
@@ -651,7 +651,7 @@ public class ConversationService : IConversationService
                         }.FillFromObject(secondUser, false),
                     }.FillFromObject(secondUser, false),
 
-                    LastMessages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
+                    Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
                 }
