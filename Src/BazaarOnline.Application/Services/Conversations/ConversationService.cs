@@ -421,17 +421,31 @@ public class ConversationService : IConversationService
         return GetMessageViewModel(message, userId);
     }
 
-    public string? GetSecondConversationUser(Guid conversationId, string userId)
+    public string? GetSecondConversationUser(Guid conversationId, string userId, bool checkIsDeletedConversation = false)
     {
-        var conversation = _repository.Get<Conversation>(conversationId);
+        var conversations = _repository.GetAll<Conversation>();
+        if (checkIsDeletedConversation)
+        {
+            conversations = conversations.Include(c => c.DeletedConversations);
+        }
+
+        var conversation = conversations.SingleOrDefault(c => c.Id == conversationId);
+
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
             return null;
-        return conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+
+        var secondConversationUserId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
+
+        if (checkIsDeletedConversation && conversation.DeletedConversations.Any(dc => dc.UserId == secondConversationUserId))
+            return null;
+
+        return secondConversationUserId;
     }
 
     public IEnumerable<ConversationUserIdViewModel> GetUserIdsHaveConversationWithUser(string userId)
     {
         var conversations = _repository.GetAll<Conversation>()
+            .Include(c => c.DeletedConversations)
             .Where(c => c.CustomerId == userId || c.OwnerId == userId)
             .Where(c => !c.DeletedConversations.Any(dc => dc.UserId == (c.CustomerId != userId ? c.CustomerId : c.OwnerId)))
             .Select(c => new { c.Id, c.CustomerId, c.OwnerId });

@@ -27,6 +27,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Categories
             builder.Property(c => c.Icon)
                 .HasMaxLength(32)
                 .HasDefaultValue("");
+
+            builder.Property(c => c.ImageUrl)
+                .HasMaxLength(500)
+                .IsRequired(false)
+                .HasDefaultValue("");
         }
 
         private void ConfigureQueryFilters(EntityTypeBuilder<Category> builder)

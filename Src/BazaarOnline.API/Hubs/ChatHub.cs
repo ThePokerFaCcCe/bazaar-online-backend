@@ -104,11 +104,6 @@ public class ChatHub : Hub<IChatHub>
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<AddMessageDTO>>(jsonData);
             if (data?.Data == null) throw new ArgumentNullException();
 
-            bool isConversationDeleted =
-                _conversationService.IsUserDeletedConversation(data.Data.ConversationId, UserId);
-            bool isConversationHasAnyMessages =
-                _conversationService.HasConversationAnyMessages(data.Data.ConversationId, UserId);
-
             var validation = _conversationService.AddMessage(data.Data, UserId);
 
             var result = new SocketOperationResultDTO
@@ -128,16 +123,17 @@ public class ChatHub : Hub<IChatHub>
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
 
+                var isConversationDeleted =
+                _conversationService.IsUserDeletedConversation(data.Data.ConversationId, receiverId);
+                var isConversationHasAnyMessages =
+                    _conversationService.HasConversationAnyMessages(data.Data.ConversationId, receiverId);
+
                 if (isConversationDeleted || !isConversationHasAnyMessages)
                 {
                     var addConvEvent = new SocketEventDTO
                     {
                         EventType = SocketEventTypeEnum.NewConversation,
-                        Data = new AddConversationResultDTO
-                        {
-                            ConversationId = data.Data.ConversationId,
-                            ReceiverUserId = UserId,
-                        }
+                        Data = _conversationService.GetConversationDetail(data.Data.ConversationId,receiverId),
                     };
 
                     await Clients.Group(receiverId).ReceiveEvent(Jsonify(addConvEvent));
@@ -434,8 +430,14 @@ public class ChatHub : Hub<IChatHub>
                 Data = data.Data,
                 EventType = SocketEventTypeEnum.Chatting,
             };
-            var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-            await Clients.Group(receiverId).ReceiveEvent(Jsonify(chattingEvent));
+            var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId,
+                checkIsDeletedConversation: true);
+
+            if (receiverId != null)
+            {
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(chattingEvent));
+            }
+
             response.IsSuccess = true;
         }
         catch (Exception e)

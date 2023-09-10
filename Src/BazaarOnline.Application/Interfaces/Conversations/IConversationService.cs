@@ -29,7 +29,14 @@ public interface IConversationService
 
     MessageDetailViewModel GetMessage(Guid messageId, string userId);
 
-    string? GetSecondConversationUser(Guid conversationId, string userId);
+    /// <summary>
+    /// Return second userid
+    /// </summary>
+    /// <param name="conversationId"></param>
+    /// <param name="userId"></param>
+    /// <param name="checkIsDeletedConversation">returns null if second user deleted conversation</param>
+    /// <returns></returns>
+    string? GetSecondConversationUser(Guid conversationId, string userId, bool checkIsDeletedConversation=false);
     IEnumerable<ConversationUserIdViewModel> GetUserIdsHaveConversationWithUser(string userId);
 
     OperationResultDTO SeenConversation(Guid conversationId,string userId);

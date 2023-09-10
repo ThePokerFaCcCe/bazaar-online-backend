@@ -2567,65 +2567,24 @@
 					]
 				},
 				{
-					"name": "Get Conversation",
+					"name": "Get Conversation Detail",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/",
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{API_VERSION}}",
 								"conversations",
-								""
+								"cdc71f73-8048-4019-8fb9-a1d75a4e8bde"
 							]
 						},
 						"description": "Get Search Suggestions\n\n*Query Params*\n- `query`:str\n  - **Required**\n  - MinLength is 3\n  - MaxLength is 50"
 					},
 					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"conversations",
-										"cdc71f73-8048-4019-8fb9-a1d75a4e8bde"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 15 Aug 2023 18:58:21 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Kestrel"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n    \"data\": {\n        \"isBlockedUserBySelf\": false,\n        \"isBlockedByUser\": false,\n        \"user\": {\n            \"id\": \"SagSagSag\",\n            \"data\": {\n                \"lastSeen\": \"2023-08-14T23:21:08.52\",\n                \"displayName\": \"??? ?????\",\n                \"answerHourStart\": 3,\n                \"answerHourEnd\": 23\n            }\n        },\n        \"advertisement\": {\n            \"id\": 1111,\n            \"data\": {\n                \"title\": \"استخدام سلاطین غم\",\n                \"picture\": null\n            }\n        },\n        \"lastMessage\": {\n            \"id\": \"ee6c3729-28b1-48f3-aab0-13f8018afd08\",\n            \"data\": {\n                \"text\": \"????????\",\n                \"attachmentType\": 0,\n                \"isDeleted\": false,\n                \"isSeen\": false,\n                \"isEdited\": false,\n                \"createDate\": \"2029-06-14T23:21:08.5733333\",\n                \"updateDate\": null,\n                \"replyToId\": null,\n                \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                \"replyTo\": null,\n                \"attachmentLocation\": null,\n                \"attachmentFile\": null,\n                \"attachmentTypeName\": \"noAttachment\",\n                \"isSentBySelf\": true\n            }\n        }\n    }\n}"
-						},
 						{
 							"name": "Not Found",
 							"originalRequest": {
@@ -2666,6 +2625,47 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.4\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-67a1287c39ef221536e7e98d5a645287-a0eab239f66b32f1-00\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/conversations/cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"conversations",
+										"cdc71f73-8048-4019-8fb9-a1d75a4e8bde"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 15 Aug 2023 18:58:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n    \"data\": {\n        \"isBlockedUserBySelf\": false,\n        \"isBlockedByUser\": false,\n        \"user\": {\n            \"id\": \"SagSagSag\",\n            \"data\": {\n                \"lastSeen\": \"2023-08-14T23:21:08.52\",\n                \"displayName\": \"??? ?????\",\n                \"answerHourStart\": 3,\n                \"answerHourEnd\": 23\n            }\n        },\n        \"advertisement\": {\n            \"id\": 1111,\n            \"data\": {\n                \"title\": \"استخدام سلاطین غم\",\n                \"picture\": null\n            }\n        },\n        \"lastMessage\": {\n            \"id\": \"ee6c3729-28b1-48f3-aab0-13f8018afd08\",\n            \"data\": {\n                \"text\": \"????????\",\n                \"attachmentType\": 0,\n                \"isDeleted\": false,\n                \"isSeen\": false,\n                \"isEdited\": false,\n                \"createDate\": \"2029-06-14T23:21:08.5733333\",\n                \"updateDate\": null,\n                \"replyToId\": null,\n                \"conversationId\": \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\",\n                \"replyTo\": null,\n                \"attachmentLocation\": null,\n                \"attachmentFile\": null,\n                \"attachmentTypeName\": \"noAttachment\",\n                \"isSentBySelf\": true\n            }\n        }\n    }\n}"
 						}
 					]
 				},
@@ -2826,7 +2826,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"conversationIds\":[\r\n        \"5d5479b9-94f1-4da9-9128-b73e437c3315\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"conversationIds\":[\r\n        \"cdc71f73-8048-4019-8fb9-a1d75a4e8bde\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

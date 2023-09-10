@@ -76,22 +76,59 @@
                 ,
                 "__DATA__6": {
                     "ConversationId": "guid",
-                    "UserId":"", // online user id
-                    "LastSeen":"" // user's new last seen
+                    "UserId": "", // online user id
+                    "LastSeen": "" // user's new last seen
                 }
                 // If `EventType` == 7, then `Data` contains this object:
                 ,
                 "__DATA__7": {
-                    "ConversationId": "guid",
-                    "ReceiverUserId":"" // second user's Id
-                    // other fields are not important
+                    "id": "cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+                    "data": {
+                        "isBlockedUserBySelf": false,
+                        "isBlockedByUser": false,
+                        "user": {
+                            "id": "mksx8s73-8000-4022-8xb9-a7ccxaa4ascs",
+                            "data": {
+                                "lastSeen": "2023-08-14T23:21:08.52",
+                                "displayName": "??? ?????",
+                                "answerHourStart": 9,
+                                "answerHourEnd": 22
+                            }
+                        },
+                        "advertisement": {
+                            "id": 1111,
+                            "data": {
+                                "title": "????",
+                                "picture": null
+                            }
+                        },
+                        "lastMessage": {
+                            "id": "ee6c3729-28b1-48f3-aab0-13f8018afd08",
+                            "data": {
+                                "text": "????????",
+                                "attachmentType": 0,
+                                "isDeleted": false,
+                                "isSeen": false,
+                                "isEdited": false,
+                                "createDate": "2029-06-14T23:21:08.5733333",
+                                "updateDate": null,
+                                "replyToId": null,
+                                "conversationId": "cdc71f73-8048-4019-8fb9-a1d75a4e8bde",
+                                "replyTo": null,
+                                "attachmentLocation": null,
+                                "attachmentFile": null,
+                                "attachmentTypeName": "noAttachment",
+                                "isSentBySelf": false
+                            }
+                        }
+                    }
                 }
                 // If `EventType` == 8, then `Data` contains this object:
                 ,
                 "__DATA__8": {
                     "ConversationId": "guid",
-                    "UserId":"", // offline user id
-                    "LastSeen":"" // user's new last seen
+                    "UserId": "", // offline user id
+                    "LastSeen": "" // user's new last seen
                 }
             }
         }
@@ -143,11 +180,10 @@
                 // If `OperationType` == 7, then `Data` contains this object:
                 ,
                 "__DATA__7": null
-                }
-                // If `OperationType` == 8  , then `Data` contains this object:
-                ,
-                "__DATA__8  ": null
             }
+            // If `OperationType` == 8  , then `Data` contains this object:
+            ,
+            "__DATA__8  ": null
         }
     }
 }
