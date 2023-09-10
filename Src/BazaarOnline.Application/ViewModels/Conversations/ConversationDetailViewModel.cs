@@ -21,7 +21,7 @@ public class ConversationDetailDataViewModel
     public ConversationDetailAdvertisementViewModel Advertisement { get; set; }
         = new ConversationDetailAdvertisementViewModel();
 
-    public MessageDetailViewModel? LastMessage { get; set; } = null;
+    public IEnumerable<MessageDetailViewModel> LastMessages { get; set; } = Enumerable.Empty<MessageDetailViewModel>();
 }
 
 public class ConversationDetailUserViewModel

@@ -363,6 +363,7 @@ public class ConversationService : IConversationService
 
         var secondUser = conversation.OwnerId != userId ? conversation.Owner : conversation.Customer;
 
+        var messages = conversation.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId));
         return new ConversationDetailViewModel
         {
             Data = new ConversationDetailDataViewModel
@@ -382,7 +383,7 @@ public class ConversationService : IConversationService
                     }.FillFromObject(secondUser, false),
                 }.FillFromObject(secondUser, false),
 
-                LastMessage = GetMessageViewModel(conversation.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
+                LastMessages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
                 IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                 IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
             }
@@ -629,6 +630,7 @@ public class ConversationService : IConversationService
         return conversations.Select(c =>
         {
             var secondUser = c.OwnerId != userId ? c.Owner : c.Customer;
+            var messages = c.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId));
 
             return new ConversationDetailViewModel
             {
@@ -649,7 +651,7 @@ public class ConversationService : IConversationService
                         }.FillFromObject(secondUser, false),
                     }.FillFromObject(secondUser, false),
 
-                    LastMessage = GetMessageViewModel(c.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId)).MaxBy(m => m.CreateDate), userId),
+                    LastMessages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
                 }
