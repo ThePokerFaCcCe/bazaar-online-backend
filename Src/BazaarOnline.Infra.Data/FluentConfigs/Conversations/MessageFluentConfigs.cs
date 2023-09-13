@@ -35,7 +35,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired(false);
 
             builder.Property(c => c.Text)
-                .HasMaxLength(512)
+                .HasMaxLength(4000)
                 .IsRequired()
                 .HasDefaultValue(string.Empty);
 

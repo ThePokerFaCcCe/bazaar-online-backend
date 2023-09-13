@@ -171,7 +171,7 @@ public class ConversationService : IConversationService
         dto.TrimStrings();
 
         var validationErrors = ValidateMessage(dto, userId);
-        if (!string.IsNullOrEmpty(validationErrors))
+        if (validationErrors != null)
         {
             return new MessageOperationResultDTO
             {
@@ -229,7 +229,7 @@ public class ConversationService : IConversationService
 
         if (errors.Any())
         {
-            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorMessage = errors;
             result.ErrorCode = 400;
             return result;
         }
@@ -249,7 +249,7 @@ public class ConversationService : IConversationService
 
         if (errors.Any())
         {
-            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorMessage = errors;
             result.ErrorCode = 400;
             return result;
         }
@@ -277,7 +277,7 @@ public class ConversationService : IConversationService
 
         if (errors.Any())
         {
-            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorMessage = errors;
             result.ErrorCode = 400;
             return result;
         }
@@ -289,7 +289,7 @@ public class ConversationService : IConversationService
         if (message == null)
         {
             errors.Add(nameof(dto.MessageId), "پیام یافت نشد");
-            result.ErrorMessage = JsonConvert.SerializeObject(errors);
+            result.ErrorMessage = errors;
             result.ErrorCode = 400;
             return result;
         }
@@ -685,7 +685,7 @@ public class ConversationService : IConversationService
         return result;
     }
 
-    private string? ValidateMessage(AddMessageDTO dto, string userId)
+    private Dictionary<string, object>? ValidateMessage(AddMessageDTO dto, string userId)
     {
         var errors = new Dictionary<string, object>();
 
@@ -808,7 +808,7 @@ public class ConversationService : IConversationService
 
         if (errors.Any())
         {
-            return JsonConvert.SerializeObject(errors);
+            return errors;
         }
 
         return null;

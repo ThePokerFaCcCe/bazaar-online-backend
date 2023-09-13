@@ -4,7 +4,7 @@ public class MessageOperationResultDTO
 {
     public Guid? MessageId { get; set; }
 
-    public string ErrorMessage { get; set; } = string.Empty;
+    public Dictionary<string,object> ErrorMessage { get; set; } = new Dictionary<string, object>();
 
     public int ErrorCode { get; set; } = 0;
 
