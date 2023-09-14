@@ -2,7 +2,7 @@
     "ReceiveMessage": {
         "usage": "ReceiveMessage(inquiryId, jsonData)",
         "parameters": {
-            "inquiryId": "", // if message was sent by self user, this wil be the sent inquiryId to server
+            "inquiryId": "", // if message was sent by self user, this will be the sent inquiryId to server
             "jsonData": {
                 "Id": "00000000-0000-0000-0000-000000000000",
                 "Data": {
@@ -54,23 +54,20 @@
                 ,
                 "__DATA__3": {
                     "ConversationId": "guid",
-                    "MessageId": "guid",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "MessageId": "guid"
                 }
                 // If `EventType` == 4, then `Data` contains this object:
                 ,
                 "__DATA__4": {
                     "ConversationId": "guid",
                     "MessageId": "guid",
-                    "Text": "",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "Text": ""
                 }
                 // If `EventType` == 5, then `Data` contains this object:
                 ,
                 "__DATA__5": {
                     "ConversationId": "guid",
-                    "MessageId": "guid",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "MessageId": "guid"
                 }
                 // If `EventType` == 6, then `Data` contains this object:
                 ,

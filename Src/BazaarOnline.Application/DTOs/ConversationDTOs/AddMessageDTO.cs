@@ -11,7 +11,7 @@ namespace BazaarOnline.Application.DTOs.ConversationDTOs
         public Guid? ReplyToId { get; set; }
 
         [Display(Name = "متن پیام")]
-        [MaxLength(512, ErrorMessage = "{0} باید حداکثر {1} کاراکتر باشد")]
+        [MaxLength(4000, ErrorMessage = "{0} باید حداکثر {1} کاراکتر باشد")]
         public string Text { get; set; }
 
         [Required(ErrorMessage = "این فیلد اجباری است")]

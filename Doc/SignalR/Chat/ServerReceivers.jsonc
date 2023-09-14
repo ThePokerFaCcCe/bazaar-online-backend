@@ -44,7 +44,7 @@
             "jsonData": {
                 "InquiryId": "", // same as inquiryId in parameters
                 "Data": {
-                    "ConversationId": "guid",
+                    "ConversationId": "guid"
                 }
             }
         }
@@ -63,8 +63,7 @@
                 "InquiryId": "", // same as inquiryId in parameters
                 "Data": {
                     "ConversationId": "guid",
-                    "MessageId": "guid",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "MessageId": "guid"
                 }
             }
         }
@@ -84,8 +83,7 @@
                 "InquiryId": "", // same as inquiryId in parameters
                 "Data": {
                     "ConversationId": "guid",
-                    "MessageId": "guid",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "MessageId": "guid"
                 }
             }
         }
@@ -106,8 +104,7 @@
                 "Data": {
                     "ConversationId": "guid",
                     "MessageId": "guid",
-                    "Text": "",
-                    "MessageIndexInquiry": 0 // Index of message that seen - used for frontend and not important in backend
+                    "Text": ""
                 }
             }
         }
