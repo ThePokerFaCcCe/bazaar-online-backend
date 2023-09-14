@@ -29,7 +29,7 @@ namespace BazaarOnline.API.Controllers.Conversations
             var conversations = _conversationService.GetConversations(userId);
             return Ok(conversations);
         }
-
+        
 
         [HttpGet("{id:guid}")]
         public IActionResult GetConversationDetail(Guid id)

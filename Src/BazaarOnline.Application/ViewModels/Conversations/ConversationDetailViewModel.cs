@@ -22,7 +22,9 @@ public class ConversationDetailDataViewModel
         = new ConversationDetailAdvertisementViewModel();
 
     public int AllCount { get; set; } = 0;
-    public IEnumerable<MessageDetailViewModel> Messages { get; set; } = Enumerable.Empty<MessageDetailViewModel>();
+
+    public Dictionary<Guid, MessageDetailViewModel> Messages { get; set; } =
+        new Dictionary<Guid, MessageDetailViewModel>();
 }
 
 public class ConversationDetailUserViewModel

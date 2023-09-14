@@ -24,12 +24,12 @@ public interface IAdvertisementService
     bool IsAdvertisementExists(int advertisementId, string userId);
     Advertisement? GetAdvertisement(int id);
 
-    PaginationResultDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
+    PaginationResultGenericListDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
         PaginationFilterDTO pagination);
 
     OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto);
 
-    PaginationResultDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
+    PaginationResultGenericListDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
         PaginationFilterDTO pagination);
 
     AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false, string? userId = null);

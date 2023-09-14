@@ -16,10 +16,10 @@ public interface IConversationService
 
     MessageOperationResultDTO DeleteMessage(DeleteMessageDTO dto, string userId);
 
-    IEnumerable<ConversationDetailViewModel> GetConversations(string userId);
+    Dictionary<Guid, ConversationDetailViewModel> GetConversations(string userId);
     ConversationDetailViewModel? GetConversationDetail(Guid conversationId, string userId);
 
-    PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
+    PaginationResultGenericTypeDTO<Dictionary<Guid, MessageDetailViewModel>> GetConversationMessages(Guid conversationId, string userId,
         PaginationFilterDTO pagination);
 
     bool IsConversationExists(Guid conversationId, string userId);
@@ -36,10 +36,10 @@ public interface IConversationService
     /// <param name="userId"></param>
     /// <param name="checkIsDeletedConversation">returns null if second user deleted conversation</param>
     /// <returns></returns>
-    string? GetSecondConversationUser(Guid conversationId, string userId, bool checkIsDeletedConversation=false);
+    string? GetSecondConversationUser(Guid conversationId, string userId, bool checkIsDeletedConversation = false);
     IEnumerable<ConversationUserIdViewModel> GetUserIdsHaveConversationWithUser(string userId);
 
-    OperationResultDTO SeenConversation(Guid conversationId,string userId);
+    OperationResultDTO SeenConversation(Guid conversationId, string userId);
     OperationResultDTO SeenMessage(Guid conversationId, Guid messageId, string userId);
     OperationResultDTO BlockUser(BlockUserDTO dto, string blockerUserId);
     OperationResultDTO UnblockUser(UnblockUserDTO dto, string blockerUserId);

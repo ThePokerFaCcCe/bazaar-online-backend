@@ -122,7 +122,7 @@ public class AdvertisementService : IAdvertisementService
         return _repository.Get<Advertisement>(id);
     }
 
-    public PaginationResultDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
+    public PaginationResultGenericListDTO<AdvertisementSelfListDetailViewModel> GetSelfAdvertisementList(string userId,
         PaginationFilterDTO pagination)
     {
         var advertisements = _repository.GetAll<Advertisement>()
@@ -135,7 +135,7 @@ public class AdvertisementService : IAdvertisementService
             .Where(a => a.UserId == userId);
 
 
-        return new PaginationResultDTO<AdvertisementSelfListDetailViewModel>
+        return new PaginationResultGenericListDTO<AdvertisementSelfListDetailViewModel>
         {
             AllCount = advertisements.Count(),
 
@@ -235,7 +235,7 @@ public class AdvertisementService : IAdvertisementService
         return new OperationResultDTO { IsSuccess = true };
     }
 
-    public PaginationResultDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
+    public PaginationResultGenericListDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
         PaginationFilterDTO pagination)
     {
         var advertisements = _repository.GetAll<Advertisement>()
@@ -281,7 +281,7 @@ public class AdvertisementService : IAdvertisementService
 
         advertisements = advertisements.OrderByDescending(a => a.CreateDate);
 
-        return new PaginationResultDTO<AdvertisementListDetailViewModel>
+        return new PaginationResultGenericListDTO<AdvertisementListDetailViewModel>
         {
             AllCount = advertisements.Count(),
 

@@ -364,6 +364,13 @@ public class ConversationService : IConversationService
         var secondUser = conversation.OwnerId != userId ? conversation.Owner : conversation.Customer;
 
         var messages = conversation.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId));
+        var messageViewModels = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate)
+            .Select(m => GetMessageViewModel(m, userId))
+            .ToList();
+
+        var messagesHashTable = new Dictionary<Guid, MessageDetailViewModel>();
+        messageViewModels.ForEach(m => messagesHashTable.Add(m.Id, m));
+
         return new ConversationDetailViewModel
         {
             Data = new ConversationDetailDataViewModel
@@ -383,7 +390,7 @@ public class ConversationService : IConversationService
                     }.FillFromObject(secondUser, false),
                 }.FillFromObject(secondUser, false),
 
-                Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
+                Messages = messagesHashTable,
                 AllCount = messages.Count(),
                 IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
                 IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
@@ -391,7 +398,7 @@ public class ConversationService : IConversationService
         }.FillFromObject(conversation, false);
     }
 
-    public PaginationResultDTO<MessageDetailViewModel> GetConversationMessages(Guid conversationId, string userId,
+    public PaginationResultGenericTypeDTO<Dictionary<Guid, MessageDetailViewModel>> GetConversationMessages(Guid conversationId, string userId,
         PaginationFilterDTO pagination)
     {
         var messages = _repository.GetAll<Message>()
@@ -400,12 +407,19 @@ public class ConversationService : IConversationService
             .Where(m => m.ConversationId == conversationId && !m.DeletedMessages.Any(d => d.UserId == userId))
             .OrderByDescending(m => m.CreateDate);
 
-        return new PaginationResultDTO<MessageDetailViewModel>
+        var messageViewModels = messages.Paginate(pagination).AsEnumerable()
+            .Reverse() // frontend developer request
+            .Select(m => GetMessageViewModel(m, userId))
+            .ToList();
+
+        var messagesHashTable = new Dictionary<Guid, MessageDetailViewModel>();
+        messageViewModels.ForEach(m => messagesHashTable.Add(m.Id, m));
+
+
+        return new PaginationResultGenericTypeDTO<Dictionary<Guid, MessageDetailViewModel>>
         {
             AllCount = messages.Count(),
-            Content = messages.Paginate(pagination).AsEnumerable()
-                .Reverse() // frontend developer request
-                .Select(m => GetMessageViewModel(m, userId))
+            Content = messagesHashTable
         };
     }
 
@@ -606,7 +620,7 @@ public class ConversationService : IConversationService
         return model;
     }
 
-    public IEnumerable<ConversationDetailViewModel> GetConversations(string userId)
+    public Dictionary<Guid, ConversationDetailViewModel> GetConversations(string userId)
     {
         var conversations = _repository.GetAll<Conversation>()
             .Include(c => c.Owner)
@@ -628,37 +642,49 @@ public class ConversationService : IConversationService
             .Where(b => (b.BlockedUserId == userId || b.BlockerId == userId)).ToList()
             .Where(b => otherUserIds.Contains(b.BlockedUserId) || otherUserIds.Contains(b.BlockerId));
 
-        return conversations.Select(c =>
-        {
-            var secondUser = c.OwnerId != userId ? c.Owner : c.Customer;
-            var messages = c.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId));
+        var conversationViewModels = conversations.Select(c =>
+         {
+             var secondUser = c.OwnerId != userId ? c.Owner : c.Customer;
+             var messages = c.Messages.Where(m => !m.DeletedMessages.Any(d => d.UserId == userId));
 
-            return new ConversationDetailViewModel
-            {
-                Data = new ConversationDetailDataViewModel
-                {
-                    Advertisement = new ConversationDetailAdvertisementViewModel
-                    {
-                        Data = new ConversationDetailAdvertisementDataViewModel
-                        {
-                            Picture = new AdvertisementPictureViewModel().FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
-                        }.FillFromObject(c.Advertisement, false),
-                    }.FillFromObject(c.Advertisement, false),
+             var messageViewModels = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate)
+                 .Select(m => GetMessageViewModel(m, userId))
+                 .ToList();
 
-                    User = new ConversationDetailUserViewModel
-                    {
-                        Data = new ConversationDetailUserDataViewModel
-                        {
-                        }.FillFromObject(secondUser, false),
-                    }.FillFromObject(secondUser, false),
+             var messagesHashTable = new Dictionary<Guid, MessageDetailViewModel>();
+             messageViewModels.ForEach(m => messagesHashTable.Add(m.Id, m));
 
-                    Messages = messages.OrderByDescending(m => m.CreateDate).Take(30).OrderBy(m => m.CreateDate).Select(m => GetMessageViewModel(m, userId)),
-                    AllCount = messages.Count(),
-                    IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
-                    IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
-                }
-            }.FillFromObject(c, false);
-        });
+             return new ConversationDetailViewModel
+             {
+                 Data = new ConversationDetailDataViewModel
+                 {
+                     Advertisement = new ConversationDetailAdvertisementViewModel
+                     {
+                         Data = new ConversationDetailAdvertisementDataViewModel
+                         {
+                             Picture = new AdvertisementPictureViewModel().FillFromObject(c.Advertisement.Pictures.MinBy(p => p.Id)?.FileCenter, false),
+                         }.FillFromObject(c.Advertisement, false),
+                     }.FillFromObject(c.Advertisement, false),
+
+                     User = new ConversationDetailUserViewModel
+                     {
+                         Data = new ConversationDetailUserDataViewModel
+                         {
+                         }.FillFromObject(secondUser, false),
+                     }.FillFromObject(secondUser, false),
+
+                     Messages = messagesHashTable,
+                     AllCount = messages.Count(),
+                     IsBlockedByUser = blocks.Any(b => b.BlockedUserId == userId && b.BlockerId == secondUser.Id),
+                     IsBlockedUserBySelf = blocks.Any(b => b.BlockerId == userId && b.BlockedUserId == secondUser.Id),
+                 }
+             }.FillFromObject(c, false);
+         }).ToList();
+
+        var conversationsHashTable = new Dictionary<Guid, ConversationDetailViewModel>();
+        conversationViewModels.ForEach(c => conversationsHashTable.Add(c.Id, c));
+
+        return conversationsHashTable;
     }
 
     private ValidationResultDTO ValidateBlock(string senderId, string receiverId)
