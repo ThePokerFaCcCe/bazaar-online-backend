@@ -653,7 +653,131 @@
 						},
 						"description": "Get full list of provinces"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/provinces",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"provinces"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Sep 2023 15:33:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"آذربایجان شرقی\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"آذربایجان غربی\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"اردبیل\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"اصفهان\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"البرز\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"ایلام\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"بوشهر\"\n    },\n    {\n        \"id\": 8,\n        \"name\": \"تهران\"\n    },\n    {\n        \"id\": 9,\n        \"name\": \"چهارمحال وبختیاری\"\n    },\n    {\n        \"id\": 10,\n        \"name\": \"خراسان جنوبی\"\n    },\n    {\n        \"id\": 11,\n        \"name\": \"خراسان رضوی\"\n    },\n    {\n        \"id\": 12,\n        \"name\": \"خراسان شمالی\"\n    },\n    {\n        \"id\": 13,\n        \"name\": \"خوزستان\"\n    },\n    {\n        \"id\": 14,\n        \"name\": \"زنجان\"\n    },\n    {\n        \"id\": 15,\n        \"name\": \"سمنان\"\n    },\n    {\n        \"id\": 16,\n        \"name\": \"سیستان وبلوچستان\"\n    },\n    {\n        \"id\": 17,\n        \"name\": \"فارس\"\n    },\n    {\n        \"id\": 18,\n        \"name\": \"قزوین\"\n    },\n    {\n        \"id\": 19,\n        \"name\": \"قم\"\n    },\n    {\n        \"id\": 20,\n        \"name\": \"کردستان\"\n    },\n    {\n        \"id\": 21,\n        \"name\": \"کرمان\"\n    },\n    {\n        \"id\": 22,\n        \"name\": \"کرمانشاه\"\n    },\n    {\n        \"id\": 23,\n        \"name\": \"کهگیلویه وبویراحمد\"\n    },\n    {\n        \"id\": 24,\n        \"name\": \"گلستان\"\n    },\n    {\n        \"id\": 25,\n        \"name\": \"گیلان\"\n    },\n    {\n        \"id\": 26,\n        \"name\": \"لرستان\"\n    },\n    {\n        \"id\": 27,\n        \"name\": \"مازندران\"\n    },\n    {\n        \"id\": 28,\n        \"name\": \"مرکزی\"\n    },\n    {\n        \"id\": 29,\n        \"name\": \"هرمزگان\"\n    },\n    {\n        \"id\": 30,\n        \"name\": \"همدان\"\n    },\n    {\n        \"id\": 31,\n        \"name\": \"یزد\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Cities List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cityIds\":[1,2,3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{API_VERSION}}/map/cities/filter",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{API_VERSION}}",
+								"map",
+								"cities",
+								"filter"
+							]
+						},
+						"description": "Get full list of provinces"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cityIds\":[1,2,3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/map/cities/filter",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"map",
+										"cities",
+										"filter"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Sep 2023 15:35:30 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"آب بر\",\n        \"provinceId\": 14\n    },\n    {\n        \"id\": 2,\n        \"name\": \"آب پخش\",\n        \"provinceId\": 7\n    },\n    {\n        \"id\": 3,\n        \"name\": \"آباد\",\n        \"provinceId\": 7\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Get Province City List",
@@ -1720,19 +1844,19 @@
 								},
 								{
 									"key": "Category",
-									"value": null,
+									"value": "",
 									"description": "Category ID",
 									"disabled": true
 								},
 								{
 									"key": "Cities",
-									"value": null,
+									"value": "1,2,3,1081",
 									"description": "List of City IDs\ne.g. 2,4,1",
 									"disabled": true
 								},
 								{
 									"key": "OrderBy",
-									"value": null,
+									"value": "",
 									"description": "Order Result. Add ` - ` for Descending Order\nFields: Title , UpdateDate\ne.g. ` Title ` (ASC)\ne.g. ` -Title ` (DESC)",
 									"disabled": true
 								},

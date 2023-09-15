@@ -37,6 +37,14 @@ namespace BazaarOnline.Application.Services.Maps
                 .Select(c => new CityListDetailViewModel().FillFromObject(c, false));
         }
 
+        public IEnumerable<CityListDetailViewModel> GetCitiesFilterList(CityFilterDTO filterDTO)
+        {
+            var cities = _repository.GetAll<City>()
+                .Filter(filterDTO)
+                .Select(c => new CityListDetailViewModel().FillFromObject(c, false));
+            return cities;
+        }
+
         public IEnumerable<LocationListViewModel> FindLocation(MapSearchDTO filterDto)
         {
             filterDto.TrimStrings();

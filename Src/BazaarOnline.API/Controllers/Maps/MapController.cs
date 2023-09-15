@@ -16,7 +16,6 @@ namespace BazaarOnline.API.Controllers
             _mapService = mapService;
         }
 
-
         [HttpGet("provinces")]
         public ActionResult<IEnumerable<ProvinceListDetailViewModel>> GetProvinceList()
         {
@@ -29,6 +28,14 @@ namespace BazaarOnline.API.Controllers
             if (!_mapService.IsProvinceExists(provinceId)) return NotFound();
 
             return Ok(_mapService.GetProvinceCities(provinceId));
+        }
+
+        [HttpPost("cities/filter")]
+        public ActionResult<IEnumerable<CityListDetailViewModel>> GetCityList([FromBody]CityFilterDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            return Ok(_mapService.GetCitiesFilterList(dto));
         }
 
         [HttpGet("find")]

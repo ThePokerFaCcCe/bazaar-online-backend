@@ -16,6 +16,7 @@ namespace BazaarOnline.Application.Interfaces.Maps
         #region City
 
         IEnumerable<CityListDetailViewModel> GetProvinceCities(int provinceId);
+        IEnumerable<CityListDetailViewModel> GetCitiesFilterList(CityFilterDTO filterDTO);
 
         #endregion
 
