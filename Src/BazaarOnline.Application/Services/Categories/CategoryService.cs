@@ -27,7 +27,7 @@ namespace BazaarOnline.Application.Services.Categories
         public IEnumerable<CategoryListDetailViewModel> GetAllCategories()
         {
             var categories = _repository.GetAll<Category>()
-                .Select(c => new CategoryListDetailViewModel()
+                .Select(c => new CategoryListDetailViewModel
                 {
                     Id = c.Id,
                     ParentId = c.ParentCategoryId,
@@ -35,6 +35,10 @@ namespace BazaarOnline.Application.Services.Categories
                     Icon = c.Icon,
                     HasChildren = false,
                     Children = new List<CategoryListDetailViewModel>(),
+                    Picture = string.IsNullOrEmpty(c.ImageUrl) ? null : new CategoryPictureDetailViewModel
+                    {
+                        ImageUrl = c.ImageUrl,
+                    }
                 }).ToList();
 
             categories.ForEach(cParent =>

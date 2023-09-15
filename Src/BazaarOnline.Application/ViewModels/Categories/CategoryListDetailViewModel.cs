@@ -14,7 +14,14 @@
 
         public int IndentLevel { get; set; } = 0;
 
+        public CategoryPictureDetailViewModel? Picture { get; set; }
+
         public IList<CategoryListDetailViewModel> Children { get; set; } =
             new List<CategoryListDetailViewModel>();
+    }
+
+    public class CategoryPictureDetailViewModel
+    {
+        public string ImageUrl { get; set; }=string.Empty;
     }
 }
