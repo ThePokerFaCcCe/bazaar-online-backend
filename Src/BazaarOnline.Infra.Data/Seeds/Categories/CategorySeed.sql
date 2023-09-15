@@ -35,3 +35,23 @@ INSERT INTO [dbo].[Categories] (Id, Title, ParentCategoryId, Icon) VALUES
   (36,N'سیم کارت', 28, '')
 --------------------------------------------------------------------
 SET IDENTITY_INSERT [dbo].[Categories] OFF
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/real-estate.efdfc654.png' WHERE Id = 1
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/vehicles.e236aaef.png' WHERE Id = 2
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/electronic-devices.a8f529dd.png' WHERE Id = 3
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/home-kitchen.db87dd2e.png' WHERE Id = 4
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/services.ab181eb2.png' WHERE Id = 5
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/personal-goods.9d865d33.png' WHERE Id = 6
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/entertainment.2ee67eb3.png' WHERE Id = 7
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/social-services.fecccf57.png' WHERE Id = 8
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/tools-materials-equipment.a5381fdd.png' WHERE Id = 9
+
+UPDATE [dbo].[Categories] SET ImageUrl='https://s100.divarcdn.com/statics/2023/09/jobs.b7dec5b8.png' WHERE Id = 10
