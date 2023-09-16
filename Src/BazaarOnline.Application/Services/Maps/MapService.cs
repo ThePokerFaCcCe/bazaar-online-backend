@@ -6,6 +6,7 @@ using BazaarOnline.Application.Utils.Extensions;
 using BazaarOnline.Application.ViewModels.Maps;
 using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BazaarOnline.Application.Services.Maps
 {
@@ -21,7 +22,8 @@ namespace BazaarOnline.Application.Services.Maps
         public IEnumerable<ProvinceListDetailViewModel> GetProvinces()
         {
             return _repository.GetAll<Province>()
-                .Select(p => new ProvinceListDetailViewModel().FillFromObject(p, false));
+                .Include(p => p.Cities)
+                .Select(p => new ProvinceListDetailViewModel { CitiesCount = p.Cities.Count() }.FillFromObject(p, false));
         }
 
         public bool IsProvinceExists(int provinceId)
