@@ -13,12 +13,39 @@ public class AdvertisemenFilterDTO
 
     /// <summary>
     /// Comma-separated city ids. e.g. 1,3,4,5
+    /// negative number for province ids. e.g. -1,-2
+    /// full example: 1,2,-9,5
     /// </summary>
     public string? Cities { get; set; }
 
     [Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.CityId))]
-    public List<int>? CitiesList =>
-        string.IsNullOrWhiteSpace(Cities) ? null : Cities.Split(",").Select(c => Convert.ToInt32(c)).ToList();
+    public List<int>? CitiesList
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(Cities)) return null;
+
+            var ids = Cities.Split(",").Select(c => Convert.ToInt32(c)).Where(c => c > 0).ToList();
+            if (!ids.Any()) return null;
+
+            return ids;
+        }
+    }
+
+    [Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.ProvinceId))]
+    public List<int>? ProvincesList
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(Cities)) return null;
+
+            var ids = Cities.Split(",").Select(c => Convert.ToInt32(c)).Where(c => c < 0).Select(c => Math.Abs(c)).ToList();
+            if (!ids.Any()) return null;
+
+            return ids;
+        }
+    }
+
 
     public long? StartPrice { get; set; }
 

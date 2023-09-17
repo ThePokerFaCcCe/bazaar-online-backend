@@ -1942,8 +1942,8 @@
 								},
 								{
 									"key": "Cities",
-									"value": "1,2,3,1081",
-									"description": "List of City IDs\ne.g. 2,4,1",
+									"value": "1,2,3,-19",
+									"description": "List of City & Province IDs\npositive for city and negative for province\ne.g. 2,4,1,-4,-5,8",
 									"disabled": true
 								},
 								{
