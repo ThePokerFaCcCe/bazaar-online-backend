@@ -62,7 +62,8 @@ namespace BazaarOnline.Application.Services.Maps
                 .Filter(filterDto)
                 .Select(c => new LocationListViewModel
                 {
-                    LocationTypeId = LocationTypeEnum.City
+                    LocationTypeId = LocationTypeEnum.City,
+                    ProvinceId = c.ProvinceId,
                 }.FillFromObject(c, false));
 
 
