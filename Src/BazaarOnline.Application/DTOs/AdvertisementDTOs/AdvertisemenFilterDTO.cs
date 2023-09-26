@@ -18,29 +18,29 @@ public class AdvertisemenFilterDTO
     /// </summary>
     public string? Cities { get; set; }
 
-    [Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.CityId))]
-    public List<int>? CitiesList
+    //[Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.CityId))]
+    public List<int> CitiesList
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(Cities)) return null;
+            //if (string.IsNullOrWhiteSpace(Cities)) return null;
 
-            var ids = Cities.Split(",").Select(c => Convert.ToInt32(c)).Where(c => c > 0).ToList();
-            if (!ids.Any()) return null;
+            var ids = (Cities ?? "").Trim().Split(",").Select(c => Convert.ToInt32(c)).Where(c => c > 0).ToList();
+            //if (!ids.Any()) return null;
 
             return ids;
         }
     }
 
-    [Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.ProvinceId))]
-    public List<int>? ProvincesList
+    //[Filter(FilterTypeEnum.ThisContainsModel, ModelPropertyName = nameof(Advertisement.ProvinceId))]
+    public List<int> ProvincesList
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(Cities)) return null;
+            //if (string.IsNullOrWhiteSpace(Cities)) return null;
 
-            var ids = Cities.Split(",").Select(c => Convert.ToInt32(c)).Where(c => c < 0).Select(c => Math.Abs(c)).ToList();
-            if (!ids.Any()) return null;
+            var ids = (Cities ?? "").Trim().Split(",").Select(c => Convert.ToInt32(c)).Where(c => c < 0).Select(c => Math.Abs(c)).ToList();
+            //if (!ids.Any()) return null;
 
             return ids;
         }

@@ -49,7 +49,7 @@ public class AdvertisementService : IAdvertisementService
             FileCenterId = fileId,
         });
 
-        var advertisementFeatures = dto.Features.Where(f=>f.Value!=null).Select(feature => new AdvertisementFeature
+        var advertisementFeatures = dto.Features.Where(f => f.Value != null).Select(feature => new AdvertisementFeature
         {
             Value = feature.Value,
             CategoryFeatureId = feature.Id,
@@ -214,7 +214,7 @@ public class AdvertisementService : IAdvertisementService
         _repository.AddRange(advertisementPictures);
 
         _repository.Save();
-        
+
         return new OperationResultDTO { IsSuccess = true };
     }
 
@@ -275,8 +275,13 @@ public class AdvertisementService : IAdvertisementService
             {
                 advertisements = advertisements.Where(a => a.CategoryId != category.Id);
             }
+        }
 
-
+        if (!string.IsNullOrWhiteSpace(filterDto.Cities))
+        {
+                advertisements = advertisements.Where(a =>
+                    (filterDto.ProvincesList.Any() && filterDto.ProvincesList.Contains(a.ProvinceId)) ||
+                    (filterDto.CitiesList.Any() && filterDto.CitiesList.Contains(a.CityId)));
         }
 
         advertisements = advertisements.OrderByDescending(a => a.CreateDate);
@@ -398,9 +403,9 @@ public class AdvertisementService : IAdvertisementService
                 City = new AdvertisementCityDetailViewModel().FillFromObject(advertisement.City),
                 Owner = new AdvertisementUserViewModel
                 {
-                    IsSelfAdvertisement = userId==advertisement.UserId,
+                    IsSelfAdvertisement = userId == advertisement.UserId,
                 }.FillFromObject(advertisement.User),
-                
+
                 CategoryPath = advertisementCategoryPath,
                 Location = location,
 
