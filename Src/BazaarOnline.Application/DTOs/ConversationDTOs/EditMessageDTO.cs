@@ -15,6 +15,11 @@ public class EditMessageDTO
     public string Text { get; set; }
 
     /// <summary>
+    /// new message image when message type is picture
+    /// </summary>
+    public MessagePictureAttachmentDTO? PictureAttachment { get; set; }
+
+    /// <summary>
     /// The Edited message object sent for ReceiveEvent signal
     /// </summary>
     public MessageDetailViewModel? EditedMessage { get; set; }

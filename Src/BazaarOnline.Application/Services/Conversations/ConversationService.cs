@@ -224,8 +224,8 @@ public class ConversationService : IConversationService
             errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
         if (dto.MessageId == null)
             errors.Add(nameof(dto.MessageId), "این فیلد اجباری است");
-        if (dto.Text != null && dto.Text.Length > 512)
-            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 512 کاراکتر باشد");
+        if (dto.Text != null && dto.Text.Trim().Length is > 3999 or < 1)
+            errors.Add(nameof(dto.Text), "متن پیام باید حداقل 1 و حداکثر 3999 کاراکتر باشد");
 
         if (errors.Any())
         {
@@ -237,16 +237,32 @@ public class ConversationService : IConversationService
         var message = _repository.GetAll<Message>()
             .SingleOrDefault(m => !m.IsDeleted && m.ConversationId == dto.ConversationId
                                                && m.Id == dto.MessageId && m.SenderId == userId);
-
+        bool hasAttachment = false;
         if (message == null)
         {
             errors.Add(nameof(dto.MessageId), "پیام یافت نشد");
         }
-        else if (message.AttachmentType != MessageAttachmentTypeEnum.NoAttachment)
+        else if (message.AttachmentType is not MessageAttachmentTypeEnum.NoAttachment or MessageAttachmentTypeEnum.Picture)
         {
-            errors.Add(nameof(dto.MessageId), "شما نمیتوانید پیامی غیر از متن را ویرایش کنید");
+            errors.Add(nameof(dto.MessageId), "شما نمیتوانید پیامی غیر از متن و تصویر را ویرایش کنید");
         }
+        else if (message.AttachmentType == MessageAttachmentTypeEnum.Picture && dto.PictureAttachment?.FileId != null)
+        {
+            var pictureErrors = new Dictionary<string, string>();
+            var isPictureExists = _repository.GetAll<FileCenter>()
+                .Any(f => f.Id == dto.PictureAttachment.FileId && f.UsageType == FileCenterTypeEnum.ChatPicture);
 
+            if (!isPictureExists)
+            {
+                pictureErrors.Add(nameof(dto.PictureAttachment.FileId), "فایل تصویر یافت نشد");
+            }
+
+            if (pictureErrors.Any())
+            {
+                errors.Add(nameof(dto.PictureAttachment), pictureErrors);
+            }
+            hasAttachment=true;
+        }
         if (errors.Any())
         {
             result.ErrorMessage = errors;
@@ -254,7 +270,11 @@ public class ConversationService : IConversationService
             return result;
         }
 
-        message.Text = dto.Text;
+        if (hasAttachment)
+        {
+            message.AttachmentJson = JsonConvert.SerializeObject(dto.PictureAttachment);
+        }
+        message.Text = dto.Text?.Trim()??message.Text;
         message.UpdateDate = DateTime.Now;
         message.IsEdited = true;
         _repository.Update(message);
@@ -751,9 +771,9 @@ public class ConversationService : IConversationService
             }
         }
 
-        if (dto.Text != null && dto.Text.Length > 512)
+        if (dto.Text != null && dto.Text.Length > 3900)
         {
-            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 512 کاراکتر باشد");
+            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 3900 کاراکتر باشد");
         }
 
         if (dto.AttachmentType == MessageAttachmentTypeEnum.Location)
@@ -786,7 +806,7 @@ public class ConversationService : IConversationService
             var pictureErrors = new Dictionary<string, string>();
             if (dto.PictureAttachment?.FileId == null)
             {
-                errors.Add(nameof(AddMessageDTO.PictureAttachment.FileId), "این فیلد اجباری است");
+                pictureErrors.Add(nameof(AddMessageDTO.PictureAttachment.FileId), "این فیلد اجباری است");
             }
             else
             {
@@ -795,7 +815,7 @@ public class ConversationService : IConversationService
 
                 if (!isPictureExists)
                 {
-                    errors.Add(nameof(dto.PictureAttachment.FileId), "فایل تصویر یافت نشد");
+                    pictureErrors.Add(nameof(dto.PictureAttachment.FileId), "فایل تصویر یافت نشد");
                 }
             }
 
@@ -809,7 +829,7 @@ public class ConversationService : IConversationService
             var voiceErrors = new Dictionary<string, string>();
             if (dto.VoiceAttachment?.FileId == null)
             {
-                errors.Add(nameof(AddMessageDTO.VoiceAttachment.FileId), "این فیلد اجباری است");
+                voiceErrors.Add(nameof(AddMessageDTO.VoiceAttachment.FileId), "این فیلد اجباری است");
             }
             else
             {
@@ -818,7 +838,7 @@ public class ConversationService : IConversationService
 
                 if (!isVoiceExists)
                 {
-                    errors.Add(nameof(dto.VoiceAttachment.FileId), "فایل صوتی یافت نشد");
+                    voiceErrors.Add(nameof(dto.VoiceAttachment.FileId), "فایل صوتی یافت نشد");
                 }
             }
 
