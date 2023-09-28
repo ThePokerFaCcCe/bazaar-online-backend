@@ -8,6 +8,6 @@
 
         public int CitiesCount { get; set; } = 0;
 
-
+        public IEnumerable<CityListDetailViewModel> Cities { get; set; }
     }
 }

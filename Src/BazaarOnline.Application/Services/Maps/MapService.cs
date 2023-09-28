@@ -23,7 +23,11 @@ namespace BazaarOnline.Application.Services.Maps
         {
             return _repository.GetAll<Province>()
                 .Include(p => p.Cities)
-                .Select(p => new ProvinceListDetailViewModel { CitiesCount = p.Cities.Count() }.FillFromObject(p, false));
+                .Select(p => new ProvinceListDetailViewModel
+                {
+                    CitiesCount = p.Cities.Count(),
+                    Cities = p.Cities.Select(c => new CityListDetailViewModel().FillFromObject(c, false)),
+                }.FillFromObject(p, false));
         }
 
         public bool IsProvinceExists(int provinceId)
