@@ -12,6 +12,8 @@ public interface IUserAdvertisementService
 
     void AddAdvertisementToUserHistory(string userId, int advertisementId);
     IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementsHistory(string userId);
+    bool DeleteAdvertisementHistory(string userId,int advertisementId);
+    
 
     #endregion
 

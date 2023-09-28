@@ -57,6 +57,14 @@ namespace BazaarOnline.API.Controllers.Users
             return Ok(result);
         }
 
+        [HttpDelete("history/{advertisementId:int}")]
+        public IActionResult DeleteFromUserHistory(int advertisementId)
+        {
+            var userId = User.Identity.Name;
+            var result = _userAdvertisementService.DeleteAdvertisementHistory(userId, advertisementId);
+            return result ? NoContent() : StatusCode(500);
+        }
+
         [HttpGet("notes")]
         public IActionResult GetUserNotes()
         {

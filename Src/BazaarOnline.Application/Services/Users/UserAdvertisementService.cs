@@ -1,5 +1,4 @@
 ﻿using BazaarOnline.Application.DTOs.AdvertisementDTOs;
-using BazaarOnline.Application.Filters;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.Utils;
 using BazaarOnline.Application.Utils.Extensions;
@@ -34,18 +33,28 @@ public class UserAdvertisementService : IUserAdvertisementService
 
     public void AddAdvertisementToUserHistory(string userId, int advertisementId)
     {
-        var historyExists = _repository
+        var existedHistory = _repository
             .GetAll<UserAdvertisementHistory>()
-            .Any(u => u.UserId == userId && u.AdvertisementId == advertisementId);
-        if (historyExists)
+            .FirstOrDefault(u => u.UserId == userId && u.AdvertisementId == advertisementId);
+        if (existedHistory!=null && !existedHistory.IsDeleted)
             return;
-
-        var history = new UserAdvertisementHistory
+        
+        if (existedHistory!=null)
         {
-            UserId = userId,
-            AdvertisementId = advertisementId,
-        };
-        _repository.Add(history);
+            existedHistory.IsDeleted = false;
+            existedHistory.CreateDate=DateTime.Now;
+            _repository.Update(existedHistory);
+        }
+        else
+        {
+            var history = new UserAdvertisementHistory
+            {
+                UserId = userId,
+                AdvertisementId = advertisementId,
+            };
+            _repository.Add(history);
+        }
+
         _repository.Save();
     }
 
@@ -58,6 +67,27 @@ public class UserAdvertisementService : IUserAdvertisementService
 
 
         return GetAdvertisementsListDetail(advertisementIds);
+    }
+
+    public bool DeleteAdvertisementHistory(string userId, int advertisementId)
+    {
+        try
+        {
+            var historyList = _repository.GetAll<UserAdvertisementHistory>()
+                .Where(ua => ua.UserId == userId && ua.AdvertisementId == advertisementId && !ua.IsDeleted);
+
+            foreach (var userAdvertisementHistory in historyList)
+            {
+                userAdvertisementHistory.IsDeleted = true;
+            }
+            _repository.UpdateRange(historyList);
+            _repository.Save();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
     private IEnumerable<AdvertisementListDetailViewModel> GetAdvertisementsListDetail(IEnumerable<int> ids)
