@@ -51,6 +51,7 @@ public class MessageLocationAttachmentViewModel
 
 public class MessageFileAttachmentViewModel
 {
+    public int Id { get; set; } = -1;
     public string FileName { get; set; } = string.Empty;
     public string Url { get; set; } = string.Empty;
 }

@@ -618,6 +618,7 @@ public class ConversationService : IConversationService
             {
                 model.Data.AttachmentFile = new MessageFileAttachmentViewModel
                 {
+                    Id=file.Id,
                     FileName = file.FileName,
                     Url = Path.Join(PathHelper.ChatImages, file.FileName),
                 };
@@ -631,6 +632,7 @@ public class ConversationService : IConversationService
             {
                 model.Data.AttachmentFile = new MessageFileAttachmentViewModel
                 {
+                    Id=file.Id,
                     FileName = file.FileName,
                     Url = Path.Join(PathHelper.ChatVoice, file.FileName),
                 };
