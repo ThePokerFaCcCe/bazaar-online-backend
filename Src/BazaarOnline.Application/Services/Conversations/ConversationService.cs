@@ -241,7 +241,7 @@ public class ConversationService : IConversationService
         if (message == null)
         {
             errors.Add(nameof(dto.MessageId), "پیام یافت نشد");
-        }s
+        }
         else if (message.AttachmentType != MessageAttachmentTypeEnum.NoAttachment && message.AttachmentType != MessageAttachmentTypeEnum.Picture)
         {
             errors.Add(nameof(dto.MessageId), "شما نمیتوانید پیامی غیر از متن و تصویر را ویرایش کنید");
