@@ -11,7 +11,7 @@ public class EditMessageDTO
     [Required(ErrorMessage = "این فیلد اجباری است")]
     public Guid MessageId { get; set; }
 
-    [MaxLength(512, ErrorMessage = "{0} باید حداکثر {1} کاراکتر باشد")]
+    [MaxLength(3999, ErrorMessage = "{0} باید حداکثر {1} کاراکتر باشد")]
     public string Text { get; set; }
 
     /// <summary>

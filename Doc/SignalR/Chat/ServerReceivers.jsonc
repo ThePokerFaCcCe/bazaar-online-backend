@@ -104,7 +104,10 @@
                 "Data": {
                     "ConversationId": "guid",
                     "MessageId": "guid",
-                    "Text": ""
+                    "Text": "",
+                    "PictureAttachment?": { // for pics
+                        "FileId": 0
+                    }
                 }
             }
         }

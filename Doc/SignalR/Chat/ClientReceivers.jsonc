@@ -61,13 +61,15 @@
                 "__DATA__4": {
                     "ConversationId": "guid",
                     "MessageId": "guid",
-                    "Text": ""
+                    "Text": "",
+                    "EditedMessage":"message-detail-object"
                 }
                 // If `EventType` == 5, then `Data` contains this object:
                 ,
                 "__DATA__5": {
                     "ConversationId": "guid",
-                    "MessageId": "guid"
+                    "MessageId": "guid",
+                    "DeletedMessage":"message-detail-object"
                 }
                 // If `EventType` == 6, then `Data` contains this object:
                 ,
