@@ -25,7 +25,7 @@ public class AdvertisemenFilterDTO
         {
             //if (string.IsNullOrWhiteSpace(Cities)) return null;
 
-            var ids = (Cities ?? "").Trim().Split(",").Select(c => Convert.ToInt32(c)).Where(c => c > 0).ToList();
+            var ids = (Cities ?? "").Trim().Split(",",StringSplitOptions.RemoveEmptyEntries).Select(c => Convert.ToInt32(c)).Where(c => c > 0).ToList();
             //if (!ids.Any()) return null;
 
             return ids;
@@ -39,7 +39,7 @@ public class AdvertisemenFilterDTO
         {
             //if (string.IsNullOrWhiteSpace(Cities)) return null;
 
-            var ids = (Cities ?? "").Trim().Split(",").Select(c => Convert.ToInt32(c)).Where(c => c < 0).Select(c => Math.Abs(c)).ToList();
+            var ids = (Cities ?? "").Trim().Split(",",StringSplitOptions.RemoveEmptyEntries).Select(c => Convert.ToInt32(c)).Where(c => c < 0).Select(c => Math.Abs(c)).ToList();
             //if (!ids.Any()) return null;
 
             return ids;

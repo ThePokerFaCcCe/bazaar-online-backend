@@ -186,8 +186,10 @@ public class ChatHub : Hub<IChatHub>
                 };
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
                 await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+
+                data.Data.EditedMessage.Data.IsSentBySelf = (!data.Data.EditedMessage.Data.IsSentBySelf);
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
             }
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
@@ -235,8 +237,10 @@ public class ChatHub : Hub<IChatHub>
                 };
 
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-                await Clients.Group(receiverId).ReceiveEvent(Jsonify(deleteEvent));
                 await Clients.Group(UserId).ReceiveEvent(Jsonify(deleteEvent));
+
+                data.Data.DeletedMessage.Data.IsSentBySelf = (!data.Data.DeletedMessage.Data.IsSentBySelf);
+                await Clients.Group(receiverId).ReceiveEvent(Jsonify(deleteEvent));
             }
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
