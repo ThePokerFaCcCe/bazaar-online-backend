@@ -30,11 +30,15 @@ public class ConversationService : IConversationService
     {
         var advertisement = _repository.Get<Advertisement>(dto.AdvertisementId);
         if (advertisement == null || advertisement.IsDeleted || advertisement.UserId == userId)
+        {
             return new AddConversationResultDTO { ErrorCode = 404, ErrorMessage = "آگهی یافت نشد" };
+        }
 
         var blockStatus = ValidateBlock(userId, advertisement.UserId);
         if (!blockStatus.IsValid)
+        {
             return new AddConversationResultDTO { ErrorCode = 400, ErrorMessage = blockStatus.Message };
+        }
 
         var conv = _repository.GetAll<Conversation>()
             .Include(c => c.DeletedConversations)
@@ -76,7 +80,10 @@ public class ConversationService : IConversationService
     {
         var exists = _repository.GetAll<DeletedConversation>()
             .Any(c => c.ConversationId == conversationId && c.UserId == userId);
-        if (exists) return;
+        if (exists)
+        {
+            return;
+        }
 
         var deletedConversation = new DeletedConversation
         {
@@ -221,11 +228,19 @@ public class ConversationService : IConversationService
 
         var errors = new Dictionary<string, object>();
         if (dto.ConversationId == null)
+        {
             errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
+        }
+
         if (dto.MessageId == null)
+        {
             errors.Add(nameof(dto.MessageId), "این فیلد اجباری است");
+        }
+
         if (dto.Text != null && dto.Text.Trim().Length is > 3999 or < 1)
+        {
             errors.Add(nameof(dto.Text), "متن پیام باید حداقل 1 و حداکثر 3999 کاراکتر باشد");
+        }
 
         if (errors.Any())
         {
@@ -261,7 +276,7 @@ public class ConversationService : IConversationService
             {
                 errors.Add(nameof(dto.PictureAttachment), pictureErrors);
             }
-            hasAttachment=true;
+            hasAttachment = true;
         }
         if (errors.Any())
         {
@@ -274,7 +289,7 @@ public class ConversationService : IConversationService
         {
             message.AttachmentJson = JsonConvert.SerializeObject(dto.PictureAttachment);
         }
-        message.Text = dto.Text?.Trim()??message.Text;
+        message.Text = dto.Text?.Trim() ?? message.Text;
         message.UpdateDate = DateTime.Now;
         message.IsEdited = true;
         _repository.Update(message);
@@ -291,9 +306,14 @@ public class ConversationService : IConversationService
 
         var errors = new Dictionary<string, object>();
         if (dto.ConversationId == null)
+        {
             errors.Add(nameof(dto.ConversationId), "این فیلد اجباری است");
+        }
+
         if (dto.MessageId == null)
+        {
             errors.Add(nameof(dto.MessageId), "این فیلد اجباری است");
+        }
 
         if (errors.Any())
         {
@@ -373,7 +393,10 @@ public class ConversationService : IConversationService
             .Where(c => c.OwnerId == userId || c.CustomerId == userId)
             .SingleOrDefault();
 
-        if (conversation == null) return null;
+        if (conversation == null)
+        {
+            return null;
+        }
 
         var otherUserIds = new List<string> { conversation.CustomerId, conversation.OwnerId }
             .Distinct().Where(u => u != userId);
@@ -468,12 +491,16 @@ public class ConversationService : IConversationService
         var conversation = conversations.SingleOrDefault(c => c.Id == conversationId);
 
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+        {
             return null;
+        }
 
         var secondConversationUserId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
 
         if (checkIsDeletedConversation && conversation.DeletedConversations.Any(dc => dc.UserId == secondConversationUserId))
+        {
             return null;
+        }
 
         return secondConversationUserId;
     }
@@ -497,7 +524,9 @@ public class ConversationService : IConversationService
     {
         var conversation = _repository.Get<Conversation>(conversationId);
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+        {
             return new OperationResultDTO { IsSuccess = false, Message = "Conversation Not Found" };
+        }
 
         var senderId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
         var messages = _repository.GetAll<Message>()
@@ -514,7 +543,9 @@ public class ConversationService : IConversationService
     {
         var conversation = _repository.Get<Conversation>(conversationId);
         if (conversation == null || (conversation.CustomerId != userId && conversation.OwnerId != userId))
+        {
             return new OperationResultDTO { IsSuccess = false, Message = "Conversation Not Found" };
+        }
 
         var senderId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
 
@@ -523,7 +554,9 @@ public class ConversationService : IConversationService
             .FirstOrDefault(m => m.ConversationId == conversationId && m.SenderId == senderId && m.IsSeen == false);
 
         if (lastMessage == null)
+        {
             return new OperationResultDTO { IsSuccess = true, Message = "No new messages to seen" };
+        }
 
         var messages = _repository.GetAll<Message>()
             .OrderByDescending(m => m.CreateDate)
@@ -542,15 +575,20 @@ public class ConversationService : IConversationService
     {
         var userExists = _repository.GetAll<User>().Any(u => u.Id == dto.UserId);
         if (!userExists)
+        {
             return new OperationResultDTO
             {
                 IsSuccess = false,
                 Message = "کاربر یافت نشد",
             };
+        }
 
         var exists = _repository.GetAll<Blocklist>()
             .Any(b => b.BlockerId == blockerUserId && b.BlockedUserId == dto.UserId);
-        if (exists) return new OperationResultDTO { IsSuccess = true };
+        if (exists)
+        {
+            return new OperationResultDTO { IsSuccess = true };
+        }
 
         var block = new Blocklist
         {
@@ -567,20 +605,24 @@ public class ConversationService : IConversationService
     {
         var userExists = _repository.GetAll<User>().Any(u => u.Id == dto.UserId);
         if (!userExists)
+        {
             return new OperationResultDTO
             {
                 IsSuccess = false,
                 Message = "کاربر یافت نشد",
             };
+        }
 
         var block = _repository.GetAll<Blocklist>()
             .SingleOrDefault(b => b.BlockerId == blockerUserId && b.BlockedUserId == dto.UserId);
         if (block == null)
+        {
             return new OperationResultDTO
             {
                 IsSuccess = false,
                 Message = "کاربر بلاک نشده است"
             };
+        }
 
         _repository.Remove(block);
         _repository.Save();
@@ -590,7 +632,10 @@ public class ConversationService : IConversationService
 
     private MessageDetailViewModel? GetMessageViewModel(Message? message, string userId)
     {
-        if (message == null) return null;
+        if (message == null)
+        {
+            return null;
+        }
 
         var model = new MessageDetailViewModel
         {
@@ -618,7 +663,7 @@ public class ConversationService : IConversationService
             {
                 model.Data.AttachmentFile = new MessageFileAttachmentViewModel
                 {
-                    Id=file.Id,
+                    Id = file.Id,
                     FileName = file.FileName,
                     Url = Path.Join(PathHelper.ChatImages, file.FileName),
                 };
@@ -632,7 +677,7 @@ public class ConversationService : IConversationService
             {
                 model.Data.AttachmentFile = new MessageFileAttachmentViewModel
                 {
-                    Id=file.Id,
+                    Id = file.Id,
                     FileName = file.FileName,
                     Url = Path.Join(PathHelper.ChatVoice, file.FileName),
                 };
@@ -755,7 +800,9 @@ public class ConversationService : IConversationService
             var secondUserId = conversation.CustomerId == userId ? conversation.OwnerId : conversation.CustomerId;
             var blockStatus = ValidateBlock(userId, secondUserId);
             if (!blockStatus.IsValid)
+            {
                 errors.Add(nameof(dto.ConversationId), blockStatus.Message);
+            }
         }
 
     Next:
@@ -766,16 +813,16 @@ public class ConversationService : IConversationService
 
         if (dto.ReplyToId != null)
         {
-            var isReplyExists = _repository.GetAll<Message>().Any(x => x.Id == dto.ReplyToId && !x.IsDeleted);
+            var isReplyExists = _repository.GetAll<Message>().Any(x => x.Id == dto.ReplyToId);
             if (!isReplyExists)
             {
                 errors.Add(nameof(dto.ReplyToId), "پیغامی که قصد پاسخ به آن را دارید یافت نشد");
             }
         }
 
-        if (dto.Text != null && dto.Text.Length > 3900)
+        if (dto.Text != null && dto.Text.Length > 3999)
         {
-            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 3900 کاراکتر باشد");
+            errors.Add(nameof(dto.Text), "متن پیام باید حداکثر 3999 کاراکتر باشد");
         }
 
         if (dto.AttachmentType == MessageAttachmentTypeEnum.Location)
@@ -874,5 +921,13 @@ public class ConversationService : IConversationService
     {
         return _repository.GetAll<Message>()
             .Any(m => m.ConversationId == conversationId);
+    }
+
+    public IEnumerable<MessageDetailViewModel> GetMessageReplies(Guid messageId, string userId)
+    {
+        var messages = _repository.GetAll<Message>()
+            .Include(m => m.ReplyTo)
+            .Where(m => m.ReplyToId == messageId);
+        return messages.Select(m => GetMessageViewModel(m, userId));
     }
 }

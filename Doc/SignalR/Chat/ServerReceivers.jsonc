@@ -72,10 +72,12 @@
         "usage": "DeleteMessage(inquiryId, jsonData)",
         "self-responses": [
             "ReceiveOperationResult",
-            "ReceiveEvent"
+            "ReceiveEvent(Delete message)",
+            "ReceiveEvent(Edit message)"
         ],
         "others-responses": [
-            "ReceiveEvent"
+            "ReceiveEvent(Delete message)",
+            "ReceiveEvent(Edit message)"
         ],
         "parameters": {
             "inquiryId": "",

@@ -28,6 +28,7 @@ public interface IConversationService
 
 
     MessageDetailViewModel GetMessage(Guid messageId, string userId);
+    IEnumerable<MessageDetailViewModel> GetMessageReplies(Guid messageId, string userId);
 
     /// <summary>
     /// Return second userid

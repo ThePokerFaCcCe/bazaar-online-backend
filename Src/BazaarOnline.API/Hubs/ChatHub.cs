@@ -2,6 +2,7 @@
 using BazaarOnline.Application.Interfaces.Conversations;
 using BazaarOnline.Application.Interfaces.Hubs;
 using BazaarOnline.Application.Interfaces.Users;
+using BazaarOnline.Application.Utils.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -102,7 +103,10 @@ public class ChatHub : Hub<IChatHub>
         try
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<AddMessageDTO>>(jsonData);
-            if (data?.Data == null) throw new ArgumentNullException();
+            if (data?.Data == null)
+            {
+                throw new ArgumentNullException();
+            }
 
             var validation = _conversationService.AddMessage(data.Data, UserId);
 
@@ -133,7 +137,7 @@ public class ChatHub : Hub<IChatHub>
                     var addConvEvent = new SocketEventDTO
                     {
                         EventType = SocketEventTypeEnum.NewConversation,
-                        Data = _conversationService.GetConversationDetail(data.Data.ConversationId,receiverId),
+                        Data = _conversationService.GetConversationDetail(data.Data.ConversationId, receiverId),
                     };
 
                     await Clients.Group(receiverId).ReceiveEvent(Jsonify(addConvEvent));
@@ -161,7 +165,10 @@ public class ChatHub : Hub<IChatHub>
         try
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<EditMessageDTO>>(jsonData);
-            if (data?.Data == null) throw new ArgumentNullException();
+            if (data?.Data == null)
+            {
+                throw new ArgumentNullException();
+            }
 
             var validation = _conversationService.EditMessage(data.Data, UserId);
 
@@ -176,20 +183,27 @@ public class ChatHub : Hub<IChatHub>
 
             if (validation.IsSuccess)
             {
-                var editedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
-                data.Data.EditedMessage = editedMessage;
-
-                var editEvent = new SocketEventDTO
-                {
-                    Data = data,
-                    EventType = SocketEventTypeEnum.EditMessage,
-                };
-
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
-                await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
 
-                data.Data.EditedMessage.Data.IsSentBySelf = (!data.Data.EditedMessage.Data.IsSentBySelf);
-                await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
+                var editedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
+                var replies = _conversationService.GetMessageReplies((Guid)validation.MessageId, UserId).ToList();
+
+                replies.Add(editedMessage);
+                foreach (var m in replies)
+                {
+                    data.Data.EditedMessage = m;
+
+                    var editEvent = new SocketEventDTO
+                    {
+                        Data = data,
+                        EventType = SocketEventTypeEnum.EditMessage,
+                    };
+
+                    await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+
+                    data.Data.EditedMessage.Data.IsSentBySelf = (!data.Data.EditedMessage.Data.IsSentBySelf);
+                    await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
+                }
             }
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
@@ -224,11 +238,11 @@ public class ChatHub : Hub<IChatHub>
                 OperationType = SocketOperationTypeEnum.DeleteMessage,
             };
 
-
             if (validation.IsSuccess)
             {
+                var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
+
                 var deletedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
-                data.Data.DeletedMessage = deletedMessage;
 
                 var deleteEvent = new SocketEventDTO
                 {
@@ -236,11 +250,37 @@ public class ChatHub : Hub<IChatHub>
                     EventType = SocketEventTypeEnum.DeleteMessage,
                 };
 
-                var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
                 await Clients.Group(UserId).ReceiveEvent(Jsonify(deleteEvent));
 
                 data.Data.DeletedMessage.Data.IsSentBySelf = (!data.Data.DeletedMessage.Data.IsSentBySelf);
                 await Clients.Group(receiverId).ReceiveEvent(Jsonify(deleteEvent));
+
+                // send edit message event 
+                var replies = _conversationService.GetMessageReplies((Guid)validation.MessageId, UserId).ToList();
+
+                var editData = new SocketOperaionRequestDTO<EditMessageDTO>
+                {
+                    Data = new EditMessageDTO
+                    {
+                        EditedMessage = null,
+                    }.FillFromObject(data.Data)
+                }.FillFromObject(data);
+
+                replies.Add(deletedMessage);
+                foreach (var m in replies)
+                {
+                    editData.Data.EditedMessage = m;
+                    var editEvent = new SocketEventDTO
+                    {
+                        Data = editData,
+                        EventType = SocketEventTypeEnum.EditMessage,
+                    };
+
+                    await Clients.Group(UserId).ReceiveEvent(Jsonify(editEvent));
+
+                    editData.Data.EditedMessage.Data.IsSentBySelf = (!editData.Data.EditedMessage.Data.IsSentBySelf);
+                    await Clients.Group(receiverId).ReceiveEvent(Jsonify(editEvent));
+                }
             }
 
             await Clients.Caller.ReceiveOperationResult(Jsonify(result));
@@ -270,7 +310,9 @@ public class ChatHub : Hub<IChatHub>
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenConversationDTO>>(jsonData);
             if (data?.Data?.ConversationId == null || data?.Data.ConversationId == Guid.Empty)
+            {
                 throw new ArgumentNullException("ConversationId Is Empty");
+            }
 
             var seenResult = _conversationService.SeenConversation(data.Data.ConversationId, UserId);
             if (seenResult.IsSuccess)
@@ -306,9 +348,14 @@ public class ChatHub : Hub<IChatHub>
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<SeenMessageDTO>>(jsonData);
             if (data?.Data?.ConversationId == null || data?.Data.ConversationId == Guid.Empty)
+            {
                 throw new ArgumentNullException("ConuversationId Is Empty");
+            }
+
             if (data?.Data?.MessageId == null || data?.Data.MessageId == Guid.Empty)
+            {
                 throw new ArgumentNullException("MessageId Is Empty");
+            }
 
             var seenResult = _conversationService.SeenConversation(data.Data.ConversationId, UserId);
             if (seenResult.IsSuccess)
@@ -428,7 +475,10 @@ public class ChatHub : Hub<IChatHub>
         {
             var data = JsonConvert.DeserializeObject<SocketOperaionRequestDTO<ChattingStatusDTO>>(jsonData);
             if (data?.Data?.ConversationId == null || data.Data.Status == null || data.Data.Timeout == null)
+            {
                 throw new ArgumentNullException();
+            }
+
             var chattingEvent = new SocketEventDTO
             {
                 Data = data.Data,
