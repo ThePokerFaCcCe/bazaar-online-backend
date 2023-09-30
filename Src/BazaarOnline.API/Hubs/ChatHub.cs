@@ -243,7 +243,7 @@ public class ChatHub : Hub<IChatHub>
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
 
                 var deletedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
-
+                data.Data.DeletedMessage = deletedMessage;
                 var deleteEvent = new SocketEventDTO
                 {
                     Data = data,
