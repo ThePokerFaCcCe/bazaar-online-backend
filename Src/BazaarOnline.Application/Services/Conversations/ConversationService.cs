@@ -927,7 +927,8 @@ public class ConversationService : IConversationService
     {
         var messages = _repository.GetAll<Message>()
             .Include(m => m.ReplyTo)
-            .Where(m => m.ReplyToId == messageId);
+            .Where(m => m.ReplyToId == messageId)
+            .ToList();
         return messages.Select(m => GetMessageViewModel(m, userId));
     }
 }
