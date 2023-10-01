@@ -192,7 +192,7 @@ public class ChatHub : Hub<IChatHub>
                 foreach (var m in replies)
                 {
                     data.Data.EditedMessage = m;
-
+                    data.Data.MessageId = m.Id;
                     var editEvent = new SocketEventDTO
                     {
                         Data = data,
@@ -244,6 +244,7 @@ public class ChatHub : Hub<IChatHub>
 
                 var deletedMessage = _conversationService.GetMessage((Guid)validation.MessageId, UserId);
                 data.Data.DeletedMessage = deletedMessage;
+
                 var deleteEvent = new SocketEventDTO
                 {
                     Data = data,
@@ -270,6 +271,7 @@ public class ChatHub : Hub<IChatHub>
                 foreach (var m in replies)
                 {
                     editData.Data.EditedMessage = m;
+                    editData.Data.MessageId = m.Id;
                     var editEvent = new SocketEventDTO
                     {
                         Data = editData,
