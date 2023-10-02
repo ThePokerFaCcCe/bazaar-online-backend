@@ -110,6 +110,8 @@ public class ChatHub : Hub<IChatHub>
             var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
             var isConversationDeleted =
                 _conversationService.IsUserDeletedConversation(data.Data.ConversationId, receiverId);
+            var isConversationHasAnyMessages =
+                _conversationService.HasConversationAnyMessages(data.Data.ConversationId, receiverId);
 
             var validation = _conversationService.AddMessage(data.Data, UserId);
 
@@ -129,8 +131,6 @@ public class ChatHub : Hub<IChatHub>
                 await Clients.Caller.ReceiveMessage(inquiryId, Jsonify(createdMessage));
 
 
-                var isConversationHasAnyMessages =
-                    _conversationService.HasConversationAnyMessages(data.Data.ConversationId, receiverId);
 
                 if (isConversationDeleted || !isConversationHasAnyMessages)
                 {
