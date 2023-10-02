@@ -267,7 +267,6 @@ public class ChatHub : Hub<IChatHub>
                     }.FillFromObject(data.Data)
                 }.FillFromObject(data);
 
-                replies.Add(deletedMessage);
                 foreach (var m in replies)
                 {
                     editData.Data.EditedMessage = m;
