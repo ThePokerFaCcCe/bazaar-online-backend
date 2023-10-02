@@ -637,11 +637,12 @@ public class ConversationService : IConversationService
             return null;
         }
 
+        userId = userId.ToLower();
         var model = new MessageDetailViewModel
         {
             Data = new MessageDetailDataViewModel
             {
-                IsSentBySelf = (message.SenderId == userId),
+                IsSentBySelf = (message.SenderId.ToLower() == userId),
             }.FillFromObject(message),
         }.FillFromObject(message);
 
