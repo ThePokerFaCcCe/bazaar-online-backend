@@ -469,7 +469,7 @@ public class ConversationService : IConversationService
     public bool IsUserDeletedConversation(Guid conversationId, string userId)
     {
         return _repository.GetAll<DeletedConversation>()
-            .Any(d => d.ConversationId == conversationId && d.UserId == userId);
+            .Any(d => d.ConversationId == conversationId && d.UserId.ToLower() == userId.ToLower());
     }
 
     public MessageDetailViewModel GetMessage(Guid messageId, string userId)

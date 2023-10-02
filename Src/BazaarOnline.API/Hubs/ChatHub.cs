@@ -128,7 +128,7 @@ public class ChatHub : Hub<IChatHub>
                 var receiverId = _conversationService.GetSecondConversationUser(data.Data.ConversationId, UserId);
 
                 var isConversationDeleted =
-                _conversationService.IsUserDeletedConversation(data.Data.ConversationId, receiverId);
+                    _conversationService.IsUserDeletedConversation(data.Data.ConversationId, receiverId);
                 var isConversationHasAnyMessages =
                     _conversationService.HasConversationAnyMessages(data.Data.ConversationId, receiverId);
 
