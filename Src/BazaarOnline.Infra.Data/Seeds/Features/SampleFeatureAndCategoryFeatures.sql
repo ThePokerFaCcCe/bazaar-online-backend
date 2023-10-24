@@ -57,30 +57,30 @@ GO
 SET IDENTITY_INSERT [dbo].[Features] OFF
 GO
 SET IDENTITY_INSERT [dbo].[CategoryFeatures] ON 
-GO
+GO 
 INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (1, 1, 1, 1, 0, 2, 1)
 GO
 INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (2, 2, 1, 1, 1, 2, 2)
 GO
 INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (3, 3, 1, 0, 0, 2, 3)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (4, 5, 1, 1, 0, 20, 4)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (4, 5, 1, 1, 0, 33, 4)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (5, 6, 1, 1, 0, 20, 5)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (5, 6, 1, 1, 0, 33, 5)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (6, 7, 0, 0, 0, 20, 6)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (6, 7, 0, 0, 0, 33, 6)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (7, 8, 1, 0, 0, 20, 7)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (7, 8, 1, 0, 0, 33, 7)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (8, 9, 1, 0, 0, 24, 8)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (8, 9, 1, 0, 0, 34, 8)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (9, 10, 1, 0, 0, 24, 13)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (9, 10, 1, 0, 0, 34, 13)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (10, 11, 1, 0, 0, 24, 16)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (10, 11, 1, 0, 0, 34, 16)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (11, 12, 0, 0, 0, 24, 17)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (11, 12, 0, 0, 0, 34, 17)
 GO
-INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (12, 13, 0, 0, 0, 24, 18)
+INSERT [dbo].[CategoryFeatures] ([Id], [SortNumber], [IsRequired], [IsFilterable], [IsShownInList], [CategoryId], [FeatureId]) VALUES (12, 13, 0, 0, 0, 34, 18)
 GO
 SET IDENTITY_INSERT [dbo].[CategoryFeatures] OFF
 GO
