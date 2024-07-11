@@ -99,7 +99,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Advertisements");
+                    b.ToTable("Advertisements", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Advertisements.AdvertisementFeature", b =>
@@ -126,7 +126,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("CategoryFeatureId");
 
-                    b.ToTable("AdvertisementFeatures");
+                    b.ToTable("AdvertisementFeatures", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Advertisements.AdvertisementPicture", b =>
@@ -149,7 +149,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("FileCenterId");
 
-                    b.ToTable("AdvertisementPictures");
+                    b.ToTable("AdvertisementPictures", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Categories.Category", b =>
@@ -179,7 +179,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Categories.CategoryFeature", b =>
@@ -214,7 +214,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("CategoryFeatures");
+                    b.ToTable("CategoryFeatures", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Conversations.Blocklist", b =>
@@ -240,7 +240,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("BlockerId");
 
-                    b.ToTable("Blocklist");
+                    b.ToTable("Blocklist", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Conversations.Conversation", b =>
@@ -276,7 +276,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Conversation");
+                    b.ToTable("Conversation", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Conversations.DeletedConversation", b =>
@@ -301,7 +301,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeletedConversations");
+                    b.ToTable("DeletedConversations", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Conversations.DeletedMessage", b =>
@@ -331,7 +331,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeletedMessage");
+                    b.ToTable("DeletedMessage", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Conversations.Message", b =>
@@ -395,7 +395,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Features.Feature", b =>
@@ -437,7 +437,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("StringTypeId");
 
-                    b.ToTable("Features");
+                    b.ToTable("Features", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Features.FeatureIntegerType", b =>
@@ -460,7 +460,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeatureIntegerTypes");
+                    b.ToTable("FeatureIntegerTypes", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Features.FeatureSelectType", b =>
@@ -477,7 +477,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeatureSelectTypes");
+                    b.ToTable("FeatureSelectTypes", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Features.FeatureStringType", b =>
@@ -503,7 +503,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeatureStringTypes");
+                    b.ToTable("FeatureStringTypes", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Maps.City", b =>
@@ -534,7 +534,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("ProvinceId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Maps.Province", b =>
@@ -560,7 +560,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
                     b.HasIndex("AmarCode")
                         .IsUnique();
 
-                    b.ToTable("Provinces");
+                    b.ToTable("Provinces", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.UploadCenter.FileCenter", b =>
@@ -594,7 +594,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileCenter");
+                    b.ToTable("FileCenter", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Users.User", b =>
@@ -655,7 +655,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Users.UserAdvertisementBookmark", b =>
@@ -682,7 +682,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAdvertisementBookmark");
+                    b.ToTable("UserAdvertisementBookmark", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Users.UserAdvertisementHistory", b =>
@@ -714,7 +714,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAdvertisementHistories");
+                    b.ToTable("UserAdvertisementHistories", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Users.UserAdvertisementNote", b =>
@@ -746,7 +746,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAdvertisementNotes");
+                    b.ToTable("UserAdvertisementNotes", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Users.ValidationCode", b =>
@@ -780,7 +780,7 @@ namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ActiveCodes");
+                    b.ToTable("ActiveCodes", (string)null);
                 });
 
             modelBuilder.Entity("BazaarOnline.Domain.Entities.Advertisements.Advertisement", b =>

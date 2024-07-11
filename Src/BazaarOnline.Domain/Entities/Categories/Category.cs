@@ -9,8 +9,8 @@ namespace BazaarOnline.Domain.Entities.Categories
         public string Title { get; set; }
 
         public string Icon { get; set; }
-        
-        public string ImageUrl { get; set; }
+
+        public string ImageUrl { get; set; } = string.Empty;
 
         public int? ParentCategoryId { get; set; }
 
