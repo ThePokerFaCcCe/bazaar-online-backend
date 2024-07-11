@@ -6,9 +6,9 @@ public class UserAdvertisementHistory
 {
     public int Id { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public string UserId { get; set; }
 

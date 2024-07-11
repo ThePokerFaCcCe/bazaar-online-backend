@@ -4,15 +4,15 @@ namespace BazaarOnline.Domain.Entities.Users
 {
     public class User
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string Email { get; set; }
 
         public string? PhoneNumber { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         public bool IsActive { get; set; }
 
@@ -27,7 +27,7 @@ namespace BazaarOnline.Domain.Entities.Users
         public int AnswerHourStart { get; set; }
 
         public int AnswerHourEnd { get; set; }
-        
+
         #endregion
 
         #region Relations

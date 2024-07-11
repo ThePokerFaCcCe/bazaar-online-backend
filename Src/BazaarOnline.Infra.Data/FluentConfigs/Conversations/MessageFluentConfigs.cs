@@ -20,8 +20,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         private void ConfigureProperties(EntityTypeBuilder<Message> builder)
         {
             builder.Property(c => c.Id)
-                .IsRequired()
-                .HasDefaultValueSql("NEWID()");
+                .IsRequired();
 
             builder.Property(c => c.IsDeleted)
                 .IsRequired()
@@ -29,7 +28,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
 
             builder.Property(c => c.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                ;
 
             builder.Property(c => c.UpdateDate)
                 .IsRequired(false);
@@ -71,7 +70,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .HasForeignKey(c => c.ConversationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(c => c.DeletedMessages)         
+            builder.HasMany(c => c.DeletedMessages)
                 .WithOne(d => d.Message)
                 .HasForeignKey(d => d.MessageId)
                 .OnDelete(DeleteBehavior.NoAction);

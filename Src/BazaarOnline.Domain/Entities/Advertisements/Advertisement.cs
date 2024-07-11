@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using BazaarOnline.Domain.Entities.Categories;
+﻿using BazaarOnline.Domain.Entities.Categories;
 using BazaarOnline.Domain.Entities.Maps;
 using BazaarOnline.Domain.Entities.Users;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BazaarOnline.Domain.Entities.Advertisements;
 
@@ -29,9 +29,9 @@ public class Advertisement
 
     public AdvertisementContactTypeEnum ContactType { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
-    public DateTime UpdateDate { get; set; }
+    public DateTime UpdateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
     public int CategoryId { get; set; }
 

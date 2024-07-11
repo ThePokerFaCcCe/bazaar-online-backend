@@ -57,11 +57,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .IsRequired();
 
             builder.Property(a => a.CreateDate)
-                .HasDefaultValueSql("GETDATE()")
+
                 .IsRequired();
 
             builder.Property(a => a.UpdateDate)
-                .HasDefaultValueSql("GETDATE()")
+
                 .IsRequired();
 
             builder.Ignore(a => a.IsDeleted);

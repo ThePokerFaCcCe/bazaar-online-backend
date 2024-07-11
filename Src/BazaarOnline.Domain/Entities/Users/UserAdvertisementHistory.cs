@@ -6,7 +6,7 @@ public class UserAdvertisementBookmark
 {
     public int Id { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
     public string UserId { get; set; }
 

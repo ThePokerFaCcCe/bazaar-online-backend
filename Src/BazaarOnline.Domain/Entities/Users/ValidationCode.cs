@@ -9,15 +9,15 @@ namespace BazaarOnline.Domain.Entities.Users
         public string Code { get; set; }
 
         public ActiveCodeType Type { get; set; }
-        
-        public DateTime CreateDate { get; set; }
+
+        public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
         public DateTime ExpireDate { get; set; }
 
         #region Relations
 
         public User User { get; set; }
-        
+
         #endregion
     }
 

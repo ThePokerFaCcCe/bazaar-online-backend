@@ -29,7 +29,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
 
             builder.Property(m => m.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                ;
 
             builder.Property(m => m.ExpireDate)
                 .IsRequired();

@@ -22,7 +22,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         {
             builder.Property(u => u.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("getdate()");
+                ;
 
             builder.Property(u => u.Note)
                 .HasMaxLength(255)

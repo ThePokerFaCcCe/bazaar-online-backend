@@ -20,12 +20,11 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         private void ConfigureProperties(EntityTypeBuilder<DeletedConversation> builder)
         {
             builder.Property(c => c.Id)
-                .IsRequired()
-                .HasDefaultValueSql("NEWID()");
+                .IsRequired();
 
             builder.Property(c => c.DeleteDate)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                ;
         }
 
         private void ConfigureRelations(EntityTypeBuilder<DeletedConversation> builder)

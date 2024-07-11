@@ -20,8 +20,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         private void ConfigureProperties(EntityTypeBuilder<Conversation> builder)
         {
             builder.Property(c => c.Id)
-                .IsRequired()
-                .HasDefaultValueSql("NEWID()");
+                .IsRequired();
 
             builder.Property(c => c.IsDeleted)
                 .IsRequired()
@@ -29,7 +28,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
 
             builder.Property(c => c.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                ;
         }
 
         private void ConfigureRelations(EntityTypeBuilder<Conversation> builder)

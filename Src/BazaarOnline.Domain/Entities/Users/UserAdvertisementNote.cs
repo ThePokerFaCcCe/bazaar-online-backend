@@ -8,7 +8,7 @@ public class UserAdvertisementNote
 
     public string Note { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
     public string UserId { get; set; }
 

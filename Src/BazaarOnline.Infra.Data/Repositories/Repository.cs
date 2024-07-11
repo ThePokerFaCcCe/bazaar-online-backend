@@ -5,9 +5,9 @@ namespace BazaarOnline.Infra.Data.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly BazaarDbContext _context;
+        private readonly BazaarPostgresDbContext _context;
 
-        public Repository(BazaarDbContext context)
+        public Repository(BazaarPostgresDbContext context)
         {
             _context = context;
         }

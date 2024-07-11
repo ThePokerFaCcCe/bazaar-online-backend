@@ -22,8 +22,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         {
             builder.Property(u => u.Id)
                 .IsRequired()
-                .HasMaxLength(36)
-                .HasDefaultValueSql("NEWID()");
+                .HasMaxLength(36);
 
             builder.Property(u => u.Email)
                 .IsRequired()
@@ -36,22 +35,22 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired()
                 .HasMaxLength(60)
                 .HasDefaultValue("کاربر بازار");
-            
+
             builder.Property(u => u.AnswerHourStart)
                 .IsRequired()
                 .HasDefaultValue(0);
-            
+
             builder.Property(u => u.AnswerHourEnd)
                 .IsRequired()
                 .HasDefaultValue(23);
 
             builder.Property(u => u.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("getdate()");
+                ;
 
             builder.Property(u => u.LastSeen)
                 .IsRequired()
-                .HasDefaultValueSql("getdate()");
+                ;
 
             builder.Property(u => u.IsActive)
                 .IsRequired()

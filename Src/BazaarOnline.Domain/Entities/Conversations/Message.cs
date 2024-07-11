@@ -4,7 +4,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
 {
     public class Message
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public string Text { get; set; }
 
@@ -12,13 +12,13 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         public MessageAttachmentTypeEnum AttachmentType { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         public bool IsSeen { get; set; }
 
         public bool IsEdited { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
         public DateTime? UpdateDate { get; set; }
 

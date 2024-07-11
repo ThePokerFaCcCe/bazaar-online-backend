@@ -5,7 +5,7 @@ namespace BazaarOnline.Domain.Entities.Conversations
 {
     public class Conversation
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public int AdvertisementId { get; set; }
 
@@ -13,9 +13,9 @@ namespace BazaarOnline.Domain.Entities.Conversations
 
         public string CustomerId { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
 
         #region Relations

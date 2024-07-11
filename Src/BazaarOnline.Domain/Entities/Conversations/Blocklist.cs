@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BazaarOnline.Domain.Entities.Users;
+﻿using BazaarOnline.Domain.Entities.Users;
 
 namespace BazaarOnline.Domain.Entities.Conversations
 {
     public class Blocklist
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string BlockerId { get; set; }
         public string BlockedUserId { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
         #region Relations
 

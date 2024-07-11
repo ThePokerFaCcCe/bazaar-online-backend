@@ -4,7 +4,7 @@ namespace BazaarOnline.Domain.Entities.Conversations;
 
 public class DeletedMessage
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public DateTime DeleteDate { get; set; }
 
     public string UserId { get; set; }

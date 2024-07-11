@@ -22,7 +22,7 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
         {
             builder.Property(u => u.CreateDate)
                 .IsRequired()
-                .HasDefaultValueSql("getdate()");
+                ;
         }
 
         private void ConfigureQueryFilters(EntityTypeBuilder<UserAdvertisementBookmark> builder)

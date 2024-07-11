@@ -20,12 +20,11 @@ public class DeletedMessageFluentConfigs : IEntityTypeConfiguration<DeletedMessa
     private void ConfigureProperties(EntityTypeBuilder<DeletedMessage> builder)
     {
         builder.Property(c => c.Id)
-            .IsRequired()
-            .HasDefaultValueSql("NEWID()");
-        
+            .IsRequired();
+
         builder.Property(c => c.DeleteDate)
             .IsRequired()
-            .HasDefaultValueSql("GETDATE()");
+            ;
     }
 
     private void ConfigureRelations(EntityTypeBuilder<DeletedMessage> builder)

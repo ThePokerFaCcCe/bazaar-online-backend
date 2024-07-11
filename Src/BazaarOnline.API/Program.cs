@@ -1,3 +1,5 @@
+using BazaarOnline.API.Hubs;
+using BazaarOnline.Application.Middlewares;
 using BazaarOnline.Infra.Data.Contexts;
 using BazaarOnline.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using BazaarOnline.API.Hubs;
-using BazaarOnline.Application.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,9 +33,12 @@ builder.Services.AddControllers();
 // https://stackoverflow.com/a/56388997/14034832
 // builder.Services.AddHttpContextAccessor();
 
-// DB
-builder.Services.AddDbContext<BazaarDbContext>(options =>
-    options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING")));
+// SQL DB
+//builder.Services.AddDbContext<BazaarDbContext>(options => options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING")));
+
+// POSTGRES DB
+builder.Services.AddDbContext<BazaarPostgresDbContext>(options =>
+    options.UseNpgsql(System.Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING")));
 
 // Authentication
 builder.Services.AddAuthentication(options =>
@@ -107,6 +110,13 @@ builder.Services.AddSwaggerGen(options =>
 DependencyContainer.RegisterService(builder.Services);
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<BazaarPostgresDbContext>();
+    dbContext.Database.Migrate();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
