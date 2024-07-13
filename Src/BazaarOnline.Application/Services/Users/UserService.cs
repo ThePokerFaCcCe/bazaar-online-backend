@@ -1,7 +1,6 @@
 using BazaarOnline.Application.DTOs.UserDTOs;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Application.Utils.Extensions;
-using BazaarOnline.Application.ViewModels.Users;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
 
@@ -30,10 +29,29 @@ namespace BazaarOnline.Application.Services.Users
             return user;
         }
 
+        public User CreateUserByPhoneNumber(CreateUserByPhoneNumberDTO dto)
+        {
+            dto.TrimStrings();
+
+            var user = new User();
+            user.FillFromObject(dto);
+
+            _repository.Add(user);
+            _repository.Save();
+
+            return user;
+        }
+
         public User? FindUserByEmail(string email)
         {
             return _repository.GetAll<User>()
                 .SingleOrDefault(u => u.Email.ToLower() == email.ToLower());
+        }
+
+        public User? FindUserByPhoneNumber(string phoneNumber)
+        {
+            return _repository.GetAll<User>()
+                .SingleOrDefault(u => u.PhoneNumber == phoneNumber);
         }
 
         public bool IsUserExistsByEmail(string email)
@@ -47,6 +65,7 @@ namespace BazaarOnline.Application.Services.Users
             if (!user.IsActive)
             {
                 user.IsActive = true;
+                user.IsPhoneNumberActive = true;
                 _repository.Update(user);
                 _repository.Save();
             }

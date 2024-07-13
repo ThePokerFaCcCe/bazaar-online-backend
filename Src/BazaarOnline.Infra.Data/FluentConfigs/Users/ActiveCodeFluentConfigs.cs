@@ -23,16 +23,26 @@ namespace BazaarOnline.Infra.Data.FluentConfigs
                 .IsRequired()
                 .HasMaxLength(6);
 
+            builder.Property(m => m.IsDeleted)
+                .IsRequired();
+
+            builder.Property(m => m.TryCount)
+                .IsRequired();
+
             builder.Property(m => m.Type)
                 .IsRequired()
                 .HasConversion<string>();
 
+            builder.Property(m => m.DeleteDate)
+                .IsRequired(false);
+
             builder.Property(m => m.CreateDate)
-                .IsRequired()
-                ;
+                .IsRequired();
 
             builder.Property(m => m.ExpireDate)
                 .IsRequired();
+
+            builder.Ignore(m => m.IsExpired);
         }
 
         private void ConfigureRelations(EntityTypeBuilder<ValidationCode> builder)

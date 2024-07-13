@@ -1,5 +1,4 @@
 using BazaarOnline.Application.DTOs.UserDTOs;
-using BazaarOnline.Application.ViewModels.Users;
 using BazaarOnline.Domain.Entities.Users;
 
 namespace BazaarOnline.Application.Interfaces.Users
@@ -9,12 +8,15 @@ namespace BazaarOnline.Application.Interfaces.Users
         #region Create
 
         User CreateUserByEmail(CreateUserByEmailDTO dto);
+        User CreateUserByPhoneNumber(CreateUserByPhoneNumberDTO dto);
 
         #endregion
 
         #region Find
 
         User? FindUserByEmail(string email);
+
+        User? FindUserByPhoneNumber(string phoneNumber);
 
         bool IsUserExistsByEmail(string email);
 

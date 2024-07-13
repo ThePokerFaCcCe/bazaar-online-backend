@@ -16,7 +16,17 @@ namespace BazaarOnline.Application.Interfaces.Auth
         /// <returns>User object if credentials is valid</returns>
         ValidatedUserCodeResultDTO? ValidateUserEmailLoginCode(UserLoginByEmailDTO loginEmailDto, ModelStateDictionary ModelState);
 
+        /// <summary>
+        /// Find user and validate it's credentials with `loginDTO`. if creds is valid,
+        /// then User object will return. else null and errors will add to `ModelState`
+        /// </summary>
+        /// <param name="loginPhoneNumberDto">credentials that entered</param>
+        /// <param name="ModelState">ModelState for adding validation error to it</param>
+        /// <returns>User object if credentials is valid</returns>
+        ValidatedUserCodeResultDTO? ValidateUserPhoneNumberLoginCode(UserLoginByPhoneNumberDTO loginPhoneNumberDto, ModelStateDictionary ModelState);
+
         CodeSentResultDTO SendLoginUserEmail(User user);
+        CodeSentResultDTO SendLoginUserSMS(User user);
 
         #region JWT
         GeneratedTokenDTO CreateJwtToken(User user);

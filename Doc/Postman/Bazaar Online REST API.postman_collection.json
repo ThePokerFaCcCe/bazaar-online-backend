@@ -86,6 +86,342 @@
 						}
 					],
 					"description": "**Login with email and get JWT token for authorization.**\n\nAt first, for sending code to user,s email, you must call `Send Email Code`. \nNext, for get JWT token, call `Login With Email Code`."
+				},
+				{
+					"name": "SMS Code",
+					"item": [
+						{
+							"name": "Send SMS Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/sendSMSLoginCode/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"auth",
+										"sendSMSLoginCode",
+										""
+									]
+								},
+								"description": "Send login code to user's email.\n\n*Notes*\n1- Until last login code is not expired, user **can not** get new code and response status will be 400."
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/sendSMSLoginCode/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"auth",
+												"sendSMSLoginCode",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 13 Jul 2024 20:33:33 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": true,\n    \"message\": \"کد تایید به شماره همراه 09928619396 ارسال شد\\n HINT: Sometimes SMS Panel may not work properly! so, if the SMS has not been sent to you yet, this is your code: 912085\",\n    \"expireDate\": \"2024-07-14T00:05:31.1927707+03:30\"\n}"
+								},
+								{
+									"name": "Error - Has Active Code",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/sendSMSLoginCode/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"auth",
+												"sendSMSLoginCode",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 13 Jul 2024 20:34:07 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-b2ae9dbdc212e19ed2c4b0b3fe461dcf-5df958a2e8e4c6c5-00\",\n    \"errors\": {\n        \"PhoneNumber\": [\n            \"کد قبلا برای این شماره همراه ارسال شده است.لطفا دقایقی دیگر تلاش کنید.\"\n        ]\n    }\n}"
+								},
+								{
+									"name": "Error - Daily Limit",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/sendSMSLoginCode/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"auth",
+												"sendSMSLoginCode",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 13 Jul 2024 20:36:03 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isSuccess\": false,\n    \"message\": \"محدودیت روزانه ارسال پیامک اعمال شده است!\\n HINT: This project is built for our resume. so we don't want to send many login code messages!\\n Anyways, This is your code if you're interested: 705304\",\n    \"expireDate\": \"2024-07-14T00:08:04.194111+03:30\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Login With SMS Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var res = pm.response.json();\r",
+											"pm.collectionVariables.set('JWT_TOKEN', res.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\",\r\n    \"code\": \"912085\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/loginByPhoneNumber/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{API_VERSION}}",
+										"auth",
+										"loginByPhoneNumber",
+										""
+									]
+								},
+								"description": "Login and get JWT token.\nthis is next step of `Send Email Code`.\n\n*Notes*\n1- If previous step not called, response status code will be 400.\n2- If code wasn't correct, response status code will be 400.\n3- If code was expired, response status code will be 400.\n\n**Development Note:** in development, default value of `code` is `\"123456\"`.\n\n**Postman Note:** the `token` in body will set to `JWT_TOKEN` variable of collection."
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\",\r\n    \"code\": \"912085\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/loginByPhoneNumber/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"auth",
+												"loginByPhoneNumber",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 13 Jul 2024 20:34:54 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"token\": \"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwidHlwIjoiSldUIn0.mnJWdzKMZvzOix8JwACnLcKoBU2iOSfYXoV1k9AYSxLI4Bc83v2PkA.209eloGDQ0LKqwg692pb1w.G87OnxVpM99pkuxTQnA4WRd0elGNcehmd52eFXInBQrilchFcv-ZAMct-98__zGVG6uVrTu3fv_kjQG4U66-EgtZx6-cBRlKxJQNyXEYyvV8Z_tvx7ydDcI-skeEPJizjtjlfpwfbG_QW280N0XZHh7GD95-9l4hNVtMqsKvRR5hlpEIKzCjj5wswZeh9StaCPn3VDYnLyKt21-91Jpf2qudA2Tg_M09WcEE2vf4xod3qYGWqhFUKQAFW8-RyXCxzS2sUuB3W9inYipXnFiajrm1XgNyq-Hb07pwIqZtTfcdwcHMzoCPrepCCZBmSQ_fgn6tO0LXz7mJkNCwNZJoq-xMspYnP6TttJu7HM_F9LpYK4c7R7wVB0TScYl9jbIK.-xuwdS_p0xb6K0w47Lckcg\",\n    \"expireDate\": \"2024-07-13T20:34:53Z\"\n}"
+								},
+								{
+									"name": "Error - Not Exists",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"{{example_phone_number}}\",\r\n    \"code\": \"912085\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{API_VERSION}}/auth/loginByPhoneNumber/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{API_VERSION}}",
+												"auth",
+												"loginByPhoneNumber",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 13 Jul 2024 20:35:13 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-b4b3405cf7ede7e288a22490ccde597f-02d359099741906d-00\",\n    \"errors\": {\n        \"Code\": [\n            \"هیچ کد فعالی برای این حساب وجود ندارد. مجددا درخواست کد بدهید\"\n        ]\n    }\n}"
+								}
+							]
+						}
+					],
+					"description": "**Login with email and get JWT token for authorization.**\n\nAt first, for sending code to user,s email, you must call `Send Email Code`. \nNext, for get JWT token, call `Login With Email Code`."
 				}
 			],
 			"auth": {
@@ -1591,14 +1927,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/11/note",
+									"raw": "{{BASE_URL}}/{{API_VERSION}}/advertisements/1/note",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
 										"{{API_VERSION}}",
 										"advertisements",
-										"11",
+										"1",
 										"note"
 									]
 								},
@@ -1791,7 +2127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 19,\r\n    \"CityId\": 1081,\r\n    \"Pictures\":[],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 11,\r\n            \"Value\": null\r\n        },\r\n        {\r\n            \"Id\": 12,\r\n            \"Value\": null\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"Title\": \"وانت نیسان aaaaتمیز\",\r\n    \"Description\": \"نوی نو فقط 300 کیلومتر کار کرده↵اما جلوبندی ترکیده\",\r\n    \"Address\": \"قم - باجک - فرهنگیان - بیطرفان 5 - پ3\",\r\n    \"Latitude\": 34.688582,\r\n    \"Longitude\": 50.852065,\r\n    \"ContactType\": 1,\r\n    \"CategoryId\": 24,\r\n    \"ProvinceId\": 25,\r\n    \"CityId\": 439,\r\n    \"Pictures\":[],\r\n    \"Features\": [\r\n        {\r\n            \"Id\": 1,\r\n            \"Value\": \"1350\"\r\n        },\r\n        {\r\n            \"Id\": 2,\r\n            \"Value\": \"264000\"\r\n        },\r\n        {\r\n            \"Id\": 3,\r\n            \"Value\": \"قهوه ای\"\r\n        },\r\n        {\r\n            \"Id\": 4,\r\n            \"Value\": \"زامیاد\"\r\n        },\r\n        {\r\n            \"Id\": 5,\r\n            \"Value\": \"برقی\"\r\n        },\r\n        {\r\n            \"Id\": 7,\r\n            \"Value\": \"اتوماتیک\"\r\n        },\r\n        {\r\n            \"Id\": 8,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 9,\r\n            \"Value\": \"ندارد\"\r\n        },\r\n        {\r\n            \"Id\": 10,\r\n            \"Value\": \"دارد\"\r\n        },\r\n        {\r\n            \"Id\": 11,\r\n            \"Value\": null\r\n        },\r\n        {\r\n            \"Id\": 12,\r\n            \"Value\": null\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1818,8 +2154,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
 										"value": "application/json",
+										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -3509,8 +3845,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
 										"value": "application/json",
+										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -3567,8 +3903,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
 										"value": "application/json",
+										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -3677,6 +4013,16 @@
 			"key": "default_active_code",
 			"value": "123456",
 			"type": "default"
+		},
+		{
+			"key": "a",
+			"value": "https://bazaar-online.liara.run/api",
+			"type": "string"
+		},
+		{
+			"key": "example_phone_number",
+			"value": "09928619396",
+			"type": "string"
 		}
 	]
 }

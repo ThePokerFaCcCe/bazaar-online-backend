@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Net.Http.Headers;
-using BazaarOnline.Application.DTOs.RequestersDTOs.ReverseGeocodingDTOs;
+﻿using BazaarOnline.Application.DTOs.RequestersDTOs.ReverseGeocodingDTOs;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace BazaarOnline.Application.Requesters;
 

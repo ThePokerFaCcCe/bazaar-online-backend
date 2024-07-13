@@ -6,9 +6,9 @@ namespace BazaarOnline.Domain.Entities.Users
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 

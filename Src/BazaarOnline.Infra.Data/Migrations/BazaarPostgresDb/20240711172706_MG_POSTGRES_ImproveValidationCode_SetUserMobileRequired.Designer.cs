@@ -3,6 +3,7 @@ using System;
 using BazaarOnline.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BazaarOnline.Infra.Data.Migrations.BazaarPostgresDb
 {
     [DbContext(typeof(BazaarPostgresDbContext))]
-    partial class BazaarPostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240711172706_MG_POSTGRES_ImproveValidationCode_SetUserMobileRequired")]
+    partial class MG_POSTGRES_ImproveValidationCode_SetUserMobileRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

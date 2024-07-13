@@ -1,8 +1,6 @@
-using BazaarOnline.Application.Generators;
 using BazaarOnline.Application.Interfaces.Users;
 using BazaarOnline.Domain.Entities.Users;
 using BazaarOnline.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BazaarOnline.Application.Services.Users
 {
@@ -20,7 +18,16 @@ namespace BazaarOnline.Application.Services.Users
             return _repository.GetAll<ValidationCode>()
                 .Any(v => v.UserId == userId
                           && v.Type == ActiveCodeType.UserLogin
-                          && DateTime.Now < v.ExpireDate);
+                          && !v.IsDeleted
+                          && !((v.TryCount > 3) || (v.CreateDate >= v.ExpireDate)));
+        }
+        public bool IsActivePhoneNumberValidationExists(string userId)
+        {
+            return _repository.GetAll<ValidationCode>()
+                .Any(v => v.UserId == userId
+                          && v.Type == ActiveCodeType.UserLogin
+                          && !v.IsDeleted
+                          && !((v.TryCount > 3) || (v.CreateDate >= v.ExpireDate)));
         }
 
         public void DeleteValidationCode(ValidationCode validationCode)

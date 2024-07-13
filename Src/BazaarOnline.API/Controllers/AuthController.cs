@@ -23,6 +23,22 @@ namespace BazaarOnline.API.Controllers
             _validationCodeService = validationCodeService;
         }
 
+        [HttpPost(nameof(LoginByPhoneNumber))]
+        public ActionResult<GeneratedTokenDTO> LoginByPhoneNumber(UserLoginByPhoneNumberDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(dto);
+
+            var validationResult = _authService.ValidateUserPhoneNumberLoginCode(dto, ModelState);
+            if (validationResult == null) return ValidationProblem(ModelState);
+
+            //_validationCodeService.DeleteValidationCode(validationResult.ValidationCode);
+            _userService.ActivateUser(validationResult.User);
+
+            var token = _authService.CreateJwtToken(validationResult.User);
+            return Ok(token);
+        }
+
+
         [HttpPost(nameof(LoginByEmail))]
         public ActionResult<GeneratedTokenDTO> LoginByEmail(UserLoginByEmailDTO dto)
         {
@@ -31,7 +47,7 @@ namespace BazaarOnline.API.Controllers
             var validationResult = _authService.ValidateUserEmailLoginCode(dto, ModelState);
             if (validationResult == null) return ValidationProblem(ModelState);
 
-            _validationCodeService.DeleteValidationCode(validationResult.ValidationCode);
+            //_validationCodeService.DeleteValidationCode(validationResult.ValidationCode);
             _userService.ActivateUser(validationResult.User);
 
             var token = _authService.CreateJwtToken(validationResult.User);
@@ -59,6 +75,30 @@ namespace BazaarOnline.API.Controllers
             }
 
             var activationResult = _authService.SendLoginUserEmail(user);
+            return Ok(activationResult);
+        }
+
+        [HttpPost(nameof(SendSMSLoginCode))]
+        public ActionResult<CodeSentResultDTO> SendSMSLoginCode(SendSMSLoginCodeDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(dto);
+
+            var user = _userService.FindUserByPhoneNumber(dto.PhoneNumber);
+            if (user == null)
+            {
+                user = _userService.CreateUserByPhoneNumber(
+                    new CreateUserByPhoneNumberDTO()
+                    {
+                        PhoneNumber = dto.PhoneNumber,
+                    });
+            }
+            else if (_validationCodeService.IsActivePhoneNumberValidationExists(user.Id))
+            {
+                ModelState.AddModelError(nameof(dto.PhoneNumber), "کد قبلا برای این شماره همراه ارسال شده است.لطفا دقایقی دیگر تلاش کنید.");
+                return ValidationProblem(ModelState);
+            }
+
+            var activationResult = _authService.SendLoginUserSMS(user);
             return Ok(activationResult);
         }
     }
