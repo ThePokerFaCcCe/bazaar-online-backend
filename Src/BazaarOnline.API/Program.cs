@@ -34,11 +34,11 @@ builder.Services.AddControllers();
 // builder.Services.AddHttpContextAccessor();
 
 // SQL DB
-//builder.Services.AddDbContext<BazaarDbContext>(options => options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING")));
+builder.Services.AddDbContext<BazaarDbContext>(options => options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING")));
 
 // POSTGRES DB
-builder.Services.AddDbContext<BazaarPostgresDbContext>(options =>
-    options.UseNpgsql(System.Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING")));
+//builder.Services.AddDbContext<BazaarPostgresDbContext>(options =>
+//    options.UseNpgsql(System.Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING")));
 
 // Authentication
 builder.Services.AddAuthentication(options =>
@@ -113,7 +113,7 @@ var app = builder.Build();
 
 using (var serviceScope = app.Services.CreateScope())
 {
-    var dbContext = serviceScope.ServiceProvider.GetRequiredService<BazaarPostgresDbContext>();
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<BazaarDbContext>();
     dbContext.Database.Migrate();
 }
 
