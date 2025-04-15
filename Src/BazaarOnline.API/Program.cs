@@ -5,6 +5,7 @@ using BazaarOnline.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -20,11 +21,20 @@ DotNetEnv.Env.Load();
 builder.Services.AddSignalR();
 
 // CORS
-string NextJsOrigin = "NextJS";
+//string NextJsOrigin = "NextJS";
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(NextJsOrigin,
+//        builder => { builder.WithOrigins("localhost:3000").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+//});
+
+string AllowAllOrigin = "AllowAll";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(NextJsOrigin,
-        builder => { builder.WithOrigins("localhost:3000").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+    options.AddPolicy(AllowAllOrigin,
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 });
 
 // XML Content Type
@@ -34,7 +44,11 @@ builder.Services.AddControllers();
 // builder.Services.AddHttpContextAccessor();
 
 // SQL DB
-builder.Services.AddDbContext<BazaarDbContext>(options => options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING")));
+builder.Services.AddDbContext<BazaarDbContext>(options => options.UseSqlServer(DotNetEnv.Env.GetString("CONNECTION_STRING"),
+    x =>
+        x.MigrationsHistoryTable(
+            HistoryRepository.DefaultTableName,
+            schema: System.Environment.GetEnvironmentVariable("DATABASE_SCHEMA_NAME"))));
 
 // POSTGRES DB
 //builder.Services.AddDbContext<BazaarPostgresDbContext>(options =>
@@ -111,10 +125,13 @@ DependencyContainer.RegisterService(builder.Services);
 
 var app = builder.Build();
 
-using (var serviceScope = app.Services.CreateScope())
+if (Environment.GetEnvironmentVariable("IS_DEVELOPMENT") != "1")
 {
-    var dbContext = serviceScope.ServiceProvider.GetRequiredService<BazaarDbContext>();
-    dbContext.Database.Migrate();
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var dbContext = serviceScope.ServiceProvider.GetRequiredService<BazaarDbContext>();
+        dbContext.Database.Migrate();
+    }
 }
 
 
@@ -129,8 +146,9 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("en-US")
 });
+app.UseCors(AllowAllOrigin);
+//app.UseCors(NextJsOrigin);
 app.UseStaticFiles();
-app.UseCors(NextJsOrigin);
 
 app.UseMiddleware<SignalRAuthenticationFix>();
 app.UseAuthentication();

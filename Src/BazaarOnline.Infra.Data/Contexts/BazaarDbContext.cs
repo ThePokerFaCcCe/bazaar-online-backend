@@ -71,6 +71,11 @@ namespace BazaarOnline.Infra.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var customSchema = System.Environment.GetEnvironmentVariable("DATABASE_SCHEMA_NAME");
+            if (!string.IsNullOrWhiteSpace(customSchema))
+            {
+                builder.HasDefaultSchema(customSchema);
+            }
             #region FluentConfigs
 
             builder.ApplyConfigurationsFromAssembly(typeof(UserFluentConfigs).Assembly);
