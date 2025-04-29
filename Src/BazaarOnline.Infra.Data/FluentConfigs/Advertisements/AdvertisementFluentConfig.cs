@@ -56,6 +56,15 @@ namespace BazaarOnline.Infra.Data.FluentConfigs.Advertisements
                 .HasConversion<string>()
                 .IsRequired();
 
+            builder.Property(a => a.PriceValue)
+                .HasDefaultValue(0)
+                .IsRequired();
+
+            builder.Property(a => a.PriceType)
+                .HasConversion<short>()
+                .HasDefaultValue(AdvertisementPriceTypeEnum.Agreement)
+                .IsRequired();
+
             builder.Property(a => a.CreateDate)
 
                 .IsRequired();

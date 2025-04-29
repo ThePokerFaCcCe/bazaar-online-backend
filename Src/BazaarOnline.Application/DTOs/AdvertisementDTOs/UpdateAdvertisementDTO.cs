@@ -1,6 +1,6 @@
-﻿using BazaarOnline.Domain.Entities.Advertisements;
+﻿using BazaarOnline.Application.Validators.Attributes;
+using BazaarOnline.Domain.Entities.Advertisements;
 using System.ComponentModel.DataAnnotations;
-using BazaarOnline.Application.Validators.Attributes;
 
 namespace BazaarOnline.Application.DTOs.AdvertisementDTOs;
 
@@ -24,6 +24,12 @@ public class UpdateAdvertisementDTO
     public double? Longitude { get; set; }
 
     public double? Latitude { get; set; }
+
+    [Required(ErrorMessage = "این فیلد اجباری است")]
+    public AdvertisementPriceInputDTO Price { get; set; }
+
+    public AdvertisementPriceTypeEnum PriceType => Price.Type;
+    public long PriceValue => Price.Value;
 
     public bool ShowExactCoordinates { get; set; }
 

@@ -1,7 +1,6 @@
 ﻿using BazaarOnline.Application.Validators.Attributes;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
 using BazaarOnline.Domain.Entities.Advertisements;
+using System.ComponentModel.DataAnnotations;
 
 namespace BazaarOnline.Application.DTOs.AdvertisementDTOs;
 
@@ -27,7 +26,11 @@ public class CreateAdvertisementDTO
     public double? Latitude { get; set; }
 
     public bool ShowExactCoordinates { get; set; }
+    [Required(ErrorMessage = "این فیلد اجباری است")]
+    public AdvertisementPriceInputDTO Price { get; set; }
 
+    public AdvertisementPriceTypeEnum PriceType => Price.Type;
+    public long PriceValue => Price.Value;
     [Display(Name = "نوع تماس")]
     [Required(ErrorMessage = "این فیلد اجباری است")]
     public AdvertisementContactTypeEnum ContactType { get; set; }

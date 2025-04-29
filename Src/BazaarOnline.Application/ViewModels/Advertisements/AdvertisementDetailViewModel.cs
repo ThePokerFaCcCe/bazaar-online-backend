@@ -22,6 +22,8 @@ public class AdvertisementDetailDataViewModel
 
     public string Address { get; set; } = string.Empty;
 
+    public AdvertisementPriceDetailViewModel Price { get; set; } = new AdvertisementPriceDetailViewModel();
+
     public AdvertisementProvinceDetailViewModel Province { get; set; } = new AdvertisementProvinceDetailViewModel();
 
     public AdvertisementCityDetailViewModel City { get; set; } = new AdvertisementCityDetailViewModel();

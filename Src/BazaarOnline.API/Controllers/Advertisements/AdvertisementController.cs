@@ -83,6 +83,16 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 hasErrors = true;
             }
 
+            if (dto.PriceType == AdvertisementPriceTypeEnum.Price && dto.PriceValue < 0)
+            {
+                ModelState.AddModelError(nameof(dto.PriceValue), "مقدار وارد شده باید بزرگتر یا برابر با 0 باشد");
+                hasErrors = true;
+            }
+            else if (dto.PriceType == AdvertisementPriceTypeEnum.Agreement)
+            {
+                dto.Price.Value = 0;
+            }
+
             var pictureValidation =
                 _fileCenterService.ValidateFileTypes(dto.Pictures, FileCenterTypeEnum.AdvertisementPicture);
             if (!pictureValidation.IsSuccess)
@@ -194,6 +204,16 @@ namespace BazaarOnline.API.Controllers.Advertisements
             {
                 ModelState.AddModelError(nameof(dto.Pictures), pictureValidation.Message);
                 hasErrors = true;
+            }
+
+            if (dto.PriceType == AdvertisementPriceTypeEnum.Price && dto.PriceValue < 0)
+            {
+                ModelState.AddModelError(nameof(dto.PriceValue), "مقدار وارد شده باید بزرگتر یا برابر با 0 باشد");
+                hasErrors = true;
+            }
+            else if (dto.PriceType == AdvertisementPriceTypeEnum.Agreement)
+            {
+                dto.Price.Value = 0;
             }
 
             if ((dto.Latitude == null && dto.Longitude != null) || (dto.Latitude != null && dto.Longitude == null))

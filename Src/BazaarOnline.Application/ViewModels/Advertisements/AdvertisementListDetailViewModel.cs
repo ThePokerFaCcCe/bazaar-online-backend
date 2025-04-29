@@ -24,4 +24,6 @@ public class AdvertisementListDetailDataViewModel
     public string LocationText { get; set; } = string.Empty;
 
     public string InfoText => $"{TimeText} در {LocationText}";
+
+    public AdvertisementPriceDetailViewModel Price { get; set; } = new AdvertisementPriceDetailViewModel();
 }

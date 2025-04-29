@@ -165,6 +165,11 @@ public class AdvertisementService : IAdvertisementService
                                 SortNumber = af.CategoryFeature.SortNumber,
                                 Position = af.CategoryFeature.Feature.Position,
                             }),
+                        Price = new AdvertisementPriceDetailViewModel
+                        {
+                            Type = a.PriceType,
+                            Value = a.PriceValue,
+                        },
                     }.FillFromObject(a)
                 }.FillFromObject(a);
             })
@@ -251,6 +256,12 @@ public class AdvertisementService : IAdvertisementService
         if (filterDto.HasPicture)
             advertisements = advertisements.Where(a => a.Pictures.Any());
 
+        if (filterDto.StartPrice.HasValue)
+            advertisements = advertisements.Where(a => a.PriceValue >= filterDto.StartPrice && a.PriceType == AdvertisementPriceTypeEnum.Price);
+        if (filterDto.EndPrice.HasValue)
+            advertisements = advertisements.Where(a => a.PriceValue <= filterDto.EndPrice && a.PriceType == AdvertisementPriceTypeEnum.Price);
+
+
         if (filterDto.Category != null)
         {
             var categoriesList = _repository.GetAll<Category>()
@@ -279,9 +290,9 @@ public class AdvertisementService : IAdvertisementService
 
         if (!string.IsNullOrWhiteSpace(filterDto.Cities))
         {
-                advertisements = advertisements.Where(a =>
-                    (filterDto.ProvincesList.Any() && filterDto.ProvincesList.Contains(a.ProvinceId)) ||
-                    (filterDto.CitiesList.Any() && filterDto.CitiesList.Contains(a.CityId)));
+            advertisements = advertisements.Where(a =>
+                (filterDto.ProvincesList.Any() && filterDto.ProvincesList.Contains(a.ProvinceId)) ||
+                (filterDto.CitiesList.Any() && filterDto.CitiesList.Contains(a.CityId)));
         }
 
         advertisements = advertisements.OrderByDescending(a => a.CreateDate);
@@ -316,6 +327,11 @@ public class AdvertisementService : IAdvertisementService
                                 SortNumber = af.CategoryFeature.SortNumber,
                                 Position = af.CategoryFeature.Feature.Position,
                             }),
+                        Price = new AdvertisementPriceDetailViewModel
+                        {
+                            Type = a.PriceType,
+                            Value = a.PriceValue,
+                        },
                     }.FillFromObject(a)
                 }.FillFromObject(a);
             })
@@ -405,7 +421,11 @@ public class AdvertisementService : IAdvertisementService
                 {
                     IsSelfAdvertisement = userId == advertisement.UserId,
                 }.FillFromObject(advertisement.User),
-
+                Price = new AdvertisementPriceDetailViewModel
+                {
+                    Type = advertisement.PriceType,
+                    Value = advertisement.PriceValue,
+                },
                 CategoryPath = advertisementCategoryPath,
                 Location = location,
 

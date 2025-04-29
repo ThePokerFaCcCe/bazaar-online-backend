@@ -36,13 +36,13 @@ public class UserAdvertisementService : IUserAdvertisementService
         var existedHistory = _repository
             .GetAll<UserAdvertisementHistory>()
             .FirstOrDefault(u => u.UserId == userId && u.AdvertisementId == advertisementId);
-        if (existedHistory!=null && !existedHistory.IsDeleted)
+        if (existedHistory != null && !existedHistory.IsDeleted)
             return;
-        
-        if (existedHistory!=null)
+
+        if (existedHistory != null)
         {
             existedHistory.IsDeleted = false;
-            existedHistory.CreateDate=DateTime.Now;
+            existedHistory.CreateDate = DateTime.Now;
             _repository.Update(existedHistory);
         }
         else
@@ -113,8 +113,12 @@ public class UserAdvertisementService : IUserAdvertisementService
                     Picture = picture,
                     LocationText = a.City.Name,
                     TimeText = a.UpdateDate.PassedFromNowString(),
-                    IsChatEnabled =
-                        a.ContactType is AdvertisementContactTypeEnum.ChatOnly or AdvertisementContactTypeEnum.Normal,
+                    IsChatEnabled = a.ContactType is AdvertisementContactTypeEnum.ChatOnly or AdvertisementContactTypeEnum.Normal,
+                    Price = new AdvertisementPriceDetailViewModel
+                    {
+                        Type = a.PriceType,
+                        Value = a.PriceValue,
+                    },
                 }.FillFromObject(a)
             }.FillFromObject(a);
         }).OrderBy(a => idsList.IndexOf(a.Id)); // order them with same order at ids list

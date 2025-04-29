@@ -29,6 +29,9 @@ public class Advertisement
 
     public AdvertisementContactTypeEnum ContactType { get; set; }
 
+    public AdvertisementPriceTypeEnum PriceType { get; set; }
+    public long PriceValue { get; set; } = 0;
+
     public DateTime CreateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
     public DateTime UpdateDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
