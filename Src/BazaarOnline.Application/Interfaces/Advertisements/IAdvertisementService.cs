@@ -1,6 +1,7 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.DTOs.PaginationDTO;
+using BazaarOnline.Application.DTOs.SitemapDTOs;
 using BazaarOnline.Application.ViewModels.Advertisements;
 using BazaarOnline.Domain.Entities.Advertisements;
 
@@ -29,8 +30,8 @@ public interface IAdvertisementService
 
     OperationResultDTO UpdateAdvertisementStatus(int id, AdvertisementUpdateStatusDTO dto);
 
-    PaginationResultGenericListDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto,
-        PaginationFilterDTO pagination);
+    PaginationResultGenericListDTO<AdvertisementListDetailViewModel> GetAdvertisementList(AdvertisemenFilterDTO filterDto, PaginationFilterDTO pagination);
+    List<SitemapAdvertisementDTO> GetAdvertisementSitemap();
 
     AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false, string? userId = null);
 

@@ -88,7 +88,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 ModelState.AddModelError(nameof(dto.PriceValue), "مقدار وارد شده باید بزرگتر یا برابر با 0 باشد");
                 hasErrors = true;
             }
-            else if (dto.PriceType == AdvertisementPriceTypeEnum.Agreement)
+            else if (dto.PriceType is AdvertisementPriceTypeEnum.Agreement or AdvertisementPriceTypeEnum.NoPrice)
             {
                 dto.Price.Value = 0;
             }
@@ -211,7 +211,7 @@ namespace BazaarOnline.API.Controllers.Advertisements
                 ModelState.AddModelError(nameof(dto.PriceValue), "مقدار وارد شده باید بزرگتر یا برابر با 0 باشد");
                 hasErrors = true;
             }
-            else if (dto.PriceType == AdvertisementPriceTypeEnum.Agreement)
+            else if (dto.PriceType is AdvertisementPriceTypeEnum.Agreement or AdvertisementPriceTypeEnum.NoPrice)
             {
                 dto.Price.Value = 0;
             }

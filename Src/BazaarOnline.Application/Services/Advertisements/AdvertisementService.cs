@@ -1,6 +1,7 @@
 ﻿using BazaarOnline.Application.DTOs;
 using BazaarOnline.Application.DTOs.AdvertisementDTOs;
 using BazaarOnline.Application.DTOs.PaginationDTO;
+using BazaarOnline.Application.DTOs.SitemapDTOs;
 using BazaarOnline.Application.Filters;
 using BazaarOnline.Application.Interfaces.Advertisements;
 using BazaarOnline.Application.Utils;
@@ -336,6 +337,17 @@ public class AdvertisementService : IAdvertisementService
                 }.FillFromObject(a);
             })
         };
+    }
+
+    public List<SitemapAdvertisementDTO> GetAdvertisementSitemap()
+    {
+        var advertisements = _repository.GetAll<Advertisement>().Select(a => new SitemapAdvertisementDTO
+        {
+            Id = a.Id,
+            LastMod = a.UpdateDate,
+        });
+
+        return advertisements.ToList();
     }
 
     public AdvertisementDetailViewModel? GetAdvertisementDetail(int id, bool acceptedOnly = false,
